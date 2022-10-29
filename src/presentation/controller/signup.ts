@@ -1,8 +1,17 @@
 export class SignUpController {
     handle (httpRequest: any): any {
-        return {
-            statusCode: 400,
-            body: new Error('Input name is empty!')
+        if (!httpRequest.body.name) {
+            return {
+                statusCode: 400,
+                body: new Error('Input name is empty!')
+            }
+        }
+
+        if (!httpRequest.body.email) {
+            return {
+                statusCode: 400,
+                body: new Error('Input email is empty!')
+            }
         }
     }
 }
