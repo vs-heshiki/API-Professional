@@ -1,17 +1,19 @@
-import { HttpResponse, HttpRequest } from './../../protocols/http'
+import { MissingParamError } from '../errors/missingParamError'
+import { HttpResponse, HttpRequest } from '../protocols/http'
+
 export class SignUpController {
     handle (httpRequest: HttpRequest): HttpResponse {
         if (!httpRequest.body.name) {
             return {
                 statusCode: 400,
-                body: new Error('Input name is empty!')
+                body: new MissingParamError('name')
             }
         }
 
         if (!httpRequest.body.email) {
             return {
                 statusCode: 400,
-                body: new Error('Input email is empty!')
+                body: new MissingParamError('email')
             }
         }
     }
