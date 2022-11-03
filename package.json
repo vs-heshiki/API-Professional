@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
-    "test:allInfo": "jest --passWithNoTests",
-    "test:unit": "npm test -- --watch -c jestUnitConfig.js",
-    "test:integration": "npm test -- --watch -c jestIntegrationConfig.js",
+    "test": "jest --passWithNoTests --runInBand --no-cache",
+    "test:unit": "npm test -- --watch -c jest-unit-config.js",
+    "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage"
   },
