@@ -1,17 +1,21 @@
 import { MongoHelper } from '../helper/mongoHelper'
 import { AccountMongoRepository } from './account'
 
-beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL)
-})
-
-afterAll(async () => {
-    await MongoHelper.disconnect()
-})
-
 describe('Account MongoDB Adapter', () => {
+    beforeAll(async () => {
+        await MongoHelper.connect(process.env.MONGO_URL)
+    })
+
+    afterAll(async () => {
+        await MongoHelper.disconnect()
+    })
+
+    const newSut = (): AccountMongoRepository => {
+        return new AccountMongoRepository()
+    }
+
     test('Should return an account on success', async () => {
-        const sut = new AccountMongoRepository()
+        const sut = newSut()
         const account = await sut.add({
             name: 'any_name',
             email: 'any_email@email.com',
