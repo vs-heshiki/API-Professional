@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "sucrase-node src/main/server.ts",
     "prepare": "husky install",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:allInfo": "jest --passWithNoTests --runInBand",
