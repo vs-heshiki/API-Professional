@@ -10,6 +10,11 @@ describe('Account MongoDB Adapter', () => {
         await MongoHelper.disconnect()
     })
 
+    beforeEach(async () => {
+        const getCollection = MongoHelper.getCollection('accounts')
+        await getCollection.deleteMany({})
+    })
+
     const newSut = (): AccountMongoRepository => {
         return new AccountMongoRepository()
     }
