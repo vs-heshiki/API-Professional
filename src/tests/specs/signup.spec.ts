@@ -206,7 +206,7 @@ describe('SignUp Controller', () => {
         expect(httpResponse.body).toEqual(new ServerError())
     })
 
-    test('Should return 201 if valid data is provider', async () => {
+    test('Should return 200 if valid data is provider', async () => {
         const { sut } = newSut()
         const httpRequest = {
             body: {
@@ -217,7 +217,7 @@ describe('SignUp Controller', () => {
             }
         }
         const httpResponse = await sut.handle(httpRequest)
-        expect(httpResponse.statusCode).toBe(201)
+        expect(httpResponse.statusCode).toBe(200)
         expect(httpResponse.body).toEqual({
             id: 'anyId_valid',
             name: 'anyName_valid',
