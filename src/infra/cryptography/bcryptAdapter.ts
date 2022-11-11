@@ -2,14 +2,15 @@ import { Encrypter } from './../../data/usecases/protocols/encrypter'
 import bcrypt from 'bcrypt'
 
 export class BCryptAdapter implements Encrypter {
-    private readonly salt: number
-
-    constructor (salt: number) {
-        this.salt = salt
+    async genSalt (): Promise<string> {
+        const saltRounds = 10
+        const salt = await bcrypt.genSalt(saltRounds)
+        return salt
     }
 
     async encrypt (value: string): Promise<string> {
-        const hash = await bcrypt.hash(value, this.salt)
+        const salt = await this.genSalt()
+        const hash = await bcrypt.hash(value, salt)
         return hash
     }
 }
