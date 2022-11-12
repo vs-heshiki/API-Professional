@@ -11,7 +11,7 @@ describe('Account MongoDB Adapter', () => {
     })
 
     beforeEach(async () => {
-        const getCollection = MongoHelper.getCollection('accounts')
+        const getCollection = await MongoHelper.getCollection('accounts')
         await getCollection.deleteMany({})
     })
 
