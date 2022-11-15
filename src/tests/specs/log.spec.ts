@@ -1,10 +1,7 @@
+import { LogErrorRepository } from '../../data/usecases/protocols/logErrorRepository'
 import { LogControllerDecorator } from '../../main/decorators/log'
+import { serverError } from '../../presentation/helpers/httpHelpers'
 import { Controller, HttpRequest, HttpResponse } from '../../presentation/protocols'
-
-interface sutTypes {
-    sut: LogControllerDecorator
-    controllerStub: Controller
-}
 
 const newController = (): Controller => {
     class ControllerStub implements Controller {
@@ -21,10 +18,26 @@ const newController = (): Controller => {
     return new ControllerStub()
 }
 
+const newErrLogRepo = (): LogErrorRepository => {
+    class LogErrorRepoStub implements LogErrorRepository {
+        async log (stack: string): Promise<void> {
+            return new Promise(resolve => resolve())
+        }
+    }
+    return new LogErrorRepoStub()
+}
+
+interface sutTypes {
+    sut: LogControllerDecorator
+    controllerStub: Controller
+    logErrorRepo: LogErrorRepository
+}
+
 const newSut = (): sutTypes => {
     const controllerStub = newController()
-    const sut = new LogControllerDecorator(controllerStub)
-    return { sut, controllerStub }
+    const logErrorRepo = newErrLogRepo()
+    const sut = new LogControllerDecorator(controllerStub, logErrorRepo)
+    return { sut, controllerStub, logErrorRepo }
 }
 
 describe('LogController Decorator', () => {
@@ -60,5 +73,24 @@ describe('LogController Decorator', () => {
                 name: 'other_any_name'
             }
         })
+    })
+
+    test('Should call LogErrorRepository with correct error if controller returns a server', async () => {
+        const { sut, controllerStub, logErrorRepo } = newSut()
+        const err = new Error()
+        err.stack = 'any_stack'
+        const svError = serverError(err)
+        const logSpyOn = jest.spyOn(logErrorRepo, 'log')
+        jest.spyOn(controllerStub, 'handle').mockReturnValueOnce(new Promise(resolve => resolve(svError)))
+        const httpRequest = {
+            body: {
+                name: 'anyName',
+                email: 'any_email@email.com',
+                password: '12345',
+                confirmPassword: '12345'
+            }
+        }
+        await sut.handle(httpRequest)
+        expect(logSpyOn).toHaveBeenCalledWith('any_stack')
     })
 })
