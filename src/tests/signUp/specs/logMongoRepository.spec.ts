@@ -1,6 +1,6 @@
-import { LogMongoRepository } from '../../infra/db/mongodb/logRepository/logMongoRepository'
+import { LogMongoRepository } from '../../../infra/db/mongodb/logRepository/logMongoRepository'
 import { Collection } from 'mongodb'
-import { MongoHelper } from '../../infra/db/mongodb/helper/mongoHelper'
+import { MongoHelper } from '../../../infra/db/mongodb/helper/mongoHelper'
 
 const newSut = (): LogMongoRepository => {
     return new LogMongoRepository()
