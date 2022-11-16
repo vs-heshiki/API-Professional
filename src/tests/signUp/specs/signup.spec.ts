@@ -1,5 +1,5 @@
 import { HttpRequest } from '../../../presentation/protocols/http'
-import { SignUpController } from '../../../presentation/controller/signup'
+import { SignUpController } from '../../../presentation/controller/signUp/signup'
 import { MissingParamError, InvalidParamError, ServerError } from '../../../presentation/errors'
 import { AddAccount, AddAccountModel, AccountModel, EmailValidator } from '../../../presentation/controller/signUp/signUpProtocols'
 import { badRequest, serverError, success } from '../../../presentation/helpers/httpHelpers'

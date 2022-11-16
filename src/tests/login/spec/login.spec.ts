@@ -1,9 +1,7 @@
 import { LoginController } from '../../../presentation/controller/login/login'
-import { HttpRequest } from './../../../presentation/protocols'
-import { EmailValidator } from './../../../presentation/protocols/emailValidator'
+import { HttpRequest, Authenticate, EmailValidator } from '../../../presentation/controller/login/loginProtocols'
 import { MissingParamError, InvalidParamError, ServerError } from './../../../presentation/errors'
 import { badRequest, serverError, unauthorized } from './../../../presentation/helpers/httpHelpers'
-import { Authenticate } from '../../../domain/usecases/authenticate'
 
 const newFakeRequest = (): HttpRequest => ({
     body: {
