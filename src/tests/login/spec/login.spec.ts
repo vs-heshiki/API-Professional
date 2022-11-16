@@ -1,10 +1,8 @@
-import { ServerError } from './../../../presentation/errors/serverError'
-import { InvalidParamError } from './../../../presentation/errors/invalidParamError'
-import { HttpRequest } from './../../../presentation/protocols/http'
-import { EmailValidator } from './../../../presentation/protocols/emailValidator'
-import { MissingParamError } from './../../../presentation/errors/missingParamError'
-import { badRequest, serverError } from './../../../presentation/helpers/httpHelpers'
 import { LoginController } from '../../../presentation/controller/login/login'
+import { HttpRequest } from './../../../presentation/protocols'
+import { EmailValidator } from './../../../presentation/protocols/emailValidator'
+import { MissingParamError, InvalidParamError, ServerError } from './../../../presentation/errors'
+import { badRequest, serverError, unauthorized } from './../../../presentation/helpers/httpHelpers'
 import { Authenticate } from '../../../domain/usecases/authenticate'
 
 const newFakeRequest = (): HttpRequest => ({
@@ -100,5 +98,13 @@ describe('Login Controller', () => {
         const authSpyOn = jest.spyOn(authenticateStub, 'auth')
         await sut.handle(newFakeRequest())
         expect(authSpyOn).toHaveBeenCalledWith('any_email@email.com', 'any_password')
+    })
+
+    test('Should return 401 if invalid credentials are provided', async () => {
+        const { sut, authenticateStub } = newSut()
+        jest.spyOn(authenticateStub, 'auth')
+            .mockReturnValueOnce(new Promise(resolve => resolve(null)))
+        const httpResponse = await sut.handle(newFakeRequest())
+        expect(httpResponse).toEqual(unauthorized())
     })
 })
