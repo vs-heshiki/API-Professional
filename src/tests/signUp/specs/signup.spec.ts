@@ -13,7 +13,7 @@ const newFakeRequest = (): HttpRequest => ({
     }
 })
 
-const makeEmailValidator = (): EmailValidator => {
+const newEmailValidator = (): EmailValidator => {
     class EmailValidatorStub implements EmailValidator {
         isValid (email: string): boolean {
             return true
@@ -29,7 +29,7 @@ const newFakeAccount = (): AccountModel => ({
     password: 'anyPassword_valid'
 })
 
-const makeAddAccount = (): AddAccount => {
+const newAddAccount = (): AddAccount => {
     class AddAccountStub implements AddAccount {
         async add (account: AddAccountModel): Promise<AccountModel> {
             return new Promise(resolve => resolve(newFakeAccount()))
@@ -45,8 +45,8 @@ interface SutTypes {
 }
 
 const newSut = (): SutTypes => {
-    const emailValidatorStub = makeEmailValidator()
-    const addAccountStub = makeAddAccount()
+    const emailValidatorStub = newEmailValidator()
+    const addAccountStub = newAddAccount()
     const sut = new SignUpController(emailValidatorStub, addAccountStub)
     return {
         sut,
