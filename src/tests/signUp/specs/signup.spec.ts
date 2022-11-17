@@ -67,58 +67,6 @@ const newSut = (): SutTypes => {
 }
 
 describe('SignUp Controller', () => {
-    test('Should return 400 if no name is provided', async () => {
-        const { sut } = newSut()
-        const httpRequest = {
-            body: {
-                email: 'any@email.com',
-                password: 'anyPassword',
-                confirmPassword: 'anyPassword'
-            }
-        }
-        const httpResponse = await sut.handle(httpRequest)
-        expect(httpResponse).toEqual(badRequest(new MissingParamError('name')))
-    })
-
-    test('Should return 400 if no email is provided', async () => {
-        const { sut } = newSut()
-        const httpRequest = {
-            body: {
-                name: 'anyName',
-                password: 'anyPassword',
-                confirmPassword: 'anyPassword'
-            }
-        }
-        const httpResponse = await sut.handle(httpRequest)
-        expect(httpResponse).toEqual(badRequest(new MissingParamError('email')))
-    })
-
-    test('Should return 400 if no password is provided', async () => {
-        const { sut } = newSut()
-        const httpRequest = {
-            body: {
-                name: 'anyName',
-                email: 'any@email.com',
-                confirmPassword: 'anyPassword'
-            }
-        }
-        const httpResponse = await sut.handle(httpRequest)
-        expect(httpResponse).toEqual(badRequest(new MissingParamError('password')))
-    })
-
-    test('Should return 400 if no password confirmation is provided', async () => {
-        const { sut } = newSut()
-        const httpRequest = {
-            body: {
-                name: 'anyName',
-                email: 'any@email.com',
-                password: 'anyPassword'
-            }
-        }
-        const httpResponse = await sut.handle(httpRequest)
-        expect(httpResponse).toEqual(badRequest(new MissingParamError('confirmPassword')))
-    })
-
     test('Should return 400 if password confirmation is not equal password', async () => {
         const { sut } = newSut()
         const httpRequest = {
