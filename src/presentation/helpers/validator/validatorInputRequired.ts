@@ -8,7 +8,7 @@ export class ValidatorInputRequired implements Validator {
     }
 
     validate (input: any): Error {
-        if (!input(this.field)) {
+        if (!input[this.field]) {
             return new MissingParamError(this.field)
         }
     }
