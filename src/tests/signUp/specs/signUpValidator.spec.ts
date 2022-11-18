@@ -1,3 +1,4 @@
+import { ValidatorCompareInputs } from '../../../presentation/helpers/validator/validatorCompareInputs'
 import { ValidatorComposite, ValidatorInputRequired } from '../../../presentation/helpers/validator'
 import { Validator } from '../../../presentation/protocols/validator'
 import { newSignUpValidator } from './../../../main/factories/signupValidator'
@@ -12,6 +13,7 @@ describe('SignUpValidator Factory', () => {
         for (const field of inputs) {
             validations.push(new ValidatorInputRequired(field))
         }
+        validations.push(new ValidatorCompareInputs('password','confirmPassword'))
         expect(ValidatorComposite).toHaveBeenCalledWith(validations)
     })
 })
