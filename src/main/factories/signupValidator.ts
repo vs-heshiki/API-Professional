@@ -1,6 +1,5 @@
-import { ValidatorInputRequired } from '../../presentation/helpers/validator'
+import { ValidatorCompareInputs, ValidatorInputRequired, ValidatorComposite } from './../../presentation/helpers/validator'
 import { Validator } from '../../presentation/protocols/validator'
-import { ValidatorComposite } from './../../presentation/helpers/validator/validatorComposite'
 
 export const newSignUpValidator = (): ValidatorComposite => {
     const validations: Validator[] = []
@@ -8,5 +7,6 @@ export const newSignUpValidator = (): ValidatorComposite => {
         for (const field of fields) {
             validations.push(new ValidatorInputRequired(field))
         }
+        validations.push(new ValidatorCompareInputs('password', 'confirmPassword'))
     return new ValidatorComposite(validations)
 }
