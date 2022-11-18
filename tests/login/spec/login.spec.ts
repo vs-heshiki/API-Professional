@@ -1,7 +1,7 @@
-import { LoginController } from '../../../presentation/controller/login/login'
-import { HttpRequest, Authenticate, EmailValidator } from '../../../presentation/controller/login/loginProtocols'
-import { MissingParamError, InvalidParamError, ServerError } from './../../../presentation/errors'
-import { badRequest, serverError, success, unauthorized } from './../../../presentation/helpers/httpHelpers'
+import { LoginController } from '../../../src/presentation/controller/login/login'
+import { HttpRequest, Authenticate, EmailValidator } from '../../../src/presentation/controller/login/loginProtocols'
+import { MissingParamError, InvalidParamError, ServerError } from '../../../src/presentation/errors'
+import { badRequest, serverError, success, unauthorized } from '../../../src/presentation/helpers/httpHelpers'
 
 const newFakeRequest = (): HttpRequest => ({
     body: {
