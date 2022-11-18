@@ -1,7 +1,7 @@
-import { InvalidParamError } from './../../../../src/presentation/errors/invalidParamError'
-import { Validator } from './../../../../src/presentation/protocols/validator'
-import { MissingParamError } from './../../../../src/presentation/errors/missingParamError'
-import { ValidatorComposite } from '../../../../src/presentation/helpers/validator/validatorComposite'
+import { InvalidParamError } from '../../src/presentation/errors/invalidParamError'
+import { Validator } from '../../src/presentation/protocols/validator'
+import { MissingParamError } from '../../src/presentation/errors/missingParamError'
+import { ValidatorComposite } from '../../src/presentation/helpers/validator/validatorComposite'
 
 const newValidator = (): Validator => {
     class ValidationStub implements Validator {
