@@ -1,5 +1,5 @@
-import { ValidatorCompareInputs } from './../../../src/presentation/helpers/validator/validatorCompareInputs'
-import { InvalidParamError } from './../../../src/presentation/errors/invalidParamError'
+import { ValidatorCompareInputs } from '../../../../src/presentation/helpers/validator/validatorCompareInputs'
+import { InvalidParamError } from '../../../../src/presentation/errors/invalidParamError'
 
 describe('Validator Compare Fields', () => {
     const newSut = (): ValidatorCompareInputs => {
