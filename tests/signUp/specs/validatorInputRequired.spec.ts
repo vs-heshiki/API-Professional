@@ -1,11 +1,11 @@
-import { MissingParamError } from './../../../src/presentation/errors/missingParamError'
-import { ValidatorInputRequired } from './../../../src/presentation/helpers/validator/validatorInputRequired'
+import { MissingParamError } from '../../../src/presentation/errors/missingParamError'
+import { ValidatorInputRequired } from '../../../src/presentation/helpers/validator/validatorInputRequired'
 
 const newSut = (): ValidatorInputRequired => {
         return new ValidatorInputRequired('input')
     }
 
-describe('Validators', () => {
+describe('Validator Input Required', () => {
     test('Should return a MissingParamError if validation fails', () => {
         const sut = newSut()
         const error = sut.validate({ name: 'any_name' })
