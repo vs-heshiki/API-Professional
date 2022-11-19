@@ -1,4 +1,4 @@
-import { AccountModel } from '../../data/usecases/addAccount'
+import { AccountModel } from '../../data/usecases/addAccount/dbAddAccountProtocols'
 
 export interface AddAccountModel {
     name: string

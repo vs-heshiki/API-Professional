@@ -1,5 +1,5 @@
 import { LogErrorRepository } from '../../../src/data/protocols/db/logErrorRepository'
-import { AccountModel } from '../../../src/data/usecases/addAccount'
+import { AccountModel } from '../../../src/data/usecases/addAccount/dbAddAccountProtocols'
 import { LogControllerDecorator } from '../../../src/main/decorators/log'
 import { serverError, success } from '../../../src/presentation/helpers/http/httpHelpers'
 import { Controller, HttpRequest, HttpResponse } from '../../../src/presentation/protocols'

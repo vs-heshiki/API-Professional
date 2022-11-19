@@ -1,4 +1,4 @@
-import { DbAddAccount, AddAccountModel, Encrypter, AccountModel, AddAccountRepository } from '../../../src/data/usecases/addAccount'
+import { DbAddAccount, AddAccountModel, Encrypter, AccountModel, AddAccountRepository } from '../../../src/data/usecases/addAccount/dbAddAccountProtocols'
 
 const newFakeAccountModel = (): AddAccountModel => ({
     name: 'name_valid',

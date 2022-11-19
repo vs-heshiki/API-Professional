@@ -1,0 +1,6 @@
+export * from '../../protocols/cryptography/hashCompare'
+export * from '../../protocols/cryptography/tokenGenerator'
+export * from '../../protocols/cryptography/updateAccessTokenRepository'
+export * from '../../protocols/db/loadAccountByEmailRepository'
+export * from '../../../domain/usecases/authenticate'
+export * from './dbAuthenticator'
