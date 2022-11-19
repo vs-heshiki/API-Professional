@@ -1,5 +1,6 @@
-import { Encrypter } from '../../data/protocols/criptography/encrypter'
 import bcrypt from 'bcrypt'
+
+import { Encrypter } from '../../data/protocols/cryptography/encrypter'
 
 export class BCryptAdapter implements Encrypter {
     async genSalt (): Promise<string> {
