@@ -1,17 +1,22 @@
-import { DbAuthenticator } from './../../../src/data/usecases/authenticator/dbAuthenticator'
-import { LoadAccountByEmailRepository } from '../../../src/data/usecases/protocols/loadAccountByEmailRepository'
-import { AccountModel } from '../../../src/domain/model/accountModel'
+import { LoadAccountByEmailRepository, DbAuthenticator, AuthenticateModel } from '../../src/data/usecases/authenticator'
+import { AccountModel } from '../../src/data/usecases/addAccount'
+
+const newFakeAccount = (): AccountModel => ({
+        id: 'any_id',
+        name: 'any_name',
+        email: 'any_email@email.com',
+        password: 'any_password'
+})
+
+const newFakeAuthenticate = (): AuthenticateModel => ({
+    email: 'any_email@email.com',
+    password: 'any_password'
+})
 
 const newLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
     class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
         async load (email: string): Promise<AccountModel> {
-            const account: AccountModel = {
-                id: 'any_id',
-                name: 'any_name',
-                email: 'any_email@email.com',
-                password: 'any_password'
-            }
-            return new Promise(resolve => resolve(account))
+            return new Promise(resolve => resolve(newFakeAccount()))
         }
     }
     return new LoadAccountByEmailRepositoryStub()
@@ -34,10 +39,8 @@ const newSut = (): SutTypes => {
 describe('DB Authenticator UseCase', () => {
     test('Should call LoadAccountByEmailRepository with correct email', async () => {
         const { sut, loadAccountByEmailRepositoryStub } = newSut()
-        jest.spyOn(loadAccountByEmailRepositoryStub, 'load')
-        await sut.auth({
-            email: 'any_email@email.com',
-            password: 'any_password'
-        })
+        const loadSpyOn = jest.spyOn(loadAccountByEmailRepositoryStub, 'load')
+        await sut.auth(newFakeAuthenticate())
+        expect(loadSpyOn).toHaveBeenCalledWith('any_email@email.com')
     })
 })
