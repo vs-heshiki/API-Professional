@@ -19,7 +19,7 @@ const newSut = (): SutTypes => {
 }
 
 describe('JWT Adapter', () => {
-    test('Should call JWTAdapter with correct values', async () => {
+    test('Should call JwtAdapter with correct values', async () => {
         const { sut } = newSut()
         const signSpyOn = jest.spyOn(jwt, 'sign')
         await sut.encrypt('any_id')
@@ -30,5 +30,14 @@ describe('JWT Adapter', () => {
         const { sut } = newSut()
         const accessToken = await sut.encrypt('any_id')
         expect(accessToken).toBe('any_token')
+    })
+
+    test('Should throw if JwtAdapter throws', async () => {
+        const { sut } = newSut()
+        jest.spyOn(jwt, 'sign').mockImplementationOnce(() => {
+            throw new Error()
+        })
+        const promise = sut.encrypt('any_id')
+        await expect(promise).rejects.toThrow()
     })
 })
