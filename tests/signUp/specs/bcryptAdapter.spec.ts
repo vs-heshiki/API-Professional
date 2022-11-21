@@ -40,10 +40,16 @@ describe('BCrypt Adapter', () => {
         await expect(promise).rejects.toThrow()
     })
 
-    test('Should call HashCompare with correct values', async () => {
+    test('Should call hashCompare with correct values', async () => {
         const sut = newSut()
         const compareSpyOn = jest.spyOn(bcrypt, 'compare')
         await sut.hashCompare('any_value', 'any_hash')
         expect(compareSpyOn).toHaveBeenCalledWith('any_value', 'any_hash')
+    })
+
+    test('Should return true if compareHash on success', async () => {
+        const sut = newSut()
+        const compare = await sut.hashCompare('any_value', 'any_hash')
+        expect(compare).toBeTruthy()
     })
 })
