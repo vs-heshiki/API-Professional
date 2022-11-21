@@ -1,3 +1,3 @@
 export interface HashCompare {
-    hashCompare: (value: string, hash: string) => Promise<boolean>
+    compare: (value: string, hash: string) => Promise<boolean>
 }

@@ -31,7 +31,7 @@ const newLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
 
 const newHashCompare = (): HashCompare => {
     class HashCompareStub implements HashCompare {
-        async compare (password: string, hash: string): Promise<boolean> {
+        async compare (value: string, hash: string): Promise<boolean> {
             return new Promise(resolve => resolve(true))
         }
     }
