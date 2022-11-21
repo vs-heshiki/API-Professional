@@ -1,6 +1,6 @@
-import { HashCompare } from './../../data/protocols/cryptography/hashCompare'
+import { HashCompare } from '../../../data/protocols/cryptography/hashCompare'
 import bcrypt from 'bcrypt'
-import { Hasher } from '../../data/protocols/cryptography/hasher'
+import { Hasher } from '../../../data/protocols/cryptography/hasher'
 
 export class BCryptAdapter implements Hasher, HashCompare {
     async genSalt (): Promise<string> {
