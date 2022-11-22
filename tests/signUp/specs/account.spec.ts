@@ -36,7 +36,7 @@ describe('Account MongoDB Adapter', () => {
         expect(account.password).toEqual('any_password')
     })
 
-    test('Should return an account on loadByEmail on success', async () => {
+    test('Should return an account on loadByEmail success', async () => {
         const sut = newSut()
         await getCollection.insertOne({
             name: 'any_name',
@@ -49,5 +49,11 @@ describe('Account MongoDB Adapter', () => {
         expect(account.name).toEqual('any_name')
         expect(account.email).toEqual('any_email@email.com')
         expect(account.password).toEqual('any_password')
+    })
+
+    test('Should return null if loadByEmail fails', async () => {
+        const sut = newSut()
+        const account = await sut.loadAccByEmail('any_email@email.com')
+        expect(account).toBeFalsy()
     })
 })
