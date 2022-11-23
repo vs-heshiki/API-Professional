@@ -1,6 +1,6 @@
-import { AuthenticateModel } from './../../../src/domain/usecases/authenticate'
-import { LoginController } from '../../../src/presentation/controller/login/login'
-import { HttpRequest, Authenticate, Validator } from '../../../src/presentation/controller/login/loginProtocols'
+import { AuthenticateModel } from '../../../src/domain/usecases/authenticate'
+import { LoginController } from '../../../src/presentation/controller/login/loginController'
+import { HttpRequest, Authenticate, Validator } from '../../../src/presentation/controller/login/loginControllerProtocols'
 import { MissingParamError, ServerError } from '../../../src/presentation/errors'
 import { badRequest, serverError, success, unauthorized } from '../../../src/presentation/helpers/http/httpHelpers'
 

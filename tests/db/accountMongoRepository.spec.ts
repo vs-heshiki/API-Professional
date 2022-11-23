@@ -1,10 +1,10 @@
-import { MongoHelper } from '../../../src/infra/db/mongodb/helper/mongoHelper'
-import { AccountMongoRepository } from '../../../src/infra/db/mongodb/accountRepository/account'
+import { MongoHelper } from '../../src/infra/db/mongodb/helper/mongoHelper'
+import { AccountMongoRepository } from '../../src/infra/db/mongodb/accountRepository/accountMongoRepository'
 import { Collection } from 'mongodb'
 
 let getCollection: Collection
 
-describe('Account MongoDB Adapter', () => {
+describe('Account MongoDB Repository', () => {
     beforeAll(async () => {
         await MongoHelper.connect(process.env.MONGO_URL)
     })
