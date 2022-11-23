@@ -3,8 +3,8 @@ import { serverError, badRequest, unauthorized, success } from '../../helpers/ht
 
 export class LoginController implements Controller {
     constructor (
-        private readonly validator: Validator,
-        private readonly authenticate: Authenticate
+        private readonly authenticate: Authenticate,
+        private readonly validator: Validator
         ) {}
 
     async handle (httpRequest: HttpRequest): Promise<HttpResponse> {

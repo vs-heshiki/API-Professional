@@ -1,8 +1,8 @@
-import { AuthenticateModel } from '../../../src/domain/usecases/authenticate'
-import { LoginController } from '../../../src/presentation/controller/login/loginController'
-import { HttpRequest, Authenticate, Validator } from '../../../src/presentation/controller/login/loginControllerProtocols'
-import { MissingParamError, ServerError } from '../../../src/presentation/errors'
-import { badRequest, serverError, success, unauthorized } from '../../../src/presentation/helpers/http/httpHelpers'
+import { AuthenticateModel } from '../../src/domain/usecases/authenticate'
+import { LoginController } from '../../src/presentation/controller/login/loginController'
+import { HttpRequest, Authenticate, Validator } from '../../src/presentation/controller/login/loginControllerProtocols'
+import { MissingParamError, ServerError } from '../../src/presentation/errors'
+import { badRequest, serverError, success, unauthorized } from '../../src/presentation/helpers/http/httpHelpers'
 
 const newFakeRequest = (): HttpRequest => ({
     body: {
@@ -38,7 +38,7 @@ interface SutTypes {
 const newSut = (): SutTypes => {
     const validatorStub = newValidator()
     const authenticateStub = newAuthenticate()
-    const sut = new LoginController(validatorStub, authenticateStub)
+    const sut = new LoginController(authenticateStub, validatorStub)
     return {
         sut,
         validatorStub,
