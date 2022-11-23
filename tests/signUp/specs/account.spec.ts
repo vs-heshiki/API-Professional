@@ -56,4 +56,19 @@ describe('Account MongoDB Adapter', () => {
         const account = await sut.loadAccByEmail('any_email@email.com')
         expect(account).toBeFalsy()
     })
+
+    test('Should update an account adding access token', async () => {
+        const sut = newSut()
+        const res = await getCollection.insertOne({
+            name: 'any_name',
+            email: 'any_email@email.com',
+            password: 'any_password'
+        })
+        const fakeAccount = await getCollection.findOne({ _id: res.insertedId })
+        expect(fakeAccount.accessToken).toBeFalsy()
+        await sut.updateAccessToken(fakeAccount._id.toHexString(), 'any_token')
+        const account = await getCollection.findOne({ _id: fakeAccount._id })
+        expect(account).toBeTruthy()
+        expect(account.accessToken).toBe('any_token')
+    })
 })
