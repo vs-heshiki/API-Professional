@@ -1,7 +1,7 @@
-import { SignUpController } from '../../../src/presentation/controller/signUp/signUpController'
-import { MissingParamError, ServerError } from '../../../src/presentation/errors'
-import { HttpRequest, Validator, AddAccount, AddAccountModel, AccountModel } from '../../../src/presentation/controller/signUp/signUpControllerProtocols'
-import { badRequest, serverError, success } from '../../../src/presentation/helpers/http/httpHelpers'
+import { SignUpController } from '../../src/presentation/controller/signUp/signUpController'
+import { MissingParamError, ServerError } from '../../src/presentation/errors'
+import { HttpRequest, Validator, AddAccount, AddAccountModel, AccountModel } from '../../src/presentation/controller/signUp/signUpControllerProtocols'
+import { badRequest, serverError, success } from '../../src/presentation/helpers/http/httpHelpers'
 
 const newFakeRequest = (): HttpRequest => ({
     body: {
@@ -30,7 +30,7 @@ const newAddAccount = (): AddAccount => {
 
 const newValidator = (): Validator => {
     class ValidatorStub implements Validator {
-        validate (input: any): Error {
+        validate (input: any): Error | null {
             return null
         }
     }
