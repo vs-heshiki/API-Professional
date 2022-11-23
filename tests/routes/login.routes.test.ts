@@ -25,7 +25,7 @@ beforeEach(async () => {
     await getCollection.deleteMany({})
 })
 
-describe('Login Routes', () => {
+describe('SignUp/In/Out Routes', () => {
     describe('SignUp Route', () => {
         test('Should return 200 on signup', async () => {
             await request(app)
@@ -55,6 +55,16 @@ describe('Login Routes', () => {
                     password: '123'
                 })
                 .expect(200)
+        })
+
+        test('Should return 200 on login', async () => {
+            await request(app)
+                .post('/api/login')
+                .send({
+                    email: 'victor.heshiki@gmail.com',
+                    password: '123'
+                })
+                .expect(401)
         })
     })
 })
