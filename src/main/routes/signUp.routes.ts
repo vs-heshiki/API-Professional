@@ -1,4 +1,4 @@
-import { ExpressRouterAdapter } from './../adapters/expressRouterAdapter'
+import { ExpressRouterAdapter } from '../adapters/express/expressRouterAdapter'
 import { Router } from 'express'
 import { newSignUpController } from '../factories/signup/signupFactory'
 
