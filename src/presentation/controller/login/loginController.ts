@@ -2,13 +2,10 @@ import { HttpRequest, HttpResponse, Controller, Authenticate, Validator } from '
 import { serverError, badRequest, unauthorized, success } from '../../helpers/http/httpHelpers'
 
 export class LoginController implements Controller {
-    private readonly validator: Validator
-    private readonly authenticate: Authenticate
-
-    constructor (validator: Validator, authenticate: Authenticate) {
-        this.validator = validator
-        this.authenticate = authenticate
-    }
+    constructor (
+        private readonly validator: Validator,
+        private readonly authenticate: Authenticate
+        ) {}
 
     async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
         try {

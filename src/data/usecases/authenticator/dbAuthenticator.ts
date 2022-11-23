@@ -8,22 +8,12 @@ import {
 } from './dbAuthenticatorProtocols'
 
 export class DbAuthenticator implements Authenticate {
-    private readonly loadAccountByEmail: LoadAccountByEmailRepository
-    private readonly hashCompare: HashCompare
-    private readonly encrypter: Encrypter
-    private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
-
     constructor (
-        loadAccountByEmail: LoadAccountByEmailRepository,
-        hashCompare: HashCompare,
-        encrypter: Encrypter,
-        updateAccessTokenRepository: UpdateAccessTokenRepository
-    ) {
-        this.loadAccountByEmail = loadAccountByEmail
-        this.hashCompare = hashCompare
-        this.encrypter = encrypter
-        this.updateAccessTokenRepository = updateAccessTokenRepository
-    }
+        private readonly loadAccountByEmail: LoadAccountByEmailRepository,
+        private readonly hashCompare: HashCompare,
+        private readonly encrypter: Encrypter,
+        private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
+    ) {}
 
     async auth (authenticate: AuthenticateModel): Promise<string> {
         const account = await this.loadAccountByEmail.loadAccByEmail(authenticate.email)
