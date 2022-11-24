@@ -1,1 +1,1 @@
-{"version":"1.0.0","name":"api-professional","dependencies":{"bcrypt":{"version":"5.1.0"},"express":{"version":"4.18.2"},"mongodb":{"version":"4.11.0"},"validator":{"version":"13.7.0"}}}
+{"version":"1.1.0","name":"api-professional","dependencies":{"bcrypt":{"version":"5.1.0"},"express":{"version":"4.18.2"},"jsonwebtoken":{"version":"8.5.1"},"mongodb":{"version":"4.12.1"},"validator":{"version":"13.7.0"}}}
