@@ -1,0 +1,25 @@
+version: "3"
+services:
+  mongo:
+    container_name: mongo-container
+    image: mongo:5
+    restart: always
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  api:
+    container_name: api-container
+    build:
+      context: .
+      args:
+        - MONGO_URL='mongodb://mongo:27017/api-professional'
+    image: api-professional
+    restart: always
+    command: npm start
+    volumes:
+      - ./dist:/usr/src/api-professional/dist
+    ports:
+      - "8080:8080"
+    links:
+      - mongo
