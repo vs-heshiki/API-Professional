@@ -1,6 +1,6 @@
 import { SignUpController } from '../../src/presentation/controller/signUp/signUpController'
 import { MissingParamError, ServerError } from '../../src/presentation/errors'
-import { HttpRequest, Validator, AddAccount, AddAccountModel, AccountModel } from '../../src/presentation/controller/signUp/signUpControllerProtocols'
+import { HttpRequest, Validator, AddAccount, AddAccountModel, AccountModel, Authenticate, AuthenticateModel } from '../../src/presentation/controller/signUp/signUpControllerProtocols'
 import { badRequest, serverError, success } from '../../src/presentation/helpers/http/httpHelpers'
 
 const newFakeRequest = (): HttpRequest => ({
@@ -37,20 +37,32 @@ const newValidator = (): Validator => {
     return new ValidatorStub()
 }
 
+const newAuthenticate = (): Authenticate => {
+    class AuthenticateStub implements Authenticate {
+        async auth (authenticate: AuthenticateModel): Promise<string> {
+            return new Promise(resolve => resolve('any_token'))
+        }
+    }
+    return new AuthenticateStub()
+}
+
 interface SutTypes {
     sut: SignUpController
     addAccountStub: AddAccount
     validatorStub: Validator
+    authenticateStub: Authenticate
 }
 
 const newSut = (): SutTypes => {
     const addAccountStub = newAddAccount()
     const validatorStub = newValidator()
-    const sut = new SignUpController(addAccountStub, validatorStub)
+    const authenticateStub = newAuthenticate()
+    const sut = new SignUpController(addAccountStub, validatorStub, authenticateStub)
     return {
         sut,
         addAccountStub,
-        validatorStub
+        validatorStub,
+        authenticateStub
     }
 }
 
@@ -94,5 +106,15 @@ describe('SignUp Controller', () => {
         jest.spyOn(validatorStub, 'validate').mockReturnValueOnce(new MissingParamError('any_value'))
         const httpRequest = await sut.handle(newFakeRequest())
         expect(httpRequest).toEqual(badRequest(new MissingParamError('any_value')))
+    })
+
+    test('Should call Authenticator with correct values', async () => {
+        const { sut, authenticateStub } = newSut()
+        const authSpyOn = jest.spyOn(authenticateStub, 'auth')
+        await sut.handle(newFakeRequest())
+        expect(authSpyOn).toHaveBeenCalledWith({
+            email: 'any_email@email.com',
+            password: 'anyPassword'
+        })
     })
 })
