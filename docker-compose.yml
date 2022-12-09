@@ -10,16 +10,17 @@ services:
       - "27017:27017"
   api:
     container_name: api-container
-    build:
-      context: .
-      args:
-        - MONGO_URL='mongodb://mongo:27017/api-professional'
-    image: api-professional
+    image: node:18
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/api-professional
+    working_dir: /usr/src/api-professional
     restart: always
-    command: npm start
+    command: bash -c "npm install --omit=dev && npm install nodemon -D && npm run debug"
     volumes:
-      - ./dist:/usr/src/api-professional/dist
+      - ./dist/:/usr/src/api-professional/dist
+      - ./package.json:/usr/src/api-professional/package.json
     ports:
       - "8080:8080"
+      - "9222:9222"
     links:
       - mongo
