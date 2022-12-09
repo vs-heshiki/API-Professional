@@ -87,10 +87,10 @@ describe('SignUp Controller', () => {
         expect(httpResponse).toEqual(serverError(new ServerError()))
     })
 
-    test('Should return 200 if valid data is provider', async () => {
+    test('Should return an access token if valid data is provider', async () => {
         const { sut } = newSut()
         const httpResponse = await sut.handle(newFakeRequest())
-        expect(httpResponse).toEqual(success(newFakeAccount()))
+        expect(httpResponse).toEqual(success({ accessToken: 'any_token' }))
     })
 
     test('Should call Validator with correct values', async () => {
