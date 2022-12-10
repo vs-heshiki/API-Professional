@@ -1,4 +1,4 @@
-import { DbAddAccount, AddAccountModel, Hasher, AccountModel, AddAccountRepository } from '../../src/data/usecases/addAccount/dbAddAccountProtocols'
+import { DbAddAccount, AddAccountModel, Hasher, AccountModel, AddAccountRepository, LoadAccountByEmailRepository } from '../../src/data/usecases/addAccount/dbAddAccountProtocols'
 
 const newFakeAccountModel = (): AddAccountModel => ({
     name: 'name_valid',
@@ -31,20 +31,32 @@ const newAddAccountRepository = (): AddAccountRepository => {
     return new AddAccountRepositoryStub()
 }
 
+const newLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
+    class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
+        async loadAccByEmail (email: string): Promise<AccountModel> {
+            return new Promise(resolve => resolve(newFakeAccount()))
+        }
+    }
+    return new LoadAccountByEmailRepositoryStub()
+}
+
 interface SutTypes {
     sut: DbAddAccount
     genHasherStub: Hasher
     addAccountRepositoryStub: AddAccountRepository
+    loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
 }
 
 const newSut = (): SutTypes => {
     const genHasherStub = newHasher()
     const addAccountRepositoryStub = newAddAccountRepository()
-    const sut = new DbAddAccount(genHasherStub, addAccountRepositoryStub)
+    const loadAccountByEmailRepositoryStub = newLoadAccountByEmailRepository()
+    const sut = new DbAddAccount(genHasherStub, addAccountRepositoryStub, loadAccountByEmailRepositoryStub)
     return {
         sut,
         genHasherStub,
-        addAccountRepositoryStub
+        addAccountRepositoryStub,
+        loadAccountByEmailRepositoryStub
     }
 }
 
@@ -85,5 +97,12 @@ describe('Database AddAccount Usecases', () => {
         const { sut } = newSut()
         const account = await sut.add(newFakeAccountModel())
         expect(account).toEqual(newFakeAccount())
+    })
+
+    test('Should call LoadAccountByEmailRepository with correct email', async () => {
+        const { sut, loadAccountByEmailRepositoryStub } = newSut()
+        const loadSpyOn = jest.spyOn(loadAccountByEmailRepositoryStub, 'loadAccByEmail')
+        await sut.add(newFakeAccountModel())
+        expect(loadSpyOn).toHaveBeenCalledWith('any_valid@email.com')
     })
 })
