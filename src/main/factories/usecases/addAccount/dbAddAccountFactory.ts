@@ -5,5 +5,5 @@ import { BCryptAdapter } from './../../../../infra/cryptography/bcrypt/bcryptAda
 export const newDbAddAccount = (): DbAddAccount => {
     const bcryptAdapter = new BCryptAdapter()
     const accountMongoRepository = new AccountMongoRepository()
-    return new DbAddAccount(bcryptAdapter, accountMongoRepository)
+    return new DbAddAccount(bcryptAdapter, accountMongoRepository, accountMongoRepository)
 }
