@@ -1,4 +1,4 @@
-import { DbAddAccount, AddAccountModel, Hasher, AccountModel, AddAccountRepository, LoadAccountByEmailRepository } from '../../src/data/usecases/addAccount/dbAddAccountProtocols'
+import { DbAddAccount, AddAccountModel, Hasher, AccountModel, AddAccountRepository, LoadAccountByEmailRepository } from '../../src/data/usecases/addAccount'
 
 const newFakeAccountModel = (): AddAccountModel => ({
     name: 'name_valid',

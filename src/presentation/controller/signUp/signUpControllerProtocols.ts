@@ -1,4 +1,4 @@
 export * from '../../protocols'
-export * from '../../protocols/validator'
-export * from '../../../data/usecases/addAccount/dbAddAccountProtocols'
-export * from './../../../domain/usecases/authenticate'
+export * from '../../../domain/model/accountModel'
+export * from '../../../domain/usecases/addAccountModel'
+export * from '../../../domain/usecases/authenticate'

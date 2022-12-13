@@ -5,7 +5,7 @@ import {
     Authenticate,
     AuthenticateModel,
     Encrypter
-} from './dbAuthenticatorProtocols'
+} from '.'
 
 export class DbAuthenticator implements Authenticate {
     constructor (

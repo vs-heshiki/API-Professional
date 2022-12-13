@@ -1,0 +1,5 @@
+export * from '../../protocols/db'
+export * from '../../protocols/cryptography/hasher'
+export * from '../../../domain/model/accountModel'
+export * from '../../../domain/usecases/addAccountModel'
+export * from './dbAddAccount'

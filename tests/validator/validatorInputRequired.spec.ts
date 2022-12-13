@@ -1,5 +1,5 @@
-import { MissingParamError } from '../../src/presentation/errors/missingParamError'
-import { ValidatorInputRequired } from '../../src/presentation/helpers/validator/validatorInputRequired'
+import { MissingParamError } from '../../src/presentation/errors'
+import { ValidatorInputRequired } from '../../src/validator/validations'
 
 const newSut = (): ValidatorInputRequired => {
         return new ValidatorInputRequired('input')

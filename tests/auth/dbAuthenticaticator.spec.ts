@@ -1,4 +1,4 @@
-import { AccountModel } from '../../src/data/usecases/addAccount/dbAddAccountProtocols'
+import { AccountModel } from '../../src/data/usecases/addAccount'
 import {
     AuthenticateModel,
     DbAuthenticator,
@@ -6,7 +6,7 @@ import {
     UpdateAccessTokenRepository,
     Encrypter,
     HashCompare
-} from '../../src/data/usecases/authenticator/dbAuthenticatorProtocols'
+} from '../../src/data/usecases/authenticator'
 
 const newFakeAccount = (): AccountModel => ({
         id: 'any_id',

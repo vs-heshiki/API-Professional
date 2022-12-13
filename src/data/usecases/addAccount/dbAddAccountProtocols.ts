@@ -1,6 +1,0 @@
-export * from './../../protocols/db/loadAccountByEmailRepository'
-export * from '../../../domain/model/accountModel'
-export * from '../../../domain/usecases/addAccountModel'
-export * from '../../protocols/cryptography/hasher'
-export * from '../../protocols/db/addAccountRepository'
-export * from './dbAddAccount'
