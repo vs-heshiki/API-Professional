@@ -6,5 +6,5 @@ import { newAuthMiddleware } from '../factories/middlewares/authMiddlewareFactor
 
 export default (router: Router): void => {
     const adminAuth = ExpressMiddlewareAdapter(newAuthMiddleware('admin'))
-    router.post('/add-survey', adminAuth,ExpressRouterAdapter(newAddSurveyController()))
+    router.post('/add-survey', adminAuth, ExpressRouterAdapter(newAddSurveyController()))
 }
