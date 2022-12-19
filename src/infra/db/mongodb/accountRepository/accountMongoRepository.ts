@@ -1,6 +1,6 @@
 import { UpdateAccessTokenRepository } from '../../../../data/protocols/cryptography/cryptographyProtocols'
 import { LoadAccountByEmailRepository } from '../../../../data/protocols/db/dbProtocols'
-import { AddAccountRepository, AddAccountModel, AccountModel } from '../../../../data/usecases/addAccount'
+import { AddAccountRepository, AddAccountModel, AccountModel } from '../../../../data/usecases/addAccount/dbAddAccountProtocols'
 import { MongoHelper } from '../helper/mongoHelper'
 import { LoadAccountByTokenRepository } from '../../../../data/protocols/db/loadAccountByTokenRepository'
 

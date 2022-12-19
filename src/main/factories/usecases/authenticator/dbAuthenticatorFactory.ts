@@ -1,7 +1,7 @@
 import { BCryptAdapter } from '../../../../infra/cryptography/bcrypt/bcryptAdapter'
 import { AccountMongoRepository } from '../../../../infra/db/mongodb/accountRepository/accountMongoRepository'
 import { JwtAdapter } from '../../../../infra/cryptography/jwt/jwtAdapter'
-import { DbAuthenticator } from '../../../../data/usecases/authenticator'
+import { DbAuthenticator } from '../../../../data/usecases/authenticator/dbAuthtenticatorProtocols'
 import env from '../../../config/env'
 
 export const newDbAuthenticator = (): DbAuthenticator => {
