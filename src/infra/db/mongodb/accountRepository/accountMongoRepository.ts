@@ -1,16 +1,17 @@
-import { UpdateAccessTokenRepository } from '../../../../data/protocols/cryptography'
-import { LoadAccountByEmailRepository } from '../../../../data/protocols/db'
+import { UpdateAccessTokenRepository } from '../../../../data/protocols/cryptography/cryptographyProtocols'
+import { LoadAccountByEmailRepository } from '../../../../data/protocols/db/dbProtocols'
 import { AddAccountRepository, AddAccountModel, AccountModel } from '../../../../data/usecases/addAccount'
 import { MongoHelper } from '../helper/mongoHelper'
+import { LoadAccountByTokenRepository } from '../../../../data/protocols/db/loadAccountByTokenRepository'
 
-export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository {
+export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository {
     async add (accountData: AddAccountModel): Promise<AccountModel> {
         const accountCollection = await MongoHelper.getCollection('accounts')
         await accountCollection.insertOne(accountData)
         return MongoHelper.map(accountData)
     }
 
-    async loadAccByEmail (email: string): Promise<AccountModel> {
+    async loadByEmail (email: string, role?: string): Promise<AccountModel> {
         const accountCollection = await MongoHelper.getCollection('accounts')
         const account = await accountCollection.findOne({ email })
         return account && MongoHelper.map(account)
@@ -26,5 +27,18 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
                 accessToken: token
             }
         })
+    }
+
+    async loadByToken (accessToken: string, role?: string): Promise<AccountModel> {
+        const accountCollection = await MongoHelper.getCollection('accounts')
+        const account = await accountCollection.findOne({
+            accessToken,
+            $or: [{
+                role
+            }, {
+                role: 'admin'
+            }]
+        })
+        return account && MongoHelper.map(account)
     }
 }

@@ -5,7 +5,7 @@ import {
     Authenticate,
     AuthenticateModel,
     Encrypter
-} from '.'
+} from './'
 
 export class DbAuthenticator implements Authenticate {
     constructor (
@@ -16,9 +16,9 @@ export class DbAuthenticator implements Authenticate {
     ) {}
 
     async auth (authenticate: AuthenticateModel): Promise<string> {
-        const account = await this.loadAccountByEmail.loadAccByEmail(authenticate.email)
+        const account = await this.loadAccountByEmail.loadByEmail(authenticate.email)
         if (account) {
-            const compare = await this.hashCompare.compare(authenticate.password, account.password)
+            const compare = await this.hashCompare.compareHash(authenticate.password, account.password)
             if (compare) {
                 const accessToken = await this.encrypter.encrypt(account.id)
                 await this.updateAccessTokenRepository.updateAccessToken(account.id, accessToken)

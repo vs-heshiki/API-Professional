@@ -1,4 +1,4 @@
-import { HashCompare, Hasher } from '../../../data/protocols/cryptography'
+import { HashCompare, Hasher } from '../../../data/protocols/cryptography/cryptographyProtocols'
 import bcrypt from 'bcrypt'
 
 export class BCryptAdapter implements Hasher, HashCompare {
@@ -14,7 +14,7 @@ export class BCryptAdapter implements Hasher, HashCompare {
         return hash
     }
 
-    async compare (value: string, hash: string): Promise<boolean> {
+    async compareHash (value: string, hash: string): Promise<boolean> {
         const isValid = await bcrypt.compare(value, hash)
         return isValid
     }

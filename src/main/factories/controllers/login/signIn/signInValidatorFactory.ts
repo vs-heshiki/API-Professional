@@ -1,10 +1,5 @@
-<<<<<<< HEAD:src/main/factories/controllers/login/loginValidatorFactory.ts
-import { EmailValidatorAdapter } from '../../../../infra/validator/emailValidatorAdapter'
-import { Validator, ValidatorComposite, ValidatorEmail, ValidatorInputRequired } from '../../../../validator/validations'
-=======
+import { Validator, ValidatorComposite, ValidatorInputRequired,ValidatorEmail } from '../../../../../validator/validations'
 import { EmailValidatorAdapter } from '../../../../../infra/validator/emailValidatorAdapter'
-import { Validator, ValidatorComposite, ValidatorEmail, ValidatorInputRequired } from '../../../../../validations/validators'
->>>>>>> feat/add-survey:src/main/factories/controllers/login/signIn/signInValidatorFactory.ts
 
 export const newSignInValidator = (): ValidatorComposite => {
     const validations: Validator[] = []

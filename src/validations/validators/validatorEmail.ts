@@ -1,11 +1,6 @@
 import { InvalidParamError } from '../../presentation/errors/invalidParamError'
-<<<<<<< HEAD:src/validator/validations/validatorEmail.ts
-import { EmailValidator } from '../protocols/emailValidator'
-import { Validator } from '../../presentation/protocols/validator'
-=======
 import { Validator } from '../../presentation/protocols/validator'
 import { EmailValidator } from '../protocols/emailValidator'
->>>>>>> feat/add-survey:src/validations/validators/validatorEmail.ts
 
 export class ValidatorEmail implements Validator {
     constructor (

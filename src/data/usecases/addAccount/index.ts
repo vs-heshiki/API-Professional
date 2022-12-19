@@ -1,4 +1,4 @@
-export * from '../../protocols/db'
+export * from '../../protocols/db/dbProtocols'
 export * from '../../protocols/cryptography/hasher'
 export * from '../../../domain/model/accountModel'
 export * from '../../../domain/usecases/addAccountModel'
