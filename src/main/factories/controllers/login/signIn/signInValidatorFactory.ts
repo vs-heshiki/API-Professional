@@ -1,4 +1,4 @@
-import { Validator, ValidatorComposite, ValidatorInputRequired,ValidatorEmail } from '../../../../../validator/validations'
+import { Validator, ValidatorComposite, ValidatorInputRequired,ValidatorEmail } from '../../../../../validations/validators'
 import { EmailValidatorAdapter } from '../../../../../infra/validator/emailValidatorAdapter'
 
 export const newSignInValidator = (): ValidatorComposite => {
