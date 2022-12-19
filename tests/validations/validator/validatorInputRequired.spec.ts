@@ -1,10 +1,5 @@
-<<<<<<< HEAD:tests/validator/validatorInputRequired.spec.ts
-import { MissingParamError } from '../../src/presentation/errors'
-import { ValidatorInputRequired } from '../../src/validator/validations'
-=======
 import { ValidatorInputRequired } from '../../../src/validations/validators'
 import { MissingParamError } from '../../../src/presentation/errors/missingParamError'
->>>>>>> feat/add-survey:tests/validations/validator/validatorInputRequired.spec.ts
 
 const newSut = (): ValidatorInputRequired => {
         return new ValidatorInputRequired('input')

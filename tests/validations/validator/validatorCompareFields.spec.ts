@@ -1,10 +1,5 @@
-<<<<<<< HEAD:tests/validator/validatorCompareFields.spec.ts
-import { ValidatorCompareInputs } from '../../src/validator/validations'
-import { InvalidParamError } from '../../src/presentation/errors'
-=======
 import { ValidatorCompareInputs } from '../../../src/validations/validators'
 import { InvalidParamError } from '../../../src/presentation/errors/invalidParamError'
->>>>>>> feat/add-survey:tests/validations/validator/validatorCompareFields.spec.ts
 
 describe('Validator Compare Fields', () => {
     const newSut = (): ValidatorCompareInputs => {

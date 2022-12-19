@@ -1,13 +1,7 @@
-<<<<<<< HEAD:tests/validator/compositeValidator.spec.ts
-import { Validator } from '../../src/presentation/protocols/validator'
-import { ValidatorComposite } from '../../src/validator/validations'
-import { InvalidParamError, MissingParamError } from '../../src/presentation/errors'
-=======
 import { ValidatorComposite } from '../../../src/validations/validators'
 import { Validator } from '../../../src/presentation/protocols/validator'
 import { MissingParamError } from '../../../src/presentation/errors/missingParamError'
 import { InvalidParamError } from '../../../src/presentation/errors/invalidParamError'
->>>>>>> feat/add-survey:tests/validations/validator/compositeValidator.spec.ts
 
 const newValidator = (): Validator => {
     class ValidationStub implements Validator {

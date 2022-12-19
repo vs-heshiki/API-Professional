@@ -1,12 +1,6 @@
-<<<<<<< HEAD:tests/validator/validatorEmail.spec.ts
-import { ValidatorEmail } from '../../src/validator/validations'
-import { EmailValidator } from './protocols/emailValidator'
-import { InvalidParamError } from '../../src/presentation/errors'
-=======
 import { ValidatorEmail } from '../../../src/validations/validators'
 import { EmailValidator } from '../../../src/validations/protocols/emailValidator'
 import { InvalidParamError } from '../../../src/presentation/errors'
->>>>>>> feat/add-survey:tests/validations/validator/validatorEmail.spec.ts
 
 const newEmailValidator = (): EmailValidator => {
     class EmailValidatorStub implements EmailValidator {

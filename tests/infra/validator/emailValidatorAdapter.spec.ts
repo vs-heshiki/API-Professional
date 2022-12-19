@@ -1,8 +1,4 @@
-<<<<<<< HEAD:tests/utils/emailValidatorAdapter.spec.ts
-import { EmailValidatorAdapter } from '../../src/infra/validator/emailValidatorAdapter'
-=======
 import { EmailValidatorAdapter } from '../../../src/infra/validator/emailValidatorAdapter'
->>>>>>> feat/add-survey:tests/infra/validator/emailValidatorAdapter.spec.ts
 import validator from 'validator'
 
 jest.mock('validator', () => ({

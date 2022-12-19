@@ -1,16 +1,8 @@
-<<<<<<< HEAD:tests/db/logControllerDecorator.spec.ts
-import { LogControllerDecorator } from '../../src/main/decorators/logControllerDecorator'
-import { AccountModel } from '../../src/domain/model/accountModel'
-import { serverError, success } from '../../src/presentation/helpers/http/httpHelpers'
-import { Controller, HttpRequest, HttpResponse } from '../../src/presentation/protocols'
-import { LogErrorRepository } from '../../src/data/protocols/db'
-=======
-import { AccountModel } from '../../../src/data/usecases/addAccount/dbAddAccountProtocols'
 import { LogControllerDecorator } from '../../../src/main/decorators/logControllerDecorator'
+import { AccountModel } from '../../../src/domain/model/accountModel'
 import { serverError, success } from '../../../src/presentation/helpers/http/httpHelpers'
 import { Controller, HttpRequest, HttpResponse } from '../../../src/presentation/protocols'
-import { LogErrorRepository } from '../../../src/data/protocols/db/logErrorRepository'
->>>>>>> feat/add-survey:tests/infra/mongodb/logControllerDecorator.spec.ts
+import { LogErrorRepository } from '../../../src/data/protocols/db/dbProtocols'
 
 const newFakeRequest = (): HttpRequest => ({
     body: {
