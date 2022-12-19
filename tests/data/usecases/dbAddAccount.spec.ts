@@ -5,7 +5,7 @@ import {
     AccountModel,
     AddAccountRepository,
     LoadAccountByEmailRepository
-} from '../../../src/data/usecases/addAccount'
+} from '../../../src/data/usecases/addAccount/dbAddAccountProtocols'
 
 const newFakeAccountModel = (): AddAccountModel => ({
     name: 'name_valid',
