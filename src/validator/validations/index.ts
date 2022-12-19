@@ -1,5 +1,0 @@
-export * from './validatorComposite'
-export * from './validatorInputRequired'
-export * from './validatorCompareInputs'
-export * from './validatorEmail'
-export * from '../../presentation/protocols/validator'
