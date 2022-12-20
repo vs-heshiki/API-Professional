@@ -1,5 +1,5 @@
 import { success, serverError, noContent } from './../../../src/presentation/helpers/http/httpHelpers'
-import { LoadSurveyController, SurveyModel, LoadSurveys } from '../../../src/presentation/controller/survey/loadSurvey/loadSurveysControllerProtocols'
+import { LoadSurveysController, SurveyModel, LoadSurveys } from '../../../src/presentation/controller/survey/loadSurvey/loadSurveysControllerProtocols'
 import mockdate from 'mockdate'
 
 const newFakeSurveys = (): SurveyModel[] => {
@@ -32,13 +32,13 @@ const newLoadSurveys = (): LoadSurveys => {
 }
 
 interface SutTypes {
-    sut: LoadSurveyController
+    sut: LoadSurveysController
     loadSurveysStub: LoadSurveys
 }
 
 const newSut = (): SutTypes => {
     const loadSurveysStub = newLoadSurveys()
-    const sut = new LoadSurveyController(loadSurveysStub)
+    const sut = new LoadSurveysController(loadSurveysStub)
     return {
         sut,
         loadSurveysStub
