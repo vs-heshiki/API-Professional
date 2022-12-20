@@ -4,6 +4,10 @@ import { Collection } from 'mongodb'
 
 let surveyCollection: Collection
 
+const newSut = (): SurveyMongoRepository => {
+    return new SurveyMongoRepository()
+}
+
 describe('Survey MongoDB Repository', () => {
     beforeAll(async () => {
         await MongoHelper.connect(process.env.MONGO_URL)
@@ -18,23 +22,21 @@ describe('Survey MongoDB Repository', () => {
         await surveyCollection.deleteMany({})
     })
 
-    const newSut = (): SurveyMongoRepository => {
-        return new SurveyMongoRepository()
-    }
-
-    test('Should add a survey on success', async () => {
-        const sut = newSut()
-        await sut.add({
-            question: 'any_question',
-            answers: [{
-                image: 'any_image',
-                answer: 'any_answer'
-            }, {
-                answer: 'other_answer'
-            }],
-            date: new Date()
+    describe('Add Method tests', () => {
+        test('Should add a survey on success', async () => {
+            const sut = newSut()
+            await sut.add({
+                question: 'any_question',
+                answers: [{
+                    image: 'any_image',
+                    answer: 'any_answer'
+                }, {
+                    answer: 'other_answer'
+                }],
+                date: new Date()
+            })
+            const survey = await surveyCollection.findOne({ question: 'any_question' })
+            expect(survey).toBeTruthy()
         })
-        const survey = await surveyCollection.findOne({ question: 'any_question' })
-        expect(survey).toBeTruthy()
     })
 })
