@@ -1,4 +1,4 @@
-import { success } from './../../../src/presentation/helpers/http/httpHelpers'
+import { success, serverError } from './../../../src/presentation/helpers/http/httpHelpers'
 import { LoadSurveyController, SurveyModel, LoadSurveys } from '../../../src/presentation/controller/survey/loadSurvey/loadSurveysControllerProtocols'
 import mockdate from 'mockdate'
 
@@ -65,5 +65,14 @@ describe('LoadSurveys Controller', () => {
         const { sut } = newSut()
         const httpResponse = await sut.handle({})
         expect(httpResponse).toEqual(success(newFakeSurveys()))
+    })
+
+    test('Should return 500 if LoadSurveys throws', async () => {
+        const { sut, loadSurveysStub } = newSut()
+        jest.spyOn(loadSurveysStub, 'load').mockImplementationOnce(async () => {
+            return new Promise((resolve, reject) => reject(new Error()))
+        })
+        const httpResponse = await sut.handle({})
+        expect(httpResponse).toEqual(serverError(new Error()))
     })
 })
