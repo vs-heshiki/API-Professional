@@ -60,9 +60,18 @@ describe('Database LoadSurveys UseCase', () => {
         expect(addSpyOn).toHaveBeenCalled()
     })
 
-    test('Should call LoadSurveysRepository', async () => {
+    test('Should return a list of surveys', async () => {
         const { sut } = newSut()
         const httpResponse = await sut.load()
         expect(httpResponse).toEqual(newFakeSurveys())
+    })
+
+    test('Should throw if LoadSurveysRepository throws', async () => {
+        const { sut, loadSurveysRepositoryStub } = newSut()
+        jest.spyOn(loadSurveysRepositoryStub, 'loadAll').mockImplementationOnce(async () => {
+            return new Promise((resolve, reject) => reject(new Error()))
+        })
+        const httpResponse = sut.load()
+        await expect(httpResponse).rejects.toThrow()
     })
 })
