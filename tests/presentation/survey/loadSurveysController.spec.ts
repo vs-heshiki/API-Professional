@@ -1,3 +1,4 @@
+import { success } from './../../../src/presentation/helpers/http/httpHelpers'
 import { LoadSurveyController, SurveyModel, LoadSurveys } from '../../../src/presentation/controller/survey/loadSurvey/loadSurveysControllerProtocols'
 import mockdate from 'mockdate'
 
@@ -58,5 +59,11 @@ describe('LoadSurveys Controller', () => {
         const loadSpyOn = jest.spyOn(loadSurveysStub, 'load')
         await sut.handle({})
         expect(loadSpyOn).toHaveBeenCalledWith()
+    })
+
+    test('Should return 200 on success', async () => {
+        const { sut } = newSut()
+        const httpResponse = await sut.handle({})
+        expect(httpResponse).toEqual(success(newFakeSurveys()))
     })
 })
