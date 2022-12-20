@@ -1,6 +1,6 @@
 import { Controller } from '../../../../../presentation/protocols'
 import { newLogControllerDecorator } from '../../../decorators/logControllerDecorator'
-import { AddSurveyController } from '../../../../../presentation/controller/survey/addSurveyController'
+import { AddSurveyController } from '../../../../../presentation/controller/survey/addSurvey/addSurveyController'
 import { newAddSurveyValidator } from './addSurveyValidatorFactory'
 import { newDbAddSurvey } from '../../../usecases/survey/addSurvey/dbAddSurveyFactory'
 
