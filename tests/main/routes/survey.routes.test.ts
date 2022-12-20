@@ -80,4 +80,12 @@ describe('Route GET /surveys', () => {
             .get('/api/survey')
             .expect(403)
     })
+
+    test('Should return 204 on load surveys with valid accessToken', async () => {
+        const accessToken = await newAccessToken()
+        await request(app)
+            .get('/api/survey')
+            .set({ 'x-access-token': accessToken })
+            .expect(204)
+    })
 })
