@@ -59,4 +59,10 @@ describe('Database LoadSurveys UseCase', () => {
         await sut.load()
         expect(addSpyOn).toHaveBeenCalled()
     })
+
+    test('Should call LoadSurveysRepository', async () => {
+        const { sut } = newSut()
+        const httpResponse = await sut.load()
+        expect(httpResponse).toEqual(newFakeSurveys())
+    })
 })
