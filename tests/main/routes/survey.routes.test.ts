@@ -17,10 +17,10 @@ beforeEach(async () => {
     surveyCollection = await MongoHelper.getCollection('surveys')
     await surveyCollection.deleteMany({})
 })
-describe('AddSurvey Route', () => {
+describe('Route POST /surveys', () => {
     test('Should return 403 if no access token is provider', async () => {
         await request(app)
-            .post('/api/add-survey')
+            .post('/api/survey')
             .send({
                 question: 'any_question',
                 answers: [{
@@ -30,6 +30,14 @@ describe('AddSurvey Route', () => {
                     anwser: 'other_anwser'
                 }]
             })
+            .expect(403)
+    })
+})
+
+describe('Route GET /surveys', () => {
+    test('Should return 403 if no access token is provider', async () => {
+        await request(app)
+            .get('/api/survey')
             .expect(403)
     })
 })
