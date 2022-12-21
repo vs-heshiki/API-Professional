@@ -1,4 +1,4 @@
-import { newSignUpValidator } from '../../../src/main/factories/controllers/login/signUp/signUpValidatorFactory'
+import { newSignUpValidator } from './../../../src/main/factories/controllers/login/signUp/signupValidatorFactory'
 import { EmailValidator } from '../../../src/validations/protocols/emailValidator'
 import { ValidatorComposite , Validator, ValidatorInputRequired, ValidatorCompareInputs, ValidatorEmail } from '../../../src/validations/validators'
 

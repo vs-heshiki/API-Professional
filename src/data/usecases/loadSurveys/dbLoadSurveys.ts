@@ -4,11 +4,11 @@ import { SurveyModel } from './../../../domain/model/surveyModel'
 
 export class DbLoadSurveys implements LoadSurveys {
     constructor (
-            private readonly loadSurveyRepository: LoadSurveysRepository
+            private readonly loadSurveysRepository: LoadSurveysRepository
     ) {}
 
     async load (): Promise<SurveyModel[]> {
-        const surveys = await this.loadSurveyRepository.loadAll()
+        const surveys = await this.loadSurveysRepository.loadAll()
         return surveys
     }
 }
