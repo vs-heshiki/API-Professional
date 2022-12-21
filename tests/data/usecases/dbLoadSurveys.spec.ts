@@ -1,6 +1,7 @@
 import { LoadSurveysRepository } from './../../../src/data/protocols/db/dbProtocols'
 import { DbLoadSurveys } from '../../../src/data/usecases/loadSurveys/dbLoadSurveys'
 import { SurveyModel } from './../../../src/domain/model/surveyModel'
+import mockdate from 'mockdate'
 
 const newFakeSurveys = (): SurveyModel[] => {
     return [{
@@ -45,6 +46,14 @@ const newSut = (): SutTypes => {
 }
 
 describe('Database LoadSurveys UseCase', () => {
+    beforeAll(() => {
+        mockdate.set(new Date())
+    })
+
+    afterAll(() => {
+        mockdate.reset()
+    })
+
     test('Should call LoadSurveysRepository', async () => {
         const { sut, loadSurveysRepositoryStub } = newSut()
         const addSpyOn = jest.spyOn(loadSurveysRepositoryStub, 'loadAll')
