@@ -4,6 +4,10 @@ import { Collection } from 'mongodb'
 
 let surveyCollection: Collection
 
+const newSut = (): SurveyMongoRepository => {
+    return new SurveyMongoRepository()
+}
+
 describe('Survey MongoDB Repository', () => {
     beforeAll(async () => {
         await MongoHelper.connect(process.env.MONGO_URL)
@@ -18,22 +22,54 @@ describe('Survey MongoDB Repository', () => {
         await surveyCollection.deleteMany({})
     })
 
-    const newSut = (): SurveyMongoRepository => {
-        return new SurveyMongoRepository()
-    }
-
-    test('Should add a survey on success', async () => {
-        const sut = newSut()
-        await sut.add({
-            question: 'any_question',
-            answers: [{
-                image: 'any_image',
-                answer: 'any_answer'
-            }, {
-                answer: 'other_answer'
-            }]
+    describe('Add Method tests', () => {
+        test('Should add a survey on success', async () => {
+            const sut = newSut()
+            await sut.add({
+                question: 'any_question',
+                answers: [{
+                    image: 'any_image',
+                    answer: 'any_answer'
+                }, {
+                    answer: 'other_answer'
+                }],
+                date: new Date()
+            })
+            const survey = await surveyCollection.findOne({ question: 'any_question' })
+            expect(survey).toBeTruthy()
         })
-        const survey = await surveyCollection.findOne({ question: 'any_question' })
-        expect(survey).toBeTruthy()
+    })
+
+    describe('LoadAll Method tests', () => {
+        test('Should load all surveys on success', async () => {
+            await surveyCollection.insertMany([{
+                id: 'any_id',
+                question: 'any_question',
+                answers: [{
+                    image: 'any_image',
+                    answer: 'any_answer'
+                }],
+                date: new Date()
+            }, {
+                id: 'another_id',
+                question: 'another_question',
+                answers: [{
+                    image: 'another_image',
+                    answer: 'another_answer'
+                }],
+                date: new Date()
+            }])
+            const sut = newSut()
+            const surveys = await sut.loadAll()
+            expect(surveys.length).toBe(2)
+            expect(surveys).toBeInstanceOf(Array)
+            expect(surveys[0].question).toBe('any_question')
+        })
+
+        test('Should load empty list', async () => {
+            const sut = newSut()
+            const surveys = await sut.loadAll()
+            expect(surveys.length).toBe(0)
+        })
     })
 })

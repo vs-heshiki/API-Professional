@@ -11,7 +11,7 @@ const newFakeAccount = (): AccountModel => ({
 
 const newFakeRequest = (): HttpRequest => ({
     headers: {
-        accessToken: 'any_access_token',
+        'x-access-token': 'any_access_token',
         role: 'any_role'
     }
 })
