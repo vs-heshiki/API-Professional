@@ -7,7 +7,7 @@ import {
 } from '@/validations/validators/validatorProtocols'
 import { newSignInValidator } from '@/main/factories/controllers/login/signIn/signInValidatorFactory'
 
-jest.mock('../../../src/validations/validators/validatorComposite')
+jest.mock('@/validations/validators/validatorComposite')
 
 const newEmailValidator = (): EmailValidator => {
     class EmailValidatorStub implements EmailValidator {
