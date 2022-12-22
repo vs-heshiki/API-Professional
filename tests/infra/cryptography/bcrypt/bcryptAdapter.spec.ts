@@ -1,5 +1,5 @@
-import { BCryptAdapter } from '../../../../src/infra/cryptography/bcrypt/bcryptAdapter'
 import bcrypt from 'bcrypt'
+import { BCryptAdapter } from '@/infra/cryptography/bcrypt/bcryptAdapter'
 
 jest.mock('bcrypt', () => ({
     async genSalt (): Promise<string> {

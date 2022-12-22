@@ -1,6 +1,11 @@
-import { EmailValidator } from '../../../src/validations/protocols/emailValidator'
-import { ValidatorComposite, Validator, ValidatorEmail, ValidatorInputRequired } from '../../../src/validations/validators'
-import { newSignInValidator } from '../../../src/main/factories/controllers/login/signIn/signInValidatorFactory'
+import {
+    ValidatorComposite,
+    Validator,
+    ValidatorEmail,
+    ValidatorInputRequired,
+    EmailValidator
+} from '@/validations/validators/validatorProtocols'
+import { newSignInValidator } from '@/main/factories/controllers/login/signIn/signInValidatorFactory'
 
 jest.mock('../../../src/validations/validators/validatorComposite')
 

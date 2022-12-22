@@ -1,9 +1,9 @@
-import { MongoHelper } from '../../../src/infra/db/mongodb/helper/mongoHelper'
+import request from 'supertest'
 import { Collection } from 'mongodb'
 import { sign } from 'jsonwebtoken'
-import request from 'supertest'
-import app from '../../../src/main/config/app'
-import env from '../../../src/main/config/env'
+import app from '@/main/config/app'
+import env from '@/main/config/env'
+import { MongoHelper } from '@/infra/db/mongodb/helper/mongoHelper'
 
 let surveyCollection: Collection
 let accountCollection: Collection

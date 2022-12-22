@@ -1,5 +1,6 @@
-import { success, serverError, noContent } from './../../../src/presentation/helpers/http/httpHelpers'
-import { LoadSurveysController, SurveyModel, LoadSurveys } from '../../../src/presentation/controller/survey/loadSurvey/loadSurveysControllerProtocols'
+import { LoadSurveysController } from '@/presentation/controller/survey/loadSurvey/loadSurveysController'
+import { SurveyModel, LoadSurveys } from '@/presentation/controller/survey/loadSurvey/loadSurveysControllerProtocols'
+import { success, serverError, noContent } from '@/presentation/helpers/http/httpHelpers'
 import mockdate from 'mockdate'
 
 const newFakeSurveys = (): SurveyModel[] => {

@@ -1,5 +1,5 @@
-import { ValidatorCompareInputs } from '../../../src/validations/validators'
-import { InvalidParamError } from '../../../src/presentation/errors/invalidParamError'
+import { ValidatorCompareInputs } from '@/validations/validators/validatorProtocols'
+import { InvalidParamError } from '@/presentation/errors'
 
 describe('Validator Compare Fields', () => {
     const newSut = (): ValidatorCompareInputs => {

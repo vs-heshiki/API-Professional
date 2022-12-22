@@ -1,5 +1,5 @@
-import { MissingParamError } from '../../presentation/errors'
-import { Validator } from '../../presentation/protocols/validator'
+import { MissingParamError } from '@/presentation/errors'
+import { Validator } from './validatorProtocols'
 
 export class ValidatorInputRequired implements Validator {
     constructor (

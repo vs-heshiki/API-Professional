@@ -1,6 +1,6 @@
-import { DbAddAccount } from '../../../../../data/usecases/addAccount/dbAddAccount'
-import { AccountMongoRepository } from '../../../../../infra/db/mongodb/accountRepository/accountMongoRepository'
-import { BCryptAdapter } from '../../../../../infra/cryptography/bcrypt/bcryptAdapter'
+import { DbAddAccount } from '@/data/usecases/addAccount/dbAddAccount'
+import { AccountMongoRepository } from '@/infra/db/mongodb/accountRepository/accountMongoRepository'
+import { BCryptAdapter } from '@/infra/cryptography/bcrypt/bcryptAdapter'
 
 export const newDbAddAccount = (): DbAddAccount => {
     const bcryptAdapter = new BCryptAdapter()

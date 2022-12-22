@@ -1,7 +1,5 @@
-import { ValidatorComposite } from '../../../src/validations/validators'
-import { Validator } from '../../../src/presentation/protocols/validator'
-import { MissingParamError } from '../../../src/presentation/errors/missingParamError'
-import { InvalidParamError } from '../../../src/presentation/errors/invalidParamError'
+import { ValidatorComposite, Validator } from '@/validations/validators/validatorProtocols'
+import { MissingParamError, InvalidParamError } from '@/presentation/errors'
 
 const newValidator = (): Validator => {
     class ValidationStub implements Validator {
