@@ -1,8 +1,7 @@
-import { UpdateAccessTokenRepository } from '../../../../data/protocols/cryptography/cryptographyProtocols'
-import { LoadAccountByEmailRepository } from '../../../../data/protocols/db/dbProtocols'
-import { AddAccountRepository, AddAccountModel, AccountModel } from '../../../../data/usecases/addAccount/dbAddAccountProtocols'
 import { MongoHelper } from '../helper/mongoHelper'
-import { LoadAccountByTokenRepository } from '../../../../data/protocols/db/loadAccountByTokenRepository'
+import { UpdateAccessTokenRepository } from '@/data/protocols/cryptography/cryptographyProtocols'
+import { LoadAccountByEmailRepository, LoadAccountByTokenRepository, AddAccountRepository } from '@/data/protocols/db/dbProtocols'
+import { AddAccountModel, AccountModel } from '@/data/usecases/addAccount/dbAddAccountProtocols'
 
 export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository {
     async add (accountData: AddAccountModel): Promise<AccountModel> {

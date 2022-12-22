@@ -1,7 +1,9 @@
-import { HttpRequest, Validator } from '../../../src/presentation/protocols'
-import { AddSurveyController, CreateSurvey, CreateSurveyModel } from '../../../src/presentation/controller/survey/addSurvey/addSurveyControllerProtocols'
-import { badRequest, serverError, noContent } from '../../../src/presentation/helpers/http/httpHelpers'
 import mockdate from 'mockdate'
+import { AddSurveyController } from '@/presentation/controller/survey/addSurvey/addSurveyController'
+import { CreateSurvey, CreateSurveyModel } from '@/presentation/controller/survey/addSurvey/addSurveyControllerProtocols'
+import { badRequest, serverError, noContent } from '@/presentation/helpers/http/httpHelpers'
+import { HttpRequest } from '@/presentation/protocols'
+import { Validator } from '@/validations/protocols/validator'
 
 const newFakeRequest = (): HttpRequest => ({
     body: {

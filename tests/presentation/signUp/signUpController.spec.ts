@@ -1,7 +1,8 @@
-import { SignUpController } from '../../../src/presentation/controller/login/signUp/signUpController'
-import { MissingParamError, ServerError, EmailAlreadyTaken } from '../../../src/presentation/errors'
-import { HttpRequest, Validator, AddAccount, AddAccountModel, AccountModel, Authenticate, AuthenticateModel } from '../../../src/presentation/controller/login/signUp/signUpControllerProtocols'
-import { badRequest, serverError, success, forbidden } from '../../../src/presentation/helpers/http/httpHelpers'
+import { SignUpController } from '@/presentation/controller/login/signUp/signUpController'
+import { HttpRequest, AddAccount, AddAccountModel, AccountModel, Authenticate, AuthenticateModel } from '@/presentation/controller/login/signUp/signUpControllerProtocols'
+import { MissingParamError, ServerError, EmailAlreadyTaken } from '@/presentation/errors'
+import { badRequest, serverError, success, forbidden } from '@/presentation/helpers/http/httpHelpers'
+import { Validator } from '@/validations/protocols/validator'
 
 const newFakeRequest = (): HttpRequest => ({
     body: {

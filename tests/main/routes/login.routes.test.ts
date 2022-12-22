@@ -1,8 +1,8 @@
-import { MongoHelper } from '../../../src/infra/db/mongodb/helper/mongoHelper'
-import { Collection } from 'mongodb'
 import bcrypt from 'bcrypt'
 import request from 'supertest'
-import app from '../../../src/main/config/app'
+import { Collection } from 'mongodb'
+import app from '@/main/config/app'
+import { MongoHelper } from '@/infra/db/mongodb/helper/mongoHelper'
 
 const genSalt = async (): Promise<string> => {
     const saltRounds = 10

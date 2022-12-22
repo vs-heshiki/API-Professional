@@ -1,3 +1,2 @@
-export * from './addSurveyController'
-export * from '../../../protocols'
-export * from '../../../../domain/usecases/addSurveyModel'
+export * from '@/presentation/protocols'
+export * from '@/domain/usecases/addSurveyModel'

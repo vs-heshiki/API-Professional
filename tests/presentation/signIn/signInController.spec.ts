@@ -1,8 +1,9 @@
-import { AuthenticateModel } from '../../../src/domain/usecases/authenticate'
-import { SignInController } from '../../../src/presentation/controller/login/signIn/signInController'
-import { HttpRequest, Authenticate, Validator } from '../../../src/presentation/controller/login/signIn/signInControllerProtocols'
-import { MissingParamError, ServerError } from '../../../src/presentation/errors'
-import { badRequest, serverError, success, unauthorized } from '../../../src/presentation/helpers/http/httpHelpers'
+import { SignInController } from '@/presentation/controller/login/signIn/signInController'
+import { HttpRequest, Authenticate } from '@/presentation/controller/login/signIn/signInControllerProtocols'
+import { MissingParamError, ServerError } from '@/presentation/errors'
+import { badRequest, serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelpers'
+import { AuthenticateModel } from '@/domain/usecases/authenticate'
+import { Validator } from '@/validations/protocols/validator'
 
 const newFakeRequest = (): HttpRequest => ({
     body: {

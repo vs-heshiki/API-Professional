@@ -1,3 +1,2 @@
-export * from './signInController'
-export * from '../../../protocols'
-export * from '../../../../domain/usecases/authenticate'
+export * from '@/presentation/protocols'
+export * from '@/domain/usecases/authenticate'

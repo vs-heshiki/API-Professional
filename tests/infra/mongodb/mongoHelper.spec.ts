@@ -1,4 +1,4 @@
-import { MongoHelper as sut } from '../../../src/infra/db/mongodb/helper/mongoHelper'
+import { MongoHelper as sut } from '@/infra/db/mongodb/helper/mongoHelper'
 
 describe('Mongo Helper', () => {
     beforeAll(async () => {

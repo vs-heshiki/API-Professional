@@ -1,8 +1,8 @@
-import { LogControllerDecorator } from '../../../src/main/decorators/logControllerDecorator'
-import { AccountModel } from '../../../src/domain/model/accountModel'
-import { serverError, success } from '../../../src/presentation/helpers/http/httpHelpers'
-import { Controller, HttpRequest, HttpResponse } from '../../../src/presentation/protocols'
-import { LogErrorRepository } from '../../../src/data/protocols/db/dbProtocols'
+import { LogErrorRepository } from '@/data/protocols/db/dbProtocols'
+import { AccountModel } from '@/domain/model/accountModel'
+import { LogControllerDecorator } from '@/main/decorators/logControllerDecorator'
+import { serverError, success } from '@/presentation/helpers/http/httpHelpers'
+import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
 
 const newFakeRequest = (): HttpRequest => ({
     body: {
