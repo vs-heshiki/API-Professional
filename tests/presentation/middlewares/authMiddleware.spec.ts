@@ -12,8 +12,7 @@ const newFakeAccount = (): AccountModel => ({
 
 const newFakeRequest = (): HttpRequest => ({
     headers: {
-        'x-access-token': 'any_access_token',
-        role: 'any_role'
+        'x-access-token': 'any_access_token'
     }
 })
 
@@ -26,14 +25,14 @@ const newLoadAccountByToken = (): LoadAccountByToken => {
     return new LoadAccountByTokenStub()
 }
 
-interface SutTypes {
+type SutTypes = {
     sut: AuthMiddleware
     loadAccountByTokenStub: LoadAccountByToken
 }
 
-const newSut = (): SutTypes => {
+const newSut = (role?: string): SutTypes => {
     const loadAccountByTokenStub = newLoadAccountByToken()
-    const sut = new AuthMiddleware(loadAccountByTokenStub)
+    const sut = new AuthMiddleware(loadAccountByTokenStub, role)
     return {
         sut,
         loadAccountByTokenStub
@@ -48,7 +47,8 @@ describe('AuthMiddleware', () => {
     })
 
     test('Should call LoadAccountByToken with correct access token and role', async () => {
-        const { sut, loadAccountByTokenStub } = newSut()
+        const role = 'any_role'
+        const { sut, loadAccountByTokenStub } = newSut(role)
         const loadSpyOn = jest.spyOn(loadAccountByTokenStub, 'load')
         await sut.handle(newFakeRequest())
         expect(loadSpyOn).toHaveBeenCalledWith('any_access_token', 'any_role')
