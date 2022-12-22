@@ -30,7 +30,7 @@ const newValidator = (): Validator => {
     return new ValidatorStub()
 }
 
-interface SutTypes {
+type SutTypes = {
     sut: SignInController
     authenticateStub: Authenticate
     validatorStub: Validator

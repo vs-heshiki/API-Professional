@@ -47,7 +47,7 @@ const newAuthenticate = (): Authenticate => {
     return new AuthenticateStub()
 }
 
-interface SutTypes {
+type SutTypes = {
     sut: SignUpController
     addAccountStub: AddAccount
     validatorStub: Validator
