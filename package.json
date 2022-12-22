@@ -4,10 +4,10 @@
   "description": "API based in Typescript, follow TDD design, SOLID principles and Clean Architecture",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/src/main/server.js",
+    "start": "node dist/main/server.js",
     "check": "npm-check -s -u",
     "build": "rimraf dist && tsc -p tsconfig-build.json -w",
-    "debug": "npx nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/src/main/server.js",
+    "debug": "npx nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "up": "npm run build && docker-compose up -d",
     "down": "docker-compose down",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
