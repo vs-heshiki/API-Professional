@@ -52,7 +52,7 @@
     "validator": "^13.7.0"
   },
   "engines": {
-    "node": ">=17.x <=19.x"
+    "node": "^17.x"
   },
   "_moduleAliases": {
     "@": "dist"
