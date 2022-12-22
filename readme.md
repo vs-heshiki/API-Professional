@@ -1,0 +1,2 @@
+[![Build Status](https://app.travis-ci.com/VS-Heshiki/API-Professional.svg?branch=master)](https://app.travis-ci.com/VS-Heshiki/API-Professional)
+[![Coverage Status](https://coveralls.io/repos/github/VS-Heshiki/API-Professional/badge.svg)](https://coveralls.io/github/VS-Heshiki/API-Professional)
