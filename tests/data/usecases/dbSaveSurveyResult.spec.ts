@@ -50,4 +50,13 @@ describe('Database LoadSurveys UseCase', () => {
         await sut.save(newFakeSurveyResult())
         expect(saveSpyOn).toHaveBeenCalledWith(newFakeSurveyResult())
     })
+
+    test('Should throw if SaveSurveyResultRepository throws', async () => {
+        const { sut, saveSurveyResultRepositoryStub } = newSut()
+        jest.spyOn(saveSurveyResultRepositoryStub, 'saveResult').mockImplementationOnce(async () => {
+            return new Promise((resolve, reject) => reject(new Error()))
+        })
+        const httpResponse = sut.save(newFakeSurveyResult())
+        await expect(httpResponse).rejects.toThrow()
+    })
 })
