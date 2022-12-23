@@ -60,4 +60,13 @@ describe('Database LoadSurveys UseCase', () => {
         const httpResponse = await sut.loadById(id)
         expect(httpResponse).toEqual(newFakeSurvey())
     })
+
+    test('Should throw if LoadSurveyByIdRepository throws', async () => {
+        const { sut, loadSurveyByIdRepositoryStub } = newSut()
+        jest.spyOn(loadSurveyByIdRepositoryStub, 'loadById').mockImplementationOnce(async () => {
+            return new Promise((resolve, reject) => reject(new Error()))
+        })
+        const httpResponse = sut.loadById('any_id')
+        await expect(httpResponse).rejects.toThrow()
+    })
 })
