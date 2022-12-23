@@ -2,15 +2,18 @@ import { DbSaveSurveyResult } from '@/data/usecases/saveSurveyResult/dbSaveSurve
 import { SaveSurveyResultRepository, SurveyResultModel, SaveSurveyResultModel } from '@/data/usecases/saveSurveyResult/dbSaveSurveyResultProtocols'
 import mockdate from 'mockdate'
 
-const newFakeSurveyResult = (): SurveyResultModel => {
+const newFakeSurveyResultData = (): SaveSurveyResultModel => {
     return {
-        id: 'any_id',
         surveyId: 'survey_id',
         userId: 'user_id',
         answer: 'any_answer',
         date: new Date()
     }
 }
+
+const newFakeSurveyResult = (): SurveyResultModel => Object.assign({}, newFakeSurveyResultData(), {
+    id: 'any_id'
+})
 
 const newSaveSurveyResultRepository = (): SaveSurveyResultRepository => {
     class SaveSurveyResultRepositoryStub implements SaveSurveyResultRepository {
@@ -47,8 +50,8 @@ describe('Database LoadSurveys UseCase', () => {
     test('Should call SaveSurveyResultRepository with correct Id', async () => {
         const { sut, saveSurveyResultRepositoryStub } = newSut()
         const saveSpyOn = jest.spyOn(saveSurveyResultRepositoryStub, 'saveResult')
-        await sut.save(newFakeSurveyResult())
-        expect(saveSpyOn).toHaveBeenCalledWith(newFakeSurveyResult())
+        await sut.save(newFakeSurveyResultData())
+        expect(saveSpyOn).toHaveBeenCalledWith(newFakeSurveyResultData())
     })
 
     test('Should throw if SaveSurveyResultRepository throws', async () => {
@@ -56,7 +59,13 @@ describe('Database LoadSurveys UseCase', () => {
         jest.spyOn(saveSurveyResultRepositoryStub, 'saveResult').mockImplementationOnce(async () => {
             return new Promise((resolve, reject) => reject(new Error()))
         })
-        const httpResponse = sut.save(newFakeSurveyResult())
+        const httpResponse = sut.save(newFakeSurveyResultData())
         await expect(httpResponse).rejects.toThrow()
+    })
+
+    test('Should return a Survey Result on success', async () => {
+        const { sut } = newSut()
+        const surveyResult = await sut.save(newFakeSurveyResultData())
+        expect(surveyResult).toEqual(newFakeSurveyResult())
     })
 })
