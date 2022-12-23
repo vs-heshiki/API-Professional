@@ -53,4 +53,11 @@ describe('Database LoadSurveys UseCase', () => {
         await sut.loadById('any_id')
         expect(loadSpyOn).toHaveBeenCalledWith('any_id')
     })
+
+    test('Should return a survey with matching id', async () => {
+        const id = 'any_id'
+        const { sut } = newSut()
+        const httpResponse = await sut.loadById(id)
+        expect(httpResponse).toEqual(newFakeSurvey())
+    })
 })
