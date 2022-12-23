@@ -1,10 +1,10 @@
-import { HttpRequest, HttpResponse, Controller, CreateSurvey } from './addSurveyControllerProtocols'
+import { HttpRequest, HttpResponse, Controller, AddSurvey } from './addSurveyControllerProtocols'
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http/httpHelpers'
 import { Validator } from '@/validations/protocols/validator'
 
 export class AddSurveyController implements Controller {
     constructor (
-        private readonly createSurvey: CreateSurvey,
+        private readonly AddSurvey: AddSurvey,
         private readonly validator: Validator
     ) {}
 
@@ -16,7 +16,7 @@ export class AddSurveyController implements Controller {
             }
 
             const { question, answers } = httpRequest.body
-            await this.createSurvey.create({
+            await this.AddSurvey.add({
                 question,
                 answers,
                 date: new Date()

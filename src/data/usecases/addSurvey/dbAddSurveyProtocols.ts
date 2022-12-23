@@ -1,2 +1,2 @@
 export * from '@/data/protocols/db/dbProtocols'
-export * from '@/domain/usecases/addSurveyModel'
+export * from '@/domain/usecases/addSurvey'
