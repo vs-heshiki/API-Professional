@@ -5,18 +5,17 @@ import { SaveSurveyResultModel } from '@/domain/usecases/saveSurveyResult'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
     async save (data: SaveSurveyResultModel): Promise<SurveyResultModel> {
-        const resultsCollection = await MongoHelper.getCollection('surveyResults')
-        const result = await resultsCollection.findOneAndUpdate({
+        const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
+        const result = await surveyResultCollection.findOneAndUpdate({
             surveyId: data.surveyId,
-            accountId: data.userId
+            accountId: data.accountId
         }, {
             $set: {
                 answer: data.answer,
                 date: data.date
             }
         }, {
-            upsert: true,
-            returnDocument: 'after'
+            upsert: true
         })
         return result.value && MongoHelper.map(result.value)
     }
