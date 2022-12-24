@@ -5,7 +5,7 @@ import mockdate from 'mockdate'
 const newFakeSurveyResultData = (): SaveSurveyResultModel => {
     return {
         surveyId: 'survey_id',
-        userId: 'user_id',
+        accountId: 'account_id',
         answer: 'any_answer',
         date: new Date()
     }
@@ -17,7 +17,7 @@ const newFakeSurveyResult = (): SurveyResultModel => Object.assign({}, newFakeSu
 
 const newSaveSurveyResultRepository = (): SaveSurveyResultRepository => {
     class SaveSurveyResultRepositoryStub implements SaveSurveyResultRepository {
-        async saveResult (data: SaveSurveyResultModel): Promise<SurveyResultModel> {
+        async save (data: SaveSurveyResultModel): Promise<SurveyResultModel> {
             return new Promise(resolve => resolve(newFakeSurveyResult()))
         }
     }
@@ -49,14 +49,14 @@ describe('Database LoadSurveys UseCase', () => {
 
     test('Should call SaveSurveyResultRepository with correct Id', async () => {
         const { sut, saveSurveyResultRepositoryStub } = newSut()
-        const saveSpyOn = jest.spyOn(saveSurveyResultRepositoryStub, 'saveResult')
+        const saveSpyOn = jest.spyOn(saveSurveyResultRepositoryStub, 'save')
         await sut.save(newFakeSurveyResultData())
         expect(saveSpyOn).toHaveBeenCalledWith(newFakeSurveyResultData())
     })
 
     test('Should throw if SaveSurveyResultRepository throws', async () => {
         const { sut, saveSurveyResultRepositoryStub } = newSut()
-        jest.spyOn(saveSurveyResultRepositoryStub, 'saveResult').mockImplementationOnce(async () => {
+        jest.spyOn(saveSurveyResultRepositoryStub, 'save').mockImplementationOnce(async () => {
             return new Promise((resolve, reject) => reject(new Error()))
         })
         const httpResponse = sut.save(newFakeSurveyResultData())

@@ -1,7 +1,7 @@
 export type SurveyResultModel = {
     id: string
     surveyId: string
-    userId: string
+    accountId: string
     answer: string
     date: Date
 }
