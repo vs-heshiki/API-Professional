@@ -1,5 +1,5 @@
-import { SaveSurveyResultController } from '@/presentation/controller/survey/saveSurveyResult/saveSurveyResultController'
-import { LoadSurveyById, HttpRequest } from '@/presentation/controller/survey/saveSurveyResult/saveSurveyResultControllerProtocols'
+import { SaveSurveyResultController } from '@/presentation/controller/surveyResults/saveSurveyResult/saveSurveyResultController'
+import { LoadSurveyById, HttpRequest } from '@/presentation/controller/surveyResults/saveSurveyResult/saveSurveyResultControllerProtocols'
 import { forbidden, serverError, success } from '@/presentation/helpers/http/httpHelpers'
 import { InvalidParamError } from '@/presentation/errors'
 import { SurveyModel } from '@/domain/model/surveyModel'
