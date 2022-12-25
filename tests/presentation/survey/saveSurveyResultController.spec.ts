@@ -1,6 +1,6 @@
 import { SaveSurveyResultController } from '@/presentation/controller/survey/saveSurveyResult/saveSurveyResultController'
 import { LoadSurveyById, HttpRequest } from '@/presentation/controller/survey/saveSurveyResult/saveSurveyResultControllerProtocols'
-import { forbidden, serverError } from '@/presentation/helpers/http/httpHelpers'
+import { forbidden, serverError, success } from '@/presentation/helpers/http/httpHelpers'
 import { InvalidParamError } from '@/presentation/errors'
 import { SurveyModel } from '@/domain/model/surveyModel'
 import { SurveyResultModel } from '@/domain/model/surveyResultModel'
@@ -135,5 +135,11 @@ describe('SaveSurveyResult Controller', () => {
         })
         const httpResponse = await sut.handle(newFakeRequest())
         expect(httpResponse).toEqual(serverError(new Error()))
+    })
+
+    test('Should return 200 on success', async () => {
+        const { sut } = newSut()
+        const httpResponse = await sut.handle(newFakeRequest())
+        expect(httpResponse).toEqual(success(newFakeSurveyResult()))
     })
 })
