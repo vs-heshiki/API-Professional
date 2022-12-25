@@ -1,5 +1,5 @@
-import { Request, Response } from 'express'
 import { HttpRequest, Controller } from '@/presentation/protocols'
+import { Request, Response } from 'express'
 
 export const ExpressRouterAdapter = (controller: Controller) => {
     return async (req: Request, res: Response) => {

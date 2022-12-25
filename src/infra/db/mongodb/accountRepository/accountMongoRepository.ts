@@ -1,7 +1,7 @@
 import { MongoHelper } from '../helper/mongoHelper'
 import { UpdateAccessTokenRepository } from '@/data/protocols/cryptography/cryptographyProtocols'
-import { LoadAccountByEmailRepository, LoadAccountByTokenRepository, AddAccountRepository } from '@/data/protocols/db/dbProtocols'
-import { AddAccountModel, AccountModel } from '@/data/usecases/addAccount/dbAddAccountProtocols'
+import { LoadAccountByEmailRepository, LoadAccountByTokenRepository, AddAccountRepository } from '@/data/protocols/db/account/dbAccountProtocols'
+import { AddAccountModel, AccountModel } from '@/data/usecases/account/addAccount/dbAddAccountProtocols'
 import { ObjectId } from 'mongodb'
 
 export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository {

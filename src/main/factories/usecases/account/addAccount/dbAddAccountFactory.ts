@@ -1,4 +1,4 @@
-import { DbAddAccount } from '@/data/usecases/addAccount/dbAddAccount'
+import { DbAddAccount } from '@/data/usecases/account/addAccount/dbAddAccount'
 import { AccountMongoRepository } from '@/infra/db/mongodb/accountRepository/accountMongoRepository'
 import { BCryptAdapter } from '@/infra/cryptography/bcrypt/bcryptAdapter'
 

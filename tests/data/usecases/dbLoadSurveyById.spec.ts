@@ -1,5 +1,5 @@
-import { LoadSurveyByIdRepository } from '@/data/protocols/db/loadSurveyByIdRepository'
-import { DbLoadSurveyById } from '@/data/usecases/loadSurveyById/dbLoadSurveyById'
+import { LoadSurveyByIdRepository } from '@/data/protocols/db/survey/loadSurveyByIdRepository'
+import { DbLoadSurveyById } from '@/data/usecases/survey/loadSurveyById/dbLoadSurveyById'
 import { SurveyModel } from '@/domain/model/surveyModel'
 import mockdate from 'mockdate'
 
