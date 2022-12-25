@@ -48,9 +48,9 @@ describe('Route POST /survey', () => {
                 question: 'any_question',
                 answers: [{
                     image: 'any_image',
-                    anwser: 'any_anwser'
+                    answer: 'any_answer'
                 }, {
-                    anwser: 'other_anwser'
+                    answer: 'other_answer'
                 }]
             })
             .expect(403)
