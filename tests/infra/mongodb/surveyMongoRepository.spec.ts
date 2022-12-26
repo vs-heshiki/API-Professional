@@ -1,6 +1,7 @@
 import { Collection } from 'mongodb'
 import { MongoHelper } from '@/infra/db/mongodb/helper/mongoHelper'
 import { SurveyMongoRepository } from '@/infra/db/mongodb/survey/surveyMongoRepository'
+import { mockSurveyData, mockSurveys } from '@/tests/mocks'
 
 let surveyCollection: Collection
 
@@ -25,16 +26,7 @@ describe('Survey MongoDB Repository', () => {
     describe('Add Method tests', () => {
         test('Should add a survey on success', async () => {
             const sut = newSut()
-            await sut.add({
-                question: 'any_question',
-                answers: [{
-                    image: 'any_image',
-                    answer: 'any_answer'
-                }, {
-                    answer: 'other_answer'
-                }],
-                date: new Date()
-            })
+            await sut.add(mockSurveyData())
             const survey = await surveyCollection.findOne({ question: 'any_question' })
             expect(survey).toBeTruthy()
         })
@@ -42,23 +34,7 @@ describe('Survey MongoDB Repository', () => {
 
     describe('LoadAll Method tests', () => {
         test('Should load all surveys on success', async () => {
-            await surveyCollection.insertMany([{
-                id: 'any_id',
-                question: 'any_question',
-                answers: [{
-                    image: 'any_image',
-                    answer: 'any_answer'
-                }],
-                date: new Date()
-            }, {
-                id: 'another_id',
-                question: 'another_question',
-                answers: [{
-                    image: 'another_image',
-                    answer: 'another_answer'
-                }],
-                date: new Date()
-            }])
+            await surveyCollection.insertMany(mockSurveys())
             const sut = newSut()
             const surveys = await sut.loadAll()
             expect(surveys.length).toBe(2)
@@ -76,14 +52,7 @@ describe('Survey MongoDB Repository', () => {
 
     describe('LoadById Method tests', () => {
         test('Should load survey on success', async () => {
-            const res = await surveyCollection.insertOne({
-                question: 'any_question',
-                answers: [{
-                    image: 'any_image',
-                    answer: 'any_answer'
-                }],
-                date: new Date()
-            })
+            const res = await surveyCollection.insertOne(mockSurveyData())
             const id = res.insertedId.toHexString()
             const sut = newSut()
             const survey = await sut.loadById(id)

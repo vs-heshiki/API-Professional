@@ -2,22 +2,12 @@ import {
     ValidatorComposite,
     Validator,
     ValidatorEmail,
-    ValidatorInputRequired,
-    EmailValidator
+    ValidatorInputRequired
 } from '@/validations/validators/validatorProtocols'
 import { newSignInValidator } from '@/main/factories/controllers/login/signIn/signInValidatorFactory'
+import { mockEmailValidator } from '@/tests/presentation/signIn/stubs/signInStubs'
 
 jest.mock('@/validations/validators/validatorComposite')
-
-const newEmailValidator = (): EmailValidator => {
-    class EmailValidatorStub implements EmailValidator {
-        isValid (email: string): boolean {
-            return true
-        }
-    }
-    return new EmailValidatorStub()
-}
-
 describe('SignIn Validator', () => {
     test('Should call Validator Composite with all Validators', () => {
         newSignInValidator()
@@ -26,7 +16,7 @@ describe('SignIn Validator', () => {
         inputs.forEach(input => {
             validations.push(new ValidatorInputRequired(input))
         })
-        validations.push(new ValidatorEmail('email', newEmailValidator()))
+        validations.push(new ValidatorEmail('email', mockEmailValidator()))
         expect(ValidatorComposite).toHaveBeenCalledWith(validations)
     })
 })

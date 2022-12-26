@@ -1,36 +1,8 @@
 import { LoadSurveysController } from '@/presentation/controller/survey/loadSurvey/loadSurveysController'
-import { SurveyModel, LoadSurveys } from '@/presentation/controller/survey/loadSurvey/loadSurveysControllerProtocols'
+import { LoadSurveys } from '@/presentation/controller/survey/loadSurvey/loadSurveysControllerProtocols'
 import { success, serverError, noContent } from '@/presentation/helpers/http/httpHelpers'
-import mockdate from 'mockdate'
-
-const newFakeSurveys = (): SurveyModel[] => {
-    return [{
-        id: 'any_id',
-        question: 'any_question',
-        answers: [{
-            image: 'any_image',
-            answer: 'any_answer'
-        }],
-        date: new Date()
-    }, {
-        id: 'any_other_id',
-        question: 'any_other_question',
-        answers: [{
-            image: 'any_other_image',
-            answer: 'any_other_answer'
-        }],
-        date: new Date()
-    }]
-}
-
-const newLoadSurveys = (): LoadSurveys => {
-    class LoadSurveysStub implements LoadSurveys {
-        async load (): Promise<SurveyModel[]> {
-            return new Promise(resolve => resolve(newFakeSurveys()))
-        }
-    }
-    return new LoadSurveysStub()
-}
+import { mockDate, mockSurveys, throwError } from '@/tests/mocks'
+import { mockLoadSurveys } from '@/tests/presentation/survey/stubs/surveyStubs'
 
 type SutTypes = {
     sut: LoadSurveysController
@@ -38,7 +10,7 @@ type SutTypes = {
 }
 
 const newSut = (): SutTypes => {
-    const loadSurveysStub = newLoadSurveys()
+    const loadSurveysStub = mockLoadSurveys()
     const sut = new LoadSurveysController(loadSurveysStub)
     return {
         sut,
@@ -47,13 +19,7 @@ const newSut = (): SutTypes => {
 }
 
 describe('LoadSurveys Controller', () => {
-    beforeAll(() => {
-        mockdate.set(new Date())
-    })
-
-    afterAll(() => {
-        mockdate.reset()
-    })
+    mockDate()
 
     test('Should call LoadSurveys', async () => {
         const { sut, loadSurveysStub } = newSut()
@@ -65,14 +31,12 @@ describe('LoadSurveys Controller', () => {
     test('Should return 200 on success', async () => {
         const { sut } = newSut()
         const httpResponse = await sut.handle({})
-        expect(httpResponse).toEqual(success(newFakeSurveys()))
+        expect(httpResponse).toEqual(success(mockSurveys()))
     })
 
     test('Should return 500 if LoadSurveys throws', async () => {
         const { sut, loadSurveysStub } = newSut()
-        jest.spyOn(loadSurveysStub, 'load').mockImplementationOnce(async () => {
-            return new Promise((resolve, reject) => reject(new Error()))
-        })
+        jest.spyOn(loadSurveysStub, 'load').mockImplementationOnce(throwError)
         const httpResponse = await sut.handle({})
         expect(httpResponse).toEqual(serverError(new Error()))
     })

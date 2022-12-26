@@ -1,14 +1,7 @@
 import { ValidatorEmail, EmailValidator } from '@/validations/validators/validatorProtocols'
 import { InvalidParamError } from '@/presentation/errors'
-
-const newEmailValidator = (): EmailValidator => {
-    class EmailValidatorStub implements EmailValidator {
-        isValid (email: string): boolean {
-            return true
-        }
-    }
-    return new EmailValidatorStub()
-}
+import { throwError } from '@/tests/mocks'
+import { mockEmailValidator } from '@/tests/validations/validator/stubs/validatorStubs'
 
 type SutTypes = {
     sut: ValidatorEmail
@@ -16,7 +9,7 @@ type SutTypes = {
 }
 
 const newSut = (): SutTypes => {
-    const emailValidatorStub = newEmailValidator()
+    const emailValidatorStub = mockEmailValidator()
     const sut = new ValidatorEmail('email', emailValidatorStub)
     return {
         sut,
@@ -28,22 +21,20 @@ describe('Validator Email', () => {
     test('Should call EmailValidator with correct email', () => {
         const { sut, emailValidatorStub } = newSut()
         const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
-        sut.validate({ email: 'any_email@email.com' })
-        expect(isValidSpy).toHaveBeenCalledWith('any_email@email.com')
+        sut.validate({ email: 'any_mail@email.com' })
+        expect(isValidSpy).toHaveBeenCalledWith('any_mail@email.com')
     })
 
     test('Should return an error if EmailValidator return false', () => {
         const { sut, emailValidatorStub } = newSut()
         jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
-        const invalidEmail = sut.validate('any_invalid@email.com')
+        const invalidEmail = sut.validate('any_mail@email.com')
         expect(invalidEmail).toEqual(new InvalidParamError('email'))
     })
 
     test('Should throw if EmailValidator throws', () => {
         const { sut, emailValidatorStub } = newSut()
-        jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
-            throw new Error()
-        })
+        jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(throwError)
         expect(sut.validate).toThrow()
     })
 })

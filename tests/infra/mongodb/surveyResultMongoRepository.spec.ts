@@ -3,6 +3,7 @@ import { MongoHelper } from '@/infra/db/mongodb/helper/mongoHelper'
 import { SurveyResultMongoRepository } from '@/infra/db/mongodb/surveyResult/surveyResultMongoRepository'
 import { AccountModel } from '@/domain/model/accountModel'
 import { SurveyModel } from '@/domain/model/surveyModel'
+import { mockAddAccountData, mockSurveyData } from '@/tests/mocks'
 
 let surveyCollection: Collection
 let surveyResultCollection: Collection
@@ -13,27 +14,13 @@ const newSut = (): SurveyResultMongoRepository => {
 }
 
 const mockAccount = async (): Promise<AccountModel> => {
-    const res = await accountCollection.insertOne({
-        name: 'any_name',
-        email: 'any_mail@mail.com',
-        password: 'any_password'
-    })
+    const res = await accountCollection.insertOne(mockAddAccountData())
     const account = await accountCollection.findOne({ _id: res.insertedId })
     return MongoHelper.map(account)
 }
 
 const mockSurvey = async (): Promise<SurveyModel> => {
-    const res = await surveyCollection.insertOne({
-        question: 'any_question',
-        answers: [{
-            image: 'any_image',
-            answer: 'any_answer'
-        }, {
-            image: 'any_other_image',
-            answer: 'any_other_answer'
-        }],
-        date: new Date()
-    })
+    const res = await surveyCollection.insertOne(mockSurveyData())
     const survey = await surveyCollection.findOne({ _id: res.insertedId })
     return MongoHelper.map(survey)
 }
@@ -80,16 +67,16 @@ describe('Survey Result MongoDB Repository', () => {
             const account = await mockAccount()
             const survey = await mockSurvey()
             await surveyResultCollection.insertOne({
-                surveyId: new ObjectId(survey.id),
-                accountId: new ObjectId(account.id),
-                answer: survey.answers[1].answer,
+                surveyId: survey.id,
+                accountId: account.id,
+                answer: survey.answers[0].answer,
                 date: new Date()
             })
             const sut = newSut()
             await sut.save({
                 surveyId: survey.id,
                 accountId: account.id,
-                answer: survey.answers[0].answer,
+                answer: survey.answers[1].answer,
                 date: new Date()
             })
             const surveyResult = await surveyResultCollection
