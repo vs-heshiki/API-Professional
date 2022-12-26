@@ -1,5 +1,5 @@
 import { SignUpController } from '@/presentation/controller/login/signUp/signUpController'
-import { HttpRequest, AddAccount, AddAccountModel, AccountModel, Authenticate, AuthenticateModel } from '@/presentation/controller/login/signUp/signUpControllerProtocols'
+import { HttpRequest, AddAccount, AddAccountParams, AccountModel, Authenticate, AuthenticateParams } from '@/presentation/controller/login/signUp/signUpControllerProtocols'
 import { MissingParamError, ServerError, EmailAlreadyTaken } from '@/presentation/errors'
 import { badRequest, serverError, success, forbidden } from '@/presentation/helpers/http/httpHelpers'
 import { Validator } from '@/validations/protocols/validator'
@@ -22,7 +22,7 @@ const newFakeAccount = (): AccountModel => ({
 
 const newAddAccount = (): AddAccount => {
     class AddAccountStub implements AddAccount {
-        async add (account: AddAccountModel): Promise<AccountModel> {
+        async add (account: AddAccountParams): Promise<AccountModel> {
             return new Promise(resolve => resolve(newFakeAccount()))
         }
     }
@@ -40,7 +40,7 @@ const newValidator = (): Validator => {
 
 const newAuthenticate = (): Authenticate => {
     class AuthenticateStub implements Authenticate {
-        async auth (authenticate: AuthenticateModel): Promise<string> {
+        async auth (authenticate: AuthenticateParams): Promise<string> {
             return new Promise(resolve => resolve('any_token'))
         }
     }

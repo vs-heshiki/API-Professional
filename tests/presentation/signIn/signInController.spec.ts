@@ -2,7 +2,7 @@ import { SignInController } from '@/presentation/controller/login/signIn/signInC
 import { HttpRequest, Authenticate } from '@/presentation/controller/login/signIn/signInControllerProtocols'
 import { MissingParamError, ServerError } from '@/presentation/errors'
 import { badRequest, serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelpers'
-import { AuthenticateModel } from '@/domain/usecases/account/useCasesAccountProtocols'
+import { AuthenticateParams } from '@/domain/usecases/account/useCasesAccountProtocols'
 import { Validator } from '@/validations/protocols/validator'
 
 const newFakeRequest = (): HttpRequest => ({
@@ -14,7 +14,7 @@ const newFakeRequest = (): HttpRequest => ({
 
 const newAuthenticate = (): Authenticate => {
     class AuthenticateStub implements Authenticate {
-        async auth (authenticate: AuthenticateModel): Promise<string> {
+        async auth (authenticate: AuthenticateParams): Promise<string> {
             return new Promise(resolve => resolve('any_token'))
         }
     }

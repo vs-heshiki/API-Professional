@@ -1,6 +1,6 @@
 import { DbAuthenticator } from '@/data/usecases/account/authenticator/dbAuthenticator'
 import {
-    AuthenticateModel,
+    AuthenticateParams,
     AccountModel,
     LoadAccountByEmailRepository,
     UpdateAccessTokenRepository,
@@ -15,7 +15,7 @@ const newFakeAccount = (): AccountModel => ({
         password: 'hashed_password'
 })
 
-const newFakeAuthenticate = (): AuthenticateModel => ({
+const newFakeAuthenticate = (): AuthenticateParams => ({
     email: 'any_email@email.com',
     password: 'any_password'
 })

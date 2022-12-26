@@ -1,6 +1,6 @@
 import mockdate from 'mockdate'
 import { AddSurveyController } from '@/presentation/controller/survey/addSurvey/addSurveyController'
-import { AddSurvey, AddSurveyModel } from '@/presentation/controller/survey/addSurvey/addSurveyControllerProtocols'
+import { AddSurvey, AddSurveyParams } from '@/presentation/controller/survey/addSurvey/addSurveyControllerProtocols'
 import { badRequest, serverError, noContent } from '@/presentation/helpers/http/httpHelpers'
 import { HttpRequest } from '@/presentation/protocols'
 import { Validator } from '@/validations/protocols/validator'
@@ -27,7 +27,7 @@ const newValidator = (): Validator => {
 
 const newAddSurveyStub = (): AddSurvey => {
     class AddSurveyStub implements AddSurvey {
-        async add (data: AddSurveyModel): Promise<void> {
+        async add (data: AddSurveyParams): Promise<void> {
             return new Promise(resolve => resolve())
         }
     }

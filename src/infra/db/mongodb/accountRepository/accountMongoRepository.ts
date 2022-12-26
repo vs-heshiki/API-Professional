@@ -1,11 +1,11 @@
 import { MongoHelper } from '../helper/mongoHelper'
 import { UpdateAccessTokenRepository } from '@/data/protocols/cryptography/cryptographyProtocols'
 import { LoadAccountByEmailRepository, LoadAccountByTokenRepository, AddAccountRepository } from '@/data/protocols/db/account/dbAccountProtocols'
-import { AddAccountModel, AccountModel } from '@/data/usecases/account/addAccount/dbAddAccountProtocols'
+import { AddAccountParams, AccountModel } from '@/data/usecases/account/addAccount/dbAddAccountProtocols'
 import { ObjectId } from 'mongodb'
 
 export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository {
-    async add (accountData: AddAccountModel): Promise<AccountModel> {
+    async add (accountData: AddAccountParams): Promise<AccountModel> {
         const accountCollection = await MongoHelper.getCollection('accounts')
         await accountCollection.insertOne(accountData)
         return MongoHelper.map(accountData)
