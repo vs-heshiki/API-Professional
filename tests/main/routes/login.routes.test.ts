@@ -32,7 +32,7 @@ describe('SignUp/In/Out Routes', () => {
     describe('SignUp Route', () => {
         test('Should return 200 on signUp', async () => {
             await request(app)
-                .post('/api/sign-up')
+                .post('/api/sign_up')
                 .send(body)
                 .expect(200)
         })
@@ -47,7 +47,7 @@ describe('SignUp/In/Out Routes', () => {
                 password
             })
             await request(app)
-                .post('/api/sign-in')
+                .post('/api/sign_in')
                 .send({
                     email: 'victor.heshiki@gmail.com',
                     password: 'any_password'
@@ -57,7 +57,7 @@ describe('SignUp/In/Out Routes', () => {
 
         test('Should return 401 on signIn', async () => {
             await request(app)
-                .post('/api/sign-in')
+                .post('/api/sign_in')
                 .send({
                     email: 'victor.heshiki@gmail.com',
                     password: '123'

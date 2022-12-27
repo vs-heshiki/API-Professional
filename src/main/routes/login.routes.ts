@@ -4,6 +4,6 @@ import { newSignInController } from '@/main/factories/controllers/login/signIn/s
 import { Router } from 'express'
 
 export default (router: Router): void => {
-    router.post('/sign-up', ExpressRouterAdapter(newSignUpController()))
-    router.post('/sign-in', ExpressRouterAdapter(newSignInController()))
+    router.post('/sign_up', ExpressRouterAdapter(newSignUpController()))
+    router.post('/sign_in', ExpressRouterAdapter(newSignInController()))
 }
