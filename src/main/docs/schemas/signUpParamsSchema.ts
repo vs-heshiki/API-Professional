@@ -13,5 +13,6 @@ export const signUpParamsSchema = {
         confirmPassword: {
             type: 'string'
         }
-    }
+    },
+    require: ['name', 'email', 'password', 'confirmPassword']
 }

@@ -1,6 +1,6 @@
-import { signUpPath } from './paths'
-import { signUpSchema, signUpParamsSchema, errorSchema } from './schemas'
-import { badRequest, forbidden, serverError, success } from './components'
+import { signInPath, signUpPath } from './paths'
+import { signUpSchema, signUpParamsSchema, errorSchema, signInParamsSchema, signInSchema } from './schemas'
+import { badRequest, forbidden, serverError, success, unauthorized } from './components'
 
 export default {
     openapi: '3.0.3',
@@ -14,20 +14,27 @@ export default {
     }],
     tags: [{
         name: 'SignUp',
-        description: ''
+        description: 'Create a new user'
+    }, {
+        name: 'SignIn',
+        description: 'Login with a user'
     }],
     paths: {
-        '/sign-up': signUpPath
+        '/sign-up': signUpPath,
+        '/sign-in': signInPath
     },
     schemas: {
         signUp: signUpSchema,
         signUpParams: signUpParamsSchema,
+        signIn: signInSchema,
+        signInParams: signInParamsSchema,
         error: errorSchema
     },
     components: {
         success,
         badRequest,
         serverError,
-        forbidden
+        forbidden,
+        unauthorized
     }
 }
