@@ -5,7 +5,7 @@ import { mockAccount } from '@/tests/mocks'
 export const mockLoadAccountByToken = (): LoadAccountByToken => {
     class LoadAccountByTokenStub implements LoadAccountByToken {
         async load (token: string, role?: string): Promise<AccountModel> {
-            return new Promise(resolve => resolve(mockAccount()))
+            return Promise.resolve(mockAccount())
         }
     }
     return new LoadAccountByTokenStub()

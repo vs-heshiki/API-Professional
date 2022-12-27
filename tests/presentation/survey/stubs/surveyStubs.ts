@@ -16,7 +16,7 @@ export const mockValidator = (): Validator => {
 export const mockAddSurveyStub = (): AddSurvey => {
     class AddSurveyStub implements AddSurvey {
         async add (data: AddSurveyParams): Promise<void> {
-            return new Promise(resolve => resolve())
+            return Promise.resolve()
         }
     }
     return new AddSurveyStub()
@@ -25,7 +25,7 @@ export const mockAddSurveyStub = (): AddSurvey => {
 export const mockLoadSurveys = (): LoadSurveys => {
     class LoadSurveysStub implements LoadSurveys {
         async load (): Promise<SurveyModel[]> {
-            return new Promise(resolve => resolve(mockSurveys()))
+            return Promise.resolve(mockSurveys())
         }
     }
     return new LoadSurveysStub()
@@ -34,7 +34,7 @@ export const mockLoadSurveys = (): LoadSurveys => {
 export const mockLoadSurveyById = (): LoadSurveyById => {
     class LoadSurveyByIdStub implements LoadSurveyById {
         async loadById (id: string): Promise<SurveyModel> {
-            return new Promise(resolve => resolve(mockSurvey()))
+            return Promise.resolve(mockSurvey())
         }
     }
     return new LoadSurveyByIdStub()
@@ -43,7 +43,7 @@ export const mockLoadSurveyById = (): LoadSurveyById => {
 export const mockSaveSurveyResult = (): SaveSurveyResult => {
     class SaveSurveyResultStub implements SaveSurveyResult {
         async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
-            return new Promise(resolve => resolve(mockSurveyResult()))
+            return Promise.resolve(mockSurveyResult())
         }
     }
     return new SaveSurveyResultStub()

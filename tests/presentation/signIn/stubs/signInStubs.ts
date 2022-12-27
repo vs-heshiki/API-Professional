@@ -5,7 +5,7 @@ import { Validator } from '@/validations/protocols/validator'
 export const mockAuthenticate = (): Authenticate => {
     class AuthenticateStub implements Authenticate {
         async auth (authenticate: AuthenticateParams): Promise<string> {
-            return new Promise(resolve => resolve('any_token'))
+            return Promise.resolve('any_token')
         }
     }
     return new AuthenticateStub()

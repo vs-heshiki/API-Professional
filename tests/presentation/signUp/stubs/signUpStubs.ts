@@ -7,7 +7,7 @@ import { mockAccount } from '@/tests/mocks'
 export const mockAddAccount = (): AddAccount => {
     class AddAccountStub implements AddAccount {
         async add (account: AddAccountParams): Promise<AccountModel> {
-            return new Promise(resolve => resolve(mockAccount()))
+            return Promise.resolve(mockAccount())
         }
     }
     return new AddAccountStub()
@@ -25,7 +25,7 @@ export const mockValidator = (): Validator => {
 export const mockAuthenticate = (): Authenticate => {
     class AuthenticateStub implements Authenticate {
         async auth (authenticate: AuthenticateParams): Promise<string> {
-            return new Promise(resolve => resolve('any_token'))
+            return Promise.resolve('any_token')
         }
     }
     return new AuthenticateStub()
