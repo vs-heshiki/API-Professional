@@ -1,10 +1,10 @@
-export const signInParamsSchema = {
+export const surveyAnswerSchema = {
     type: 'object',
     properties: {
-        email: {
+        image: {
             type: 'string'
         },
-        password: {
+        answer: {
             type: 'string'
         }
     }

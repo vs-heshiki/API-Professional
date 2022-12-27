@@ -1,6 +1,6 @@
-import { signInPath, signUpPath } from './paths'
-import { signUpSchema, signUpParamsSchema, errorSchema, signInParamsSchema, signInSchema } from './schemas'
-import { badRequest, forbidden, serverError, success, unauthorized } from './components'
+import { signInPath, signUpPath, surveysPath } from './paths'
+import { signUpSchema, signUpParamsSchema, errorSchema, signInParamsSchema, signInSchema, surveysSchema, surveySchema, surveyAnswerSchema } from './schemas'
+import { badRequest, forbidden, serverError, noContent, unauthorized, notFound } from './components'
 
 export default {
     openapi: '3.0.3',
@@ -13,28 +13,33 @@ export default {
         url: '/api'
     }],
     tags: [{
-        name: 'SignUp',
-        description: 'Create a new user'
+        name: 'Login',
+        description: 'API to create and authenticate users'
     }, {
-        name: 'SignIn',
-        description: 'Login with a user'
+        name: 'Survey',
+        description: 'API to create and list surveys'
     }],
     paths: {
-        '/sign-up': signUpPath,
-        '/sign-in': signInPath
+        '/sign_up': signUpPath,
+        '/sign_in': signInPath,
+        '/survey': surveysPath
     },
     schemas: {
         signUp: signUpSchema,
         signUpParams: signUpParamsSchema,
         signIn: signInSchema,
         signInParams: signInParamsSchema,
+        surveys: surveysSchema,
+        survey: surveySchema,
+        surveyAnswer: surveyAnswerSchema,
         error: errorSchema
     },
     components: {
-        success,
+        noContent,
         badRequest,
         serverError,
         forbidden,
-        unauthorized
+        unauthorized,
+        notFound
     }
 }

@@ -1,29 +1,40 @@
-export const signUpPath = {
+export const signInPath = {
     post: {
-        tags: ['SignUp'],
-        summary: 'API to create a new user',
+        tags: ['Login'],
+        summary: 'API to login with a user',
         requestBody: {
-            description: 'Requirements to create a new user',
+            description: 'Requirements login user',
             content: {
                 'application/json': {
                     schema: {
-                        $ref: '#/schemas/signUpParams'
+                        $ref: '#/schemas/signInParams'
                     }
                 }
-            }
+            },
+            required: true
         },
         responses: {
             200: {
-                $ref: '#/components/success'
+                description: 'Success',
+                content: {
+                    'application/json': {
+                        schema: {
+                            $ref: '#/schemas/signIn'
+                        }
+                    }
+                }
             },
             400: {
                 $ref: '#/components/badRequest'
             },
-            403: {
-                $ref: '#/components/forbidden'
+            401: {
+                $ref: '#/components/unauthorized'
             },
             500: {
                 $ref: '#/components/serverError'
+            },
+            404: {
+                $ref: '#/components/notFound'
             }
         }
     }

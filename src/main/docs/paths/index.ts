@@ -1,2 +1,3 @@
-export * from './signUpPath'
 export * from './signInPath'
+export * from './signUpPath'
+export * from './surveysPath'
