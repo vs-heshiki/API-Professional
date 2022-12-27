@@ -3,7 +3,7 @@ import app from '@/main/config/app'
 import { noCache } from '@/main/middlewares/noCache'
 
 describe('No Cache Middleware', () => {
-    test('Should enable cors', async () => {
+    test('Should call No Cache middleware', async () => {
         app.post('/no_cache', noCache, (req, res) => {
             res.send()
         })
