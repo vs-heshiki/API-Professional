@@ -6,7 +6,7 @@ import { mockAccount } from '@/tests/mocks'
 export const mockController = (): Controller => {
     class ControllerStub implements Controller {
         async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-            return new Promise(resolve => resolve(success(mockAccount())))
+            return Promise.resolve(success(mockAccount()))
         }
     }
     return new ControllerStub()
@@ -15,7 +15,7 @@ export const mockController = (): Controller => {
 export const mockErrLogRepo = (): LogErrorRepository => {
     class LogErrorRepoStub implements LogErrorRepository {
         async logError (stack: string): Promise<void> {
-            return new Promise(resolve => resolve())
+            return Promise.resolve()
         }
     }
     return new LogErrorRepoStub()

@@ -70,7 +70,7 @@ describe('Database AddAccount UseCase', () => {
     test('Should return null if LoadAccountByEmailRepository returns an account', async () => {
         const { sut, loadAccountByEmailRepositoryStub } = newSut()
         jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
-            .mockReturnValueOnce(new Promise(resolve => resolve(mockAccount())))
+            .mockReturnValueOnce(Promise.resolve(mockAccount()))
         const account = await sut.add(mockAddAccountData())
         expect(account).toBeNull()
     })
