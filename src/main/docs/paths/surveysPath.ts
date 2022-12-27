@@ -1,5 +1,8 @@
 export const surveysPath = {
     get: {
+        security: [{
+            apiKeyAuth: []
+        }],
         tags: ['Survey'],
         summary: 'API to list all surveys',
         responses: {
@@ -13,8 +16,8 @@ export const surveysPath = {
                     }
                 }
             },
-            400: {
-                $ref: '#/components/badRequest'
+            403: {
+                $ref: '#/components/forbidden'
             },
             204: {
                 $ref: '#/components/noContent'
