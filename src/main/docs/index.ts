@@ -7,7 +7,14 @@ export default {
     info: {
         title: 'API Professional',
         description: 'API Rest based in Typescript, follow TDD design, SOLID principles and Clean Architecture',
-        version: '1.0.0'
+        version: '1.0.0',
+        contact: {
+            email: 'victor.heshiki@gmail.com'
+        },
+        license: {
+            name: 'GPL-3.0-only',
+            url: 'https://www.gnu.org/licenses/gpl-3.0-standalone.html'
+        }
     },
     servers: [{
         url: '/api'
