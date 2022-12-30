@@ -99,7 +99,10 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
                 answers: '$answers'
             })
             .build()
-        const surveyResult: any = await surveyResultCollection.aggregate(query).toArray()
+        const surveyResult = await surveyResultCollection.aggregate<SurveyResultModel>(query).toArray()
+        if (!surveyResult) {
+            return null
+        }
         return surveyResult[0]
     }
 }
