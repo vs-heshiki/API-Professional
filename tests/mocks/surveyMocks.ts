@@ -24,6 +24,9 @@ export const mockSurvey = (): SurveyModel => {
         answers: [{
             image: 'any_image',
             answer: 'any_answer'
+        }, {
+            image: 'other_image',
+            answer: 'other_answer'
         }],
         date: new Date()
     }
@@ -71,6 +74,23 @@ export const mockSurveyResult = (): SurveyResultModel => ({
         answer: 'other_answer',
         count: 1,
         percent: 80
+    }],
+    date: new Date()
+})
+
+export const mockSurveyResultEmpty = (): SurveyResultModel => ({
+    surveyId: 'any_id',
+    question: 'any_question',
+    answers: [{
+        image: 'any_image',
+        answer: 'any_answer',
+        count: 0,
+        percent: 0
+    }, {
+        image: 'other_image',
+        answer: 'other_answer',
+        count: 0,
+        percent: 0
     }],
     date: new Date()
 })
