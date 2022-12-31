@@ -1,19 +1,22 @@
 import { DbLoadSurveyResult } from '@/data/usecases/survey/loadSurveyResult/dbLoadSurveyResult'
-import { LoadSurveyResultRepository } from '@/data/usecases/survey/loadSurveyResult/dbLoadSurveyResultProtocols'
-import { mockLoadSurveyResultRepository } from '@/tests/data/usecases/stubs/dbSurveyStubs'
+import { LoadSurveyResultRepository, LoadSurveyByIdRepository } from '@/data/usecases/survey/loadSurveyResult/dbLoadSurveyResultProtocols'
+import { mockLoadSurveyByIdRepository, mockLoadSurveyResultRepository } from '@/tests/data/usecases/stubs/dbSurveyStubs'
 import { mockDate, mockSurveyResult, throwError } from '@/tests/mocks'
 
 type SutTypes = {
     sut: DbLoadSurveyResult
     loadSurveyResultRepositoryStub: LoadSurveyResultRepository
+    loadSurveyByIdRepositoryStub: LoadSurveyByIdRepository
 }
 
 const newSut = (): SutTypes => {
     const loadSurveyResultRepositoryStub = mockLoadSurveyResultRepository()
-    const sut = new DbLoadSurveyResult(loadSurveyResultRepositoryStub)
+    const loadSurveyByIdRepositoryStub = mockLoadSurveyByIdRepository()
+    const sut = new DbLoadSurveyResult(loadSurveyResultRepositoryStub, loadSurveyByIdRepositoryStub)
     return {
         sut,
-        loadSurveyResultRepositoryStub
+        loadSurveyResultRepositoryStub,
+        loadSurveyByIdRepositoryStub
     }
 }
 
@@ -39,5 +42,13 @@ describe('Database LoadSurveyResult UseCase', () => {
         const { sut } = newSut()
         const httpResponse = await sut.load(survey.surveyId)
         expect(httpResponse).toEqual(mockSurveyResult())
+    })
+
+    test('Should call LoadSurveyByIdRepository if LoadSurveyResultRepository returns null', async () => {
+        const { sut, loadSurveyResultRepositoryStub, loadSurveyByIdRepositoryStub } = newSut()
+        const loadByIdSpyOn = jest.spyOn(loadSurveyByIdRepositoryStub, 'loadById')
+        jest.spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId').mockReturnValueOnce(null)
+        await sut.load(survey.surveyId)
+        expect(loadByIdSpyOn).toHaveBeenCalledWith(survey.surveyId)
     })
 })
