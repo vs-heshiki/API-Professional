@@ -50,3 +50,11 @@ describe('Route PUT /survey/:surveyId/results', () => {
             .expect(200)
     })
 })
+
+describe('Route GET /survey/:surveyId/results', () => {
+    test('Should return 403 on load survey results if no access token is provider', async () => {
+        await request(app)
+            .get('/api/survey/any_id/results')
+            .expect(403)
+    })
+})
