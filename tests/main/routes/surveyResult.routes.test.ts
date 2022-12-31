@@ -57,4 +57,22 @@ describe('Route GET /survey/:surveyId/results', () => {
             .get('/api/survey/any_id/results')
             .expect(403)
     })
+
+    test('Should return 200 on load survey results if access token is provider', async () => {
+        const accessToken = await mockAccessToken()
+        const res = await surveyCollection.insertOne({
+            question: 'any_question',
+            answers: [{
+                answer: 'any_answer',
+                image: 'any_image'
+            }, {
+                answer: 'other_answer'
+            }],
+            date: new Date()
+        })
+        await request(app)
+            .get(`/api/survey/${res.insertedId.toHexString()}/results`)
+            .set({ 'x-access-token': accessToken })
+            .expect(200)
+    })
 })
