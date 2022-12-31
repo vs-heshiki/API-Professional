@@ -1,5 +1,5 @@
-import { LoadSurveyByIdRepository } from '@/data/protocols/db/survey/loadSurveyByIdRepository'
 import { DbLoadSurveyById } from '@/data/usecases/survey/loadSurveyById/dbLoadSurveyById'
+import { LoadSurveyByIdRepository } from '@/data/usecases/survey/loadSurveyById/dbLoadSurveyByIdProtocols'
 import { mockLoadSurveyByIdRepository } from '@/tests/data/usecases/stubs/dbSurveyStubs'
 import { mockDate, mockSurvey, throwError } from '@/tests/mocks'
 
