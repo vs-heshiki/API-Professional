@@ -1,8 +1,7 @@
 import { SaveSurveyResultController } from '@/presentation/controller/surveyResults/saveSurveyResult/saveSurveyResultController'
-import { LoadSurveyById } from '@/presentation/controller/surveyResults/saveSurveyResult/saveSurveyResultControllerProtocols'
+import { LoadSurveyById, SaveSurveyResult } from '@/presentation/controller/surveyResults/saveSurveyResult/saveSurveyResultControllerProtocols'
 import { forbidden, serverError, success } from '@/presentation/helpers/http/httpHelpers'
 import { InvalidParamError } from '@/presentation/errors'
-import { SaveSurveyResult } from '@/domain/usecases/survey/useCasesSurveyProtocols'
 import { mockDate, mockSurveyResult, mockSurveyResultRequest, throwError } from '@/tests/mocks'
 import { mockLoadSurveyById, mockSaveSurveyResult } from '@/tests/presentation/survey/stubs/surveyStubs'
 
