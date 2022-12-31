@@ -9,6 +9,25 @@ let surveyCollection: Collection
 let surveyResultCollection: Collection
 let accountCollection: Collection
 
+beforeAll(async () => {
+    await MongoHelper.connect(process.env.MONGO_URL)
+})
+
+afterAll(async () => {
+    await MongoHelper.disconnect()
+})
+
+beforeEach(async () => {
+    surveyCollection = await MongoHelper.getCollection('surveys')
+    await surveyCollection.deleteMany({})
+
+    surveyResultCollection = await MongoHelper.getCollection('surveyResults')
+    await surveyResultCollection.deleteMany({})
+
+    accountCollection = await MongoHelper.getCollection('accounts')
+    await accountCollection.deleteMany({})
+})
+
 const newSut = (): SurveyResultMongoRepository => {
     return new SurveyResultMongoRepository()
 }
@@ -26,25 +45,6 @@ const mockSurvey = async (): Promise<SurveyModel> => {
 }
 
 describe('Survey Result MongoDB Repository', () => {
-    beforeAll(async () => {
-        await MongoHelper.connect(process.env.MONGO_URL)
-    })
-
-    afterAll(async () => {
-        await MongoHelper.disconnect()
-    })
-
-    beforeEach(async () => {
-        surveyCollection = await MongoHelper.getCollection('surveys')
-        await surveyCollection.deleteMany({})
-
-        surveyResultCollection = await MongoHelper.getCollection('surveyResults')
-        await surveyResultCollection.deleteMany({})
-
-        accountCollection = await MongoHelper.getCollection('accounts')
-        await accountCollection.deleteMany({})
-    })
-
     describe('Save Method tests', () => {
         test('Should save a result survey if its new', async () => {
             const account = await mockAccount()
@@ -88,6 +88,44 @@ describe('Survey Result MongoDB Repository', () => {
             expect(surveyResult.answers[0].percent).toBe(100)
             expect(surveyResult.answers[1].count).toBe(0)
             expect(surveyResult.answers[1].percent).toBe(0)
+        })
+    })
+
+    describe('LoadBySurveyId Method tests', () => {
+        test('Should load a survey result on success', async () => {
+            const account = await mockAccount()
+            const survey = await mockSurvey()
+            await surveyResultCollection.insertMany([{
+                surveyId: new ObjectId(survey.id),
+                accountId: new ObjectId(account.id),
+                answer: survey.answers[0].answer,
+                date: new Date()
+            }, {
+                surveyId: new ObjectId(survey.id),
+                accountId: new ObjectId(account.id),
+                answer: survey.answers[0].answer,
+                date: new Date()
+            }, {
+                surveyId: new ObjectId(survey.id),
+                accountId: new ObjectId(account.id),
+                answer: survey.answers[1].answer,
+                date: new Date()
+            }, {
+                surveyId: new ObjectId(survey.id),
+                accountId: new ObjectId(account.id),
+                answer: survey.answers[1].answer,
+                date: new Date()
+            }])
+            const sut = newSut()
+            const surveyResult = await sut.loadBySurveyId(survey.id)
+            expect(surveyResult).toBeTruthy()
+            expect(surveyResult.surveyId).toEqual(survey.id)
+            expect(surveyResult.answers[0].count).toBe(2)
+            expect(surveyResult.answers[0].percent).toBe(50)
+            expect(surveyResult.answers[1].count).toBe(2)
+            expect(surveyResult.answers[1].percent).toBe(50)
+            expect(surveyResult.answers[2].count).toBe(0)
+            expect(surveyResult.answers[2].percent).toBe(0)
         })
     })
 })
