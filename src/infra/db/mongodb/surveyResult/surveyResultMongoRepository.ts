@@ -18,11 +18,11 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
         }, {
             upsert: true
         })
-        const surveyResult = await this.loadSurveyById(data.surveyId)
+        const surveyResult = await this.loadBySurveyId(data.surveyId)
         return surveyResult
     }
 
-    private async loadSurveyById (surveyId: string): Promise<SurveyResultModel> {
+    private async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
         const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
         const query = new QueryBuilder()
             .match({
