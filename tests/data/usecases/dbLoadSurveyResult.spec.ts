@@ -1,7 +1,7 @@
 import { LoadSurveyResultRepository } from '@/data/protocols/db/survey/loadSurveyResultRepository'
 import { DbLoadSurveyResult } from '@/data/usecases/survey/loadSurveyResult/dbLoadSurveyResult'
 import { mockLoadSurveyResultRepository } from '@/tests/data/usecases/stubs/dbSurveyStubs'
-import { mockSurveyResult } from '@/tests/mocks'
+import { mockSurveyResult, throwError } from '@/tests/mocks'
 
 type SutTypes = {
     sut: DbLoadSurveyResult
@@ -24,5 +24,13 @@ describe('Database LoadSurveyResult UseCase', () => {
         const loadAllSpyOn = jest.spyOn(loadSurveyResultRepositoryStub, 'loadSurveyById')
         await sut.load(survey.surveyId)
         expect(loadAllSpyOn).toHaveBeenCalledWith(survey.surveyId)
+    })
+
+    test('Should throw if SaveSurveyResultRepository throws', async () => {
+        const survey = mockSurveyResult()
+        const { sut, loadSurveyResultRepositoryStub } = newSut()
+        jest.spyOn(loadSurveyResultRepositoryStub, 'loadSurveyById').mockImplementationOnce(throwError)
+        const httpResponse = sut.load(survey.surveyId)
+        await expect(httpResponse).rejects.toThrow()
     })
 })
