@@ -1,7 +1,7 @@
 import { DbLoadSurveyResult } from '@/data/usecases/survey/loadSurveyResult/dbLoadSurveyResult'
 import { LoadSurveyResultRepository, LoadSurveyByIdRepository } from '@/data/usecases/survey/loadSurveyResult/dbLoadSurveyResultProtocols'
 import { mockLoadSurveyByIdRepository, mockLoadSurveyResultRepository } from '@/tests/data/usecases/stubs/dbSurveyStubs'
-import { mockDate, mockSurveyResult, throwError } from '@/tests/mocks'
+import { mockDate, mockSurveyResult, mockSurveyResultEmpty, throwError } from '@/tests/mocks'
 
 type SutTypes = {
     sut: DbLoadSurveyResult
@@ -50,5 +50,13 @@ describe('Database LoadSurveyResult UseCase', () => {
         jest.spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId').mockReturnValueOnce(null)
         await sut.load(survey.surveyId)
         expect(loadByIdSpyOn).toHaveBeenCalledWith(survey.surveyId)
+    })
+
+    test('Should return a SurveyResultModel with LoadSurveyByIdRepository inserted count and percent both 0 if LoadSurveyResultRepository returns null', async () => {
+        const { sut, loadSurveyResultRepositoryStub } = newSut()
+        const surveyResult = mockSurveyResultEmpty()
+        jest.spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId').mockReturnValueOnce(null)
+        const httpResponse = await sut.load(surveyResult.surveyId)
+        expect(httpResponse).toEqual(surveyResult)
     })
 })
