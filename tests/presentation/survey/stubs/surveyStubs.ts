@@ -1,6 +1,6 @@
 import { SurveyModel } from '@/domain/model/surveyModel'
 import { SurveyResultModel } from '@/domain/model/surveyResultModel'
-import { AddSurvey, AddSurveyParams, LoadSurveyById, LoadSurveys, SaveSurveyResult, SaveSurveyResultParams } from '@/domain/usecases/survey/useCasesSurveyProtocols'
+import { AddSurvey, AddSurveyParams, LoadSurveyById, LoadSurveyResult, LoadSurveys, SaveSurveyResult, SaveSurveyResultParams } from '@/domain/usecases/survey/useCasesSurveyProtocols'
 import { mockSurvey, mockSurveyResult, mockSurveys } from '@/tests/mocks'
 import { Validator } from '@/validations/protocols/validator'
 
@@ -47,4 +47,13 @@ export const mockSaveSurveyResult = (): SaveSurveyResult => {
         }
     }
     return new SaveSurveyResultStub()
+}
+
+export const mockLoadSurveyResult = (): LoadSurveyResult => {
+    class LoadSurveyResult implements LoadSurveyResult {
+        async load (surveyId: string): Promise<SurveyResultModel> {
+            return Promise.resolve(mockSurveyResult())
+        }
+    }
+    return new LoadSurveyResult()
 }
