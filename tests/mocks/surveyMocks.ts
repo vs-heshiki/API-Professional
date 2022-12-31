@@ -5,11 +5,14 @@ import { AddSurveyParams, SaveSurveyResultParams } from '@/domain/usecases/surve
 export const mockSurveyData = (): AddSurveyParams => ({
     question: 'any_question',
     answers: [{
-        image: 'any_image',
-        answer: 'any_answer'
+        image: 'any_image_1',
+        answer: 'any_answer_1'
     }, {
-        image: 'other_image',
-        answer: 'other_answer'
+        image: 'other_image_2',
+        answer: 'other_answer_2'
+    }, {
+        image: 'other_image_3',
+        answer: 'other_answer_3'
     }],
     date: new Date()
 })
