@@ -21,7 +21,7 @@ const newSut = (): SutTypes => {
     }
 }
 
-describe('Datadase Load Account By Token Usecase', () => {
+describe('Database LoadAccountByToken Usecase', () => {
     test('Should call Decrypter with correct values', async () => {
         const { sut, decrypterStub } = newSut()
         const load = jest.spyOn(decrypterStub, 'decrypt')

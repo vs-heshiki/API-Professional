@@ -17,7 +17,7 @@ const newSut = (): SutTypes => {
     }
 }
 
-describe('Database LoadSurveys UseCase', () => {
+describe('Database SaveSurveyResult UseCase', () => {
     mockDate()
 
     test('Should call SaveSurveyResultRepository with correct Id', async () => {
