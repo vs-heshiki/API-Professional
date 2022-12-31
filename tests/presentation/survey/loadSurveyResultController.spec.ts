@@ -1,8 +1,8 @@
 import { LoadSurveyResultController } from '@/presentation/controller/surveyResults/loadSurveyResult/loadSurveyResultController'
 import { LoadSurveyById, LoadSurveyResult } from '@/presentation/controller/surveyResults/saveSurveyResult/saveSurveyResultControllerProtocols'
 import { InvalidParamError } from '@/presentation/errors'
-import { forbidden, serverError } from '@/presentation/helpers/http/httpHelpers'
-import { mockSurveyResultRequest, throwError } from '@/tests/mocks'
+import { forbidden, serverError, success } from '@/presentation/helpers/http/httpHelpers'
+import { mockDate, mockSurveyResult, mockSurveyResultRequest, throwError } from '@/tests/mocks'
 import { mockLoadSurveyById, mockLoadSurveyResult } from '@/tests/presentation/survey/stubs/surveyStubs'
 
 type SutTypes = {
@@ -23,6 +23,8 @@ const newSut = (): SutTypes => {
 }
 
 describe('LoadSurveyResult Controller', () => {
+    mockDate()
+
     test('Should call LoadSurveyById with correct value', async () => {
         const { sut, loadSurveyByIdStub } = newSut()
         const loadByIdSpyOn = jest.spyOn(loadSurveyByIdStub, 'loadById')
@@ -56,5 +58,11 @@ describe('LoadSurveyResult Controller', () => {
         jest.spyOn(loadSurveyResultStub, 'load').mockImplementationOnce(throwError)
         const httpResponse = await sut.handle(mockSurveyResultRequest())
         expect(httpResponse).toEqual(serverError(new Error()))
+    })
+
+    test('Should return 200 on success', async () => {
+        const { sut } = newSut()
+        const httpResponse = await sut.handle(mockSurveyResultRequest())
+        expect(httpResponse).toEqual(success(mockSurveyResult()))
     })
 })
