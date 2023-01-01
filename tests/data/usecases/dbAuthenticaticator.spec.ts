@@ -97,10 +97,11 @@ describe('Database Authenticator UseCase', () => {
         await expect(promise).rejects.toThrow()
     })
 
-    test('Should return an AccessToken on success', async () => {
+    test('Should return an AuthenticatorModel on success', async () => {
         const { sut } = newSut()
-        const accessToken = await sut.auth(newFakeAuthenticate())
-        expect(accessToken).toBe('access_token')
+        const authenticatorModel = await sut.auth(newFakeAuthenticate())
+        expect(authenticatorModel.accessToken).toBe('access_token')
+        expect(authenticatorModel.name).toBe('any_name')
     })
 
     test('Should call UpdateAccessTokenRepository with correct values', async () => {

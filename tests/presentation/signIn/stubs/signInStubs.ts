@@ -1,11 +1,12 @@
+import { AuthenticatorModel } from '@/domain/model/autheticatorModel'
 import { Authenticate, AuthenticateParams } from '@/domain/usecases/account/useCasesAccountProtocols'
 import { EmailValidator } from '@/validations/protocols/emailValidator'
 import { Validator } from '@/validations/protocols/validator'
 
 export const mockAuthenticate = (): Authenticate => {
     class AuthenticateStub implements Authenticate {
-        async auth (authenticate: AuthenticateParams): Promise<string> {
-            return Promise.resolve('any_token')
+        async auth (authenticate: AuthenticateParams): Promise<AuthenticatorModel> {
+            return Promise.resolve({ accessToken: 'any_token', name: 'any_name' })
         }
     }
     return new AuthenticateStub()

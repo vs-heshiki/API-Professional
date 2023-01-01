@@ -49,7 +49,7 @@ describe('SignIn Controller', () => {
     test('Should return 200 if valid credentials are provided', async () => {
         const { sut } = newSut()
         const response = await sut.handle(mockAccountRequest())
-        expect(response).toEqual(success({ accessToken: 'any_token' }))
+        expect(response).toEqual(success({ accessToken: 'any_token', name: 'any_name' }))
     })
 
     test('Should call Validator with correct values', async () => {
