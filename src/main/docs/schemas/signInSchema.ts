@@ -3,6 +3,9 @@ export const signInSchema = {
     properties: {
         accessToken: {
             type: 'string'
+        },
+        name: {
+            type: 'string'
         }
     }
 }
