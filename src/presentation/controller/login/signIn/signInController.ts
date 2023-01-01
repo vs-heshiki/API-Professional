@@ -17,11 +17,11 @@ export class SignInController implements Controller {
 
             const { email, password } = httpRequest.body
 
-        const accessToken = await this.authenticate.auth({ email, password })
-        if (!accessToken) {
+        const authenticatorModel = await this.authenticate.auth({ email, password })
+        if (!authenticatorModel) {
             return unauthorized()
         }
-        return success({ accessToken })
+        return success(authenticatorModel)
         } catch (err) {
             return serverError(err)
         }
