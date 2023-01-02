@@ -38,3 +38,7 @@ export const mockSurveyResultRequest = (): HttpRequest => ({
     },
     accountId: 'any_account_id'
 })
+
+export const mockLoadSurveyRequest = (): HttpRequest => ({
+    accountId: 'any_account_id'
+})

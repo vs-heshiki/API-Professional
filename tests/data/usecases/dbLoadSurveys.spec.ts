@@ -19,23 +19,24 @@ const newSut = (): SutTypes => {
 describe('Database LoadSurveys UseCase', () => {
     mockDate()
 
-    test('Should call LoadSurveysRepository', async () => {
+    test('Should call LoadSurveysRepository with correct value', async () => {
         const { sut, loadSurveysRepositoryStub } = newSut()
         const addSpyOn = jest.spyOn(loadSurveysRepositoryStub, 'loadAll')
-        await sut.load()
+        const accountId = 'any_accountId'
+        await sut.load(accountId)
         expect(addSpyOn).toHaveBeenCalled()
     })
 
     test('Should return a list of surveys', async () => {
         const { sut } = newSut()
-        const httpResponse = await sut.load()
+        const httpResponse = await sut.load('any_accountId')
         expect(httpResponse).toEqual(mockSurveys())
     })
 
     test('Should throw if LoadSurveysRepository throws', async () => {
         const { sut, loadSurveysRepositoryStub } = newSut()
         jest.spyOn(loadSurveysRepositoryStub, 'loadAll').mockImplementationOnce(throwError)
-        const httpResponse = sut.load()
+        const httpResponse = sut.load('any_accountId')
         await expect(httpResponse).rejects.toThrow()
     })
 })
