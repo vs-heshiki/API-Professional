@@ -13,6 +13,9 @@ export const surveyResultAnswerSchema = {
         percent: {
             type: 'number',
             form: 'float'
+        },
+        isCurrentAnswer: {
+           type: 'boolean'
         }
     }
 }

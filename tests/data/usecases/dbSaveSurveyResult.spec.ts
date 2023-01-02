@@ -42,7 +42,7 @@ describe('Database SaveSurveyResult UseCase', () => {
         const loadSpyOn = jest.spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId')
         const surveyResult = mockSurveyResultData()
         await sut.save(surveyResult)
-        expect(loadSpyOn).toHaveBeenCalledWith(surveyResult.surveyId)
+        expect(loadSpyOn).toHaveBeenCalledWith(surveyResult.surveyId, surveyResult.accountId)
     })
 
     test('Should return a Survey Result on success', async () => {

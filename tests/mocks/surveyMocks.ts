@@ -68,12 +68,14 @@ export const mockSurveyResult = (): SurveyResultModel => ({
         image: 'any_image',
         answer: 'any_answer',
         count: 1,
-        percent: 50
+        percent: 50,
+        isCurrentAnswer: true
     }, {
         image: 'other_image',
         answer: 'other_answer',
         count: 1,
-        percent: 80
+        percent: 80,
+        isCurrentAnswer: false
     }],
     date: new Date()
 })
@@ -85,12 +87,14 @@ export const mockSurveyResultEmpty = (): SurveyResultModel => ({
         image: 'any_image',
         answer: 'any_answer',
         count: 0,
-        percent: 0
+        percent: 0,
+        isCurrentAnswer: false
     }, {
         image: 'other_image',
         answer: 'other_answer',
         count: 0,
-        percent: 0
+        percent: 0,
+        isCurrentAnswer: false
     }],
     date: new Date()
 })
