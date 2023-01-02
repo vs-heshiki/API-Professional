@@ -1,6 +1,6 @@
 {
   "name": "api-professional",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "API based in Typescript, follow TDD design, SOLID principles and Clean Architecture",
   "main": "index.js",
   "scripts": {
