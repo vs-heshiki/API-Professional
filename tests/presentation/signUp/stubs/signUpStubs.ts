@@ -1,13 +1,11 @@
-import { AccountModel } from '@/domain/model/accountModel'
-import { AuthenticatorModel } from '@/domain/model/autheticatorModel'
-import { AddAccount, AddAccountParams, Authenticate, AuthenticateParams } from '@/domain/usecases/account/useCasesAccountProtocols'
+import { AddAccount, Authenticate } from '@/domain/usecases/account/useCasesAccountProtocols'
 import { EmailValidator } from '@/validations/protocols/emailValidator'
 import { Validator } from '@/validations/protocols/validator'
 import { mockAccount } from '@/tests/mocks'
 
 export const mockAddAccount = (): AddAccount => {
     class AddAccountStub implements AddAccount {
-        async add (account: AddAccountParams): Promise<AccountModel> {
+        async add (account: AddAccount.Params): Promise<AddAccount.Model> {
             return Promise.resolve(mockAccount())
         }
     }
@@ -25,7 +23,7 @@ export const mockValidator = (): Validator => {
 
 export const mockAuthenticate = (): Authenticate => {
     class AuthenticateStub implements Authenticate {
-        async auth (authenticate: AuthenticateParams): Promise<AuthenticatorModel> {
+        async auth (authenticate: Authenticate.Params): Promise<Authenticate.Model> {
             return Promise.resolve({ accessToken: 'any_token', name: 'any_name' })
         }
     }

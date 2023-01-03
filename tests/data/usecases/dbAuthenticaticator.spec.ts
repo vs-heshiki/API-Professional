@@ -1,9 +1,9 @@
 import { DbAuthenticator } from '@/data/usecases/account/authenticator/dbAuthenticator'
-import { AuthenticateParams, LoadAccountByEmailRepository, UpdateAccessTokenRepository, Encrypter, HashCompare } from '@/data/usecases/account/authenticator/dbAuthtenticatorProtocols'
+import { Authenticate, LoadAccountByEmailRepository, UpdateAccessTokenRepository, Encrypter, HashCompare } from '@/data/usecases/account/authenticator/dbAuthtenticatorProtocols'
 import { mockEncrypter, mockHashCompare, mockUpdateAccessTokenRepository, mockLoadAccountByEmailRepository } from '@/tests/data/usecases/stubs/dbAccountStubs'
 import { throwError } from '@/tests/mocks'
 
-const newFakeAuthenticate = (): AuthenticateParams => ({
+const newFakeAuthenticate = (): Authenticate.Params => ({
     email: 'any_mail@email.com',
     password: 'any_password'
 })

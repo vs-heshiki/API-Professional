@@ -1,13 +1,11 @@
 import { AddSurveyRepository, LoadSurveyByIdRepository, LoadSurveyRepository, SaveSurveyResultRepository } from '@/data/protocols/db/survey/dbSurveyProtocols'
 import { LoadSurveyResultRepository } from '@/data/protocols/db/survey/loadSurveyResultRepository'
-import { SurveyModel } from '@/domain/model/surveyModel'
 import { SurveyResultModel } from '@/domain/model/surveyResultModel'
-import { AddSurveyParams, SaveSurveyResultParams } from '@/domain/usecases/survey/useCasesSurveyProtocols'
 import { mockSurvey, mockSurveyResult, mockSurveys } from '@/tests/mocks'
 
 export const mockAddSurveyRepository = (): AddSurveyRepository => {
     class AddSurveyRepositoryStub implements AddSurveyRepository {
-        async add (surveyData: AddSurveyParams): Promise<void> {
+        async add (surveyData: AddSurveyRepository.Params): Promise<void> {
             return Promise.resolve()
         }
     }
@@ -16,7 +14,7 @@ export const mockAddSurveyRepository = (): AddSurveyRepository => {
 
 export const mockLoadSurveyByIdRepository = (): LoadSurveyByIdRepository => {
     class LoadSurveyByIdRepositoryStub implements LoadSurveyByIdRepository {
-        async loadById (id: string): Promise<SurveyModel> {
+        async loadById (id: string): Promise<LoadSurveyByIdRepository.Model> {
             return Promise.resolve(mockSurvey())
         }
     }
@@ -25,7 +23,7 @@ export const mockLoadSurveyByIdRepository = (): LoadSurveyByIdRepository => {
 
 export const mockLoadSurveyRepository = (): LoadSurveyRepository => {
     class LoadSurveyRepositoryStub implements LoadSurveyRepository {
-        async loadAll (accountId: string): Promise<SurveyModel[]> {
+        async loadAll (accountId: string): Promise<LoadSurveyRepository.Model> {
             return Promise.resolve(mockSurveys())
         }
     }
@@ -34,7 +32,7 @@ export const mockLoadSurveyRepository = (): LoadSurveyRepository => {
 
 export const mockSaveSurveyResultRepository = (): SaveSurveyResultRepository => {
     class SaveSurveyResultRepositoryStub implements SaveSurveyResultRepository {
-        async save (data: SaveSurveyResultParams): Promise<void> {
+        async save (data: SaveSurveyResultRepository.Params): Promise<void> {
             return Promise.resolve()
         }
     }

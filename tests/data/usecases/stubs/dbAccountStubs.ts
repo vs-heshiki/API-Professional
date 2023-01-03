@@ -1,7 +1,6 @@
 import { Decrypter, Encrypter, HashCompare, Hasher, UpdateAccessTokenRepository } from '@/data/protocols/cryptography/cryptographyProtocols'
 import { AddAccountRepository, LoadAccountByEmailRepository, LoadAccountByTokenRepository } from '@/data/protocols/db/account/dbAccountProtocols'
-import { AccountModel } from '@/domain/model/accountModel'
-import { AddAccountParams } from '@/domain/usecases/account/useCasesAccountProtocols'
+import { AddAccount } from '@/domain/usecases/account/useCasesAccountProtocols'
 import { mockAccount } from '@/tests/mocks'
 
 export const mockHasher = (): Hasher => {
@@ -15,7 +14,7 @@ export const mockHasher = (): Hasher => {
 
 export const mockAddAccountRepository = (): AddAccountRepository => {
     class AddAccountRepositoryStub implements AddAccountRepository {
-        async add (accountData: AddAccountParams): Promise<AccountModel> {
+        async add (accountData: AddAccount.Params): Promise<AddAccount.Model> {
             return Promise.resolve(mockAccount())
         }
     }
@@ -24,7 +23,7 @@ export const mockAddAccountRepository = (): AddAccountRepository => {
 
 export const mockLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
     class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
-        async loadByEmail (email: string): Promise<AccountModel> {
+        async loadByEmail (email: string): Promise<LoadAccountByEmailRepository.Model> {
             return Promise.resolve(mockAccount())
         }
     }
@@ -69,8 +68,8 @@ export const mockDecrypter = (): Decrypter => {
 
 export const mockLoadAccountByTokenRepository = (): LoadAccountByTokenRepository => {
     class LoadAccByTokenRepositoryStub implements LoadAccountByTokenRepository {
-        async loadByToken (token: string, role?: string): Promise<AccountModel> {
-            return Promise.resolve(mockAccount())
+        async loadByToken (token: string, role?: string): Promise<LoadAccountByTokenRepository.Model> {
+            return Promise.resolve({ accountId: 'any_id' })
         }
     }
     return new LoadAccByTokenRepositoryStub()

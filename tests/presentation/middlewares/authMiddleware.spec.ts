@@ -42,7 +42,7 @@ describe('AuthMiddleware', () => {
         expect(httpResponse).toEqual(forbidden(new AccessDeniedError()))
     })
 
-    test('Should return 200 if LoadAccountByToken returns an account', async () => {
+    test('Should return 200 if LoadAccountByToken returns an id', async () => {
         const { sut } = newSut()
         const httpResponse = await sut.handle(mockAuthMiddlewareRequest())
         expect(httpResponse).toEqual(success({ accountId: 'any_id' }))

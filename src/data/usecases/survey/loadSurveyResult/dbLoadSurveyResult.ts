@@ -1,4 +1,4 @@
-import { LoadSurveyResultRepository, SurveyResultModel, LoadSurveyResult, LoadSurveyByIdRepository } from '@/data/usecases/survey/loadSurveyResult/dbLoadSurveyResultProtocols'
+import { LoadSurveyResultRepository, LoadSurveyResult, LoadSurveyByIdRepository } from '@/data/usecases/survey/loadSurveyResult/dbLoadSurveyResultProtocols'
 
 export class DbLoadSurveyResult implements LoadSurveyResult {
     constructor (
@@ -6,7 +6,7 @@ export class DbLoadSurveyResult implements LoadSurveyResult {
         private readonly loadSurveyById: LoadSurveyByIdRepository
     ) { }
 
-    async load (surveyId: string, accountId: string): Promise<SurveyResultModel> {
+    async load (surveyId: string, accountId: string): Promise<LoadSurveyResult.Model> {
         let surveyResult = await this.loadSurveyResult.loadBySurveyId(surveyId, accountId)
         if (!surveyResult) {
             const survey = await this.loadSurveyById.loadById(surveyId)

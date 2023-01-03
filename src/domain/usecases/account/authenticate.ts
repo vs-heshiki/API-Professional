@@ -1,10 +1,15 @@
-import { AuthenticatorModel } from '@/domain/model/autheticatorModel'
-
-export type AuthenticateParams = {
-    email: string
-    password: string
+export interface Authenticate {
+    auth: (authenticate: Authenticate.Params) => Promise<Authenticate.Model>
 }
 
-export interface Authenticate {
-    auth: (authenticate: AuthenticateParams) => Promise<AuthenticatorModel>
+export namespace Authenticate {
+    export type Params = {
+        email: string
+        password: string
+    }
+
+    export type Model = {
+        accessToken: string
+        name: string
+    }
 }

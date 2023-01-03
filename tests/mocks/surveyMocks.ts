@@ -1,8 +1,8 @@
 import { SurveyModel } from '@/domain/model/surveyModel'
 import { SurveyResultModel } from '@/domain/model/surveyResultModel'
-import { AddSurveyParams, SaveSurveyResultParams } from '@/domain/usecases/survey/useCasesSurveyProtocols'
+import { AddSurvey, SaveSurveyResult } from '@/domain/usecases/survey/useCasesSurveyProtocols'
 
-export const mockSurveyData = (): AddSurveyParams => ({
+export const mockSurveyData = (): AddSurvey.Params => ({
     question: 'any_question',
     answers: [{
         image: 'any_image_1',
@@ -52,7 +52,7 @@ export const mockSurveys = (): SurveyModel[] => {
     }]
 }
 
-export const mockSurveyResultData = (): SaveSurveyResultParams => {
+export const mockSurveyResultData = (): SaveSurveyResult.Params => {
     return {
         surveyId: 'survey_id',
         accountId: 'account_id',

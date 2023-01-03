@@ -76,12 +76,8 @@ describe('Account MongoDB Repository', () => {
                 password: 'any_password',
                 accessToken: 'any_token'
             })
-            const account = await sut.loadByToken('any_token')
-            expect(account).toBeTruthy()
-            expect(account.id).toBeTruthy()
-            expect(account.name).toEqual('any_name')
-            expect(account.email).toEqual('any_mail@email.com')
-            expect(account.password).toEqual('any_password')
+            const accountId = await sut.loadByToken('any_token')
+            expect(accountId).toBeTruthy()
         })
 
         test('Should return an account on LoadAccByToken with admin role', async () => {
@@ -93,12 +89,8 @@ describe('Account MongoDB Repository', () => {
                 accessToken: 'any_token',
                 role: 'admin'
             })
-            const account = await sut.loadByToken('any_token', 'admin')
-            expect(account).toBeTruthy()
-            expect(account.id).toBeTruthy()
-            expect(account.name).toEqual('any_name')
-            expect(account.email).toEqual('any_mail@email.com')
-            expect(account.password).toEqual('any_password')
+            const accountId = await sut.loadByToken('any_token', 'admin')
+            expect(accountId).toBeTruthy()
         })
 
         test('Should return an false on LoadAccByToken without role', async () => {
@@ -122,15 +114,11 @@ describe('Account MongoDB Repository', () => {
                 accessToken: 'any_token',
                 role: 'admin'
             })
-            const account = await sut.loadByToken('any_token')
-            expect(account).toBeTruthy()
-            expect(account.id).toBeTruthy()
-            expect(account.name).toEqual('any_name')
-            expect(account.email).toEqual('any_mail@email.com')
-            expect(account.password).toEqual('any_password')
+            const accountId = await sut.loadByToken('any_token')
+            expect(accountId).toBeTruthy()
         })
 
-        test('Should return null if LoadByEmail fails', async () => {
+        test('Should return null if LoadAccByToken fails', async () => {
             const sut = newSut()
             const account = await sut.loadByToken('any_token')
             expect(account).toBeFalsy()

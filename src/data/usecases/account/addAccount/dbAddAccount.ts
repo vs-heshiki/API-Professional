@@ -1,4 +1,4 @@
-import { AccountModel, AddAccount, AddAccountParams, AddAccountRepository, Hasher, LoadAccountByEmailRepository } from './dbAddAccountProtocols'
+import { AddAccount, AddAccountRepository, Hasher, LoadAccountByEmailRepository } from './dbAddAccountProtocols'
 
 export class DbAddAccount implements AddAccount {
     constructor (
@@ -7,7 +7,7 @@ export class DbAddAccount implements AddAccount {
         private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository
     ) {}
 
-    async add (accountData: AddAccountParams): Promise<AccountModel> {
+    async add (accountData: AddAccount.Params): Promise<AddAccount.Model> {
         const account = await this.loadAccountByEmailRepository.loadByEmail(accountData.email)
         if (!account) {
             const hashedPassword = await this.hasher.genHash(accountData.password)
