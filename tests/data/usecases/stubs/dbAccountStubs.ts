@@ -1,5 +1,5 @@
 import { Decrypter, Encrypter, HashCompare, Hasher, UpdateAccessTokenRepository } from '@/data/protocols/cryptography/cryptographyProtocols'
-import { AddAccountRepository, LoadAccountByEmailRepository, LoadAccountByTokenRepository } from '@/data/protocols/db/account/dbAccountProtocols'
+import { AddAccountRepository, CheckAccountByEmailRepository, LoadAccountByEmailRepository, LoadAccountByTokenRepository } from '@/data/protocols/db/account/dbAccountProtocols'
 import { AddAccount } from '@/domain/usecases/account/useCasesAccountProtocols'
 import { mockAccount } from '@/tests/mocks'
 
@@ -28,6 +28,15 @@ export const mockLoadAccountByEmailRepository = (): LoadAccountByEmailRepository
         }
     }
     return new LoadAccountByEmailRepositoryStub()
+}
+
+export const mockCheckAccountByEmailRepository = (): CheckAccountByEmailRepository => {
+    class CheckAccountByEmailRepositoryStub implements CheckAccountByEmailRepository {
+        async checkByEmail (email: string): Promise<CheckAccountByEmailRepository.Return> {
+            return Promise.resolve(false)
+        }
+    }
+    return new CheckAccountByEmailRepositoryStub()
 }
 
 export const mockHashCompare = (): HashCompare => {

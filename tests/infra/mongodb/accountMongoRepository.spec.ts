@@ -53,6 +53,20 @@ describe('Account MongoDB Repository', () => {
             expect(account).toBeFalsy()
         })
     })
+    describe('CheckAccByEmail Method tests', () => {
+        test('Should return an account on checkByEmail success', async () => {
+            const sut = newSut()
+            await accountCollection.insertOne(mockAddAccountData())
+            const check = await sut.checkByEmail('any_mail@email.com')
+            expect(check).toBeTruthy()
+        })
+
+        test('Should return null if checkByEmail fails', async () => {
+            const sut = newSut()
+            const check = await sut.loadByEmail('any_mail@email.com')
+            expect(check).toBeFalsy()
+        })
+    })
 
     describe('UpdateAccessToken Method tests', () => {
         test('Should update an account adding access token', async () => {
