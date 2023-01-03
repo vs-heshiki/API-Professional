@@ -1,4 +1,4 @@
-import { AddSurveyRepository, LoadSurveyByIdRepository, LoadSurveysRepository, SaveSurveyResultRepository } from '@/data/protocols/db/survey/dbSurveyProtocols'
+import { AddSurveyRepository, LoadSurveyByIdRepository, LoadSurveyRepository, SaveSurveyResultRepository } from '@/data/protocols/db/survey/dbSurveyProtocols'
 import { LoadSurveyResultRepository } from '@/data/protocols/db/survey/loadSurveyResultRepository'
 import { SurveyModel } from '@/domain/model/surveyModel'
 import { SurveyResultModel } from '@/domain/model/surveyResultModel'
@@ -23,13 +23,13 @@ export const mockLoadSurveyByIdRepository = (): LoadSurveyByIdRepository => {
     return new LoadSurveyByIdRepositoryStub()
 }
 
-export const mockLoadSurveysRepository = (): LoadSurveysRepository => {
-    class LoadSurveysRepositoryStub implements LoadSurveysRepository {
+export const mockLoadSurveyRepository = (): LoadSurveyRepository => {
+    class LoadSurveyRepositoryStub implements LoadSurveyRepository {
         async loadAll (accountId: string): Promise<SurveyModel[]> {
             return Promise.resolve(mockSurveys())
         }
     }
-    return new LoadSurveysRepositoryStub()
+    return new LoadSurveyRepositoryStub()
 }
 
 export const mockSaveSurveyResultRepository = (): SaveSurveyResultRepository => {

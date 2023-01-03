@@ -1,4 +1,4 @@
-import { HttpRequest, HttpResponse, Controller, AddSurvey } from './addSurveyControllerProtocols'
+import { HttpResponse, Controller, AddSurvey } from './addSurveyControllerProtocols'
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http/httpHelpers'
 import { Validator } from '@/validations/protocols/validator'
 
@@ -8,14 +8,14 @@ export class AddSurveyController implements Controller {
         private readonly validator: Validator
     ) {}
 
-    async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
+    async handle (request: AddSurveyController.Request): Promise<HttpResponse> {
         try {
-            const error = this.validator.validate(httpRequest.body)
+            const error = this.validator.validate(request)
             if (error) {
                 return badRequest(error)
             }
 
-            const { question, answers } = httpRequest.body
+            const { question, answers } = request
             await this.AddSurvey.add({
                 question,
                 answers,
@@ -25,5 +25,17 @@ export class AddSurveyController implements Controller {
         } catch (err) {
             return serverError(err)
         }
+    }
+}
+
+export namespace AddSurveyController {
+    export type Request = {
+        question: string
+        answers: Survey[]
+    }
+
+    type Survey = {
+        image?: string
+        answer: string
     }
 }

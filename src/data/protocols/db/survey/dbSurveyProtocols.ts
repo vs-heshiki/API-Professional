@@ -1,5 +1,5 @@
 export * from './addSurveyRepository'
-export * from './loadSurveysRepository'
+export * from './loadSurveyRepository'
 export * from './loadSurveyByIdRepository'
 export * from './saveSurveyResultRepository'
 export * from './loadSurveyResultRepository'

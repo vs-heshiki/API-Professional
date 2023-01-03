@@ -1,13 +1,13 @@
 import app from '@/main/config/app'
 import { MongoHelper } from '@/infra/db/mongodb/helper/mongoHelper'
-import { mockAccessToken, mockSurveyRequest } from '@/tests/mocks'
+import { mockAccessToken, mockAddSurveyRequest } from '@/tests/mocks'
 import { Collection } from 'mongodb'
 import request from 'supertest'
 
 let surveyCollection: Collection
 let accountCollection: Collection
 
-const { body } = mockSurveyRequest()
+const body = mockAddSurveyRequest()
 
 beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)

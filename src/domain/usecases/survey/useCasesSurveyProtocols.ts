@@ -1,5 +1,5 @@
 export * from './addSurvey'
 export * from './loadSurveyById'
-export * from './loadSurveys'
+export * from './loadSurvey'
 export * from './saveSurveyResult'
 export * from './loadSurveyResult'

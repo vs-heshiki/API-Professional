@@ -5,6 +5,6 @@ import { SaveSurveyResultController } from '@/presentation/controller/surveyResu
 import { Controller } from '@/presentation/protocols'
 
 export const newSaveSurveyResultController = (): Controller => {
-    const saveSurveyResultController = new SaveSurveyResultController(newDbLoadSurveyById(), newDbSaveSurveyResult())
-    return newLogControllerDecorator(saveSurveyResultController)
+    const controller = new SaveSurveyResultController(newDbLoadSurveyById(), newDbSaveSurveyResult())
+    return newLogControllerDecorator(controller)
 }

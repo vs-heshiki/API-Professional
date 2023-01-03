@@ -1,11 +1,11 @@
 import app from '@/main/config/app'
 import { MongoHelper } from '@/infra/db/mongodb/helper/mongoHelper'
-import { mockAccountRequest } from '@/tests/mocks'
 import { Collection } from 'mongodb'
 import bcrypt from 'bcrypt'
 import request from 'supertest'
+import { mockSignUpRequest } from '@/tests/mocks'
 
-const { body } = mockAccountRequest()
+const signUpRequest = mockSignUpRequest()
 
 const genSalt = async (): Promise<string> => {
     const saltRounds = 10
@@ -33,7 +33,7 @@ describe('SignUp/In/Out Routes', () => {
         test('Should return 200 on signUp', async () => {
             await request(app)
                 .post('/api/sign_up')
-                .send(body)
+                .send(signUpRequest)
                 .expect(200)
         })
     })

@@ -6,6 +6,6 @@ import { Controller } from '@/presentation/protocols'
 import { SignUpController } from '@/presentation/controller/login/signUp/signUpController'
 
 export const newSignUpController = (): Controller => {
-    const signUpController = new SignUpController(newDbAddAccount(), newSignUpValidator(), newDbAuthenticator())
-    return newLogControllerDecorator(signUpController)
+    const controller = new SignUpController(newDbAddAccount(), newSignUpValidator(), newDbAuthenticator())
+    return newLogControllerDecorator(controller)
 }

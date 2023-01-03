@@ -5,6 +5,6 @@ import { SignInController } from '@/presentation/controller/login/signIn/signInC
 import { Controller } from '@/presentation/protocols'
 
 export const newSignInController = (): Controller => {
-    const signInController = new SignInController(newDbAuthenticator(), newSignInValidator())
-    return newLogControllerDecorator(signInController)
+    const controller = new SignInController(newDbAuthenticator(), newSignInValidator())
+    return newLogControllerDecorator(controller)
 }

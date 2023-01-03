@@ -5,6 +5,6 @@ import { AddSurveyController } from '@/presentation/controller/survey/addSurvey/
 import { Controller } from '@/presentation/protocols'
 
 export const newAddSurveyController = (): Controller => {
-    const addSurveyController = new AddSurveyController(newDbAddSurvey(), newAddSurveyValidator())
-    return newLogControllerDecorator(addSurveyController)
+    const controller = new AddSurveyController(newDbAddSurvey(), newAddSurveyValidator())
+    return newLogControllerDecorator(controller)
 }
