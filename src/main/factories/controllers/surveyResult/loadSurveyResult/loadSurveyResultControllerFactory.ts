@@ -1,10 +1,10 @@
 import { newLogControllerDecorator } from '@/main/factories/decorators/logControllerDecoratorFactory'
-import { newDbLoadSurveyById } from '@/main/factories/usecases/survey/loadSurveyById/dbLoadSurveyByIdsFactory'
+import { newDbCheckSurveyById } from '@/main/factories/usecases/survey/checkSurveyById/dbCheckSurveyByIdsFactory'
 import { newDbLoadSurveyResult } from '@/main/factories/usecases/surveyResults/loadSurveyResult/dbLoadSurveyResultFactory'
 import { LoadSurveyResultController } from '@/presentation/controller/surveyResults/loadSurveyResult/loadSurveyResultController'
 import { Controller } from '@/presentation/protocols'
 
 export const newLoadSurveyResultController = (): Controller => {
-    const controller = new LoadSurveyResultController(newDbLoadSurveyById(), newDbLoadSurveyResult())
+    const controller = new LoadSurveyResultController(newDbCheckSurveyById(), newDbLoadSurveyResult())
     return newLogControllerDecorator(controller)
 }

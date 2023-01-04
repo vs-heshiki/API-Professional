@@ -2,14 +2,14 @@ import { LoadSurveyResultRepository, LoadSurveyResult, LoadSurveyByIdRepository 
 
 export class DbLoadSurveyResult implements LoadSurveyResult {
     constructor (
-        private readonly loadSurveyResult: LoadSurveyResultRepository,
-        private readonly loadSurveyById: LoadSurveyByIdRepository
+        private readonly loadSurveyResultRepository: LoadSurveyResultRepository,
+        private readonly loadSurveyByIdRepository: LoadSurveyByIdRepository
     ) { }
 
     async load (surveyId: string, accountId: string): Promise<LoadSurveyResult.Model> {
-        let surveyResult = await this.loadSurveyResult.loadBySurveyId(surveyId, accountId)
+        let surveyResult = await this.loadSurveyResultRepository.loadBySurveyId(surveyId, accountId)
         if (!surveyResult) {
-            const survey = await this.loadSurveyById.loadById(surveyId)
+            const survey = await this.loadSurveyByIdRepository.loadById(surveyId)
             surveyResult = {
                 surveyId: survey.id,
                 question: survey.question,

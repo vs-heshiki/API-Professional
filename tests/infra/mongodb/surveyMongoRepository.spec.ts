@@ -3,6 +3,7 @@ import { MongoHelper } from '@/infra/db/mongodb/helper/mongoHelper'
 import { SurveyMongoRepository } from '@/infra/db/mongodb/survey/surveyMongoRepository'
 import { mockSurveyData, mockSurveys, mockAddAccountData } from '@/tests/mocks'
 import { AccountModel } from '@/domain/model/accountModel'
+import { faker } from '@faker-js/faker'
 
 let surveyCollection: Collection
 let accountCollection: Collection
@@ -81,13 +82,29 @@ describe('Survey MongoDB Repository', () => {
     })
 
     describe('LoadById Method tests', () => {
-        test('Should load survey on success', async () => {
+        test('Should load survey answers on success', async () => {
             const res = await surveyCollection.insertOne(mockSurveyData())
             const id = res.insertedId.toHexString()
             const sut = newSut()
             const survey = await sut.loadById(id)
             expect(survey).toBeTruthy()
-            expect(survey.id).toBeTruthy()
+            expect(survey.answers).toBeTruthy()
+        })
+    })
+
+    describe('CheckById Method tests', () => {
+        test('Should return true if survey exists', async () => {
+            const res = await surveyCollection.insertOne(mockSurveyData())
+            const id = res.insertedId.toHexString()
+            const sut = newSut()
+            const exists = await sut.checkById(id)
+            expect(exists).toBeTruthy()
+        })
+
+        test('Should return false if survey not exists', async () => {
+            const sut = newSut()
+            const exists = await sut.checkById(faker.database.mongodbObjectId())
+            expect(exists).toBeFalsy()
         })
     })
 })

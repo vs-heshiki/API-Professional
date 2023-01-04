@@ -6,7 +6,6 @@ export class DbLoadSurvey implements LoadSurvey {
     ) {}
 
     async load (accountId: string): Promise<LoadSurvey.Model> {
-        const surveys = await this.loadSurveyRepository.loadAll(accountId)
-        return surveys
+        return this.loadSurveyRepository.loadAll(accountId)
     }
 }

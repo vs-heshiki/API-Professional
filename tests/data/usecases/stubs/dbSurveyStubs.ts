@@ -1,4 +1,4 @@
-import { AddSurveyRepository, LoadSurveyByIdRepository, LoadSurveyRepository, SaveSurveyResultRepository } from '@/data/protocols/db/survey/dbSurveyProtocols'
+import { AddSurveyRepository, CheckSurveyByIdRepository, LoadSurveyByIdRepository, LoadSurveyRepository, SaveSurveyResultRepository } from '@/data/protocols/db/survey/dbSurveyProtocols'
 import { LoadSurveyResultRepository } from '@/data/protocols/db/survey/loadSurveyResultRepository'
 import { SurveyResultModel } from '@/domain/model/surveyResultModel'
 import { mockSurvey, mockSurveyResult, mockSurveys } from '@/tests/mocks'
@@ -19,6 +19,15 @@ export const mockLoadSurveyByIdRepository = (): LoadSurveyByIdRepository => {
         }
     }
     return new LoadSurveyByIdRepositoryStub()
+}
+
+export const mockCheckSurveyByIdRepository = (): CheckSurveyByIdRepository => {
+    class CheckSurveyByIdRepositoryStub implements CheckSurveyByIdRepository {
+        async checkById (id: string): Promise<CheckSurveyByIdRepository.Return> {
+            return Promise.resolve(true)
+        }
+    }
+    return new CheckSurveyByIdRepositoryStub()
 }
 
 export const mockLoadSurveyRepository = (): LoadSurveyRepository => {

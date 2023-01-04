@@ -1,4 +1,4 @@
-import { AddSurvey, LoadSurveyById, LoadSurveyResult, LoadSurvey, SaveSurveyResult } from '@/domain/usecases/survey/useCasesSurveyProtocols'
+import { AddSurvey, LoadSurveyById, LoadSurveyResult, LoadSurvey, SaveSurveyResult, CheckSurveyById } from '@/domain/usecases/survey/useCasesSurveyProtocols'
 import { mockSurvey, mockSurveyResult, mockSurveys } from '@/tests/mocks'
 import { Validator } from '@/validations/protocols/validator'
 
@@ -36,6 +36,15 @@ export const mockLoadSurveyById = (): LoadSurveyById => {
         }
     }
     return new LoadSurveyByIdStub()
+}
+
+export const mockCheckSurveyById = (): CheckSurveyById => {
+    class CheckSurveyByIdStub implements CheckSurveyById {
+        async checkById (id: string): Promise<CheckSurveyById.Result> {
+            return Promise.resolve(true)
+        }
+    }
+    return new CheckSurveyByIdStub()
 }
 
 export const mockSaveSurveyResult = (): SaveSurveyResult => {
