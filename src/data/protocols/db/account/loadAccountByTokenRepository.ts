@@ -3,5 +3,7 @@ export interface LoadAccountByTokenRepository {
 }
 
 export namespace LoadAccountByTokenRepository {
-    export type Model = { accountId: string }
+    export type Model = {
+        accountId: string
+    }
 }

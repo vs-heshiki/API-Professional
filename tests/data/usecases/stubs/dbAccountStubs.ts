@@ -2,84 +2,100 @@ import { Decrypter, Encrypter, HashCompare, Hasher, UpdateAccessTokenRepository 
 import { AddAccountRepository, CheckAccountByEmailRepository, LoadAccountByEmailRepository, LoadAccountByTokenRepository } from '@/data/protocols/db/account/dbAccountProtocols'
 import { AddAccount } from '@/domain/usecases/account/useCasesAccountProtocols'
 import { mockAccount } from '@/tests/mocks'
+import { faker } from '@faker-js/faker'
 
-export const mockHasher = (): Hasher => {
-    class GenHashStub implements Hasher {
-        async genHash (value: string): Promise<string> {
-            return Promise.resolve('hashed_password')
-        }
+export class HasherSpy implements Hasher {
+    hashed = faker.internet.password()
+    value: string
+
+    async genHash (value: string): Promise<string> {
+        this.value = value
+        return Promise.resolve(this.hashed)
     }
-    return new GenHashStub()
 }
 
-export const mockAddAccountRepository = (): AddAccountRepository => {
-    class AddAccountRepositoryStub implements AddAccountRepository {
-        async add (accountData: AddAccount.Params): Promise<AddAccount.Model> {
-            return Promise.resolve(mockAccount())
-        }
+export class AddAccountRepositorySpy implements AddAccountRepository {
+    accountModel = mockAccount()
+    addAccountParams: AddAccount.Params
+
+    async add (accountData: AddAccount.Params): Promise<AddAccount.Model> {
+        this.addAccountParams = accountData
+        return this.accountModel
     }
-    return new AddAccountRepositoryStub()
 }
 
-export const mockLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
-    class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
-        async loadByEmail (email: string): Promise<LoadAccountByEmailRepository.Model> {
-            return Promise.resolve(mockAccount())
-        }
+export class LoadAccountByEmailRepositorySpy implements LoadAccountByEmailRepository {
+    accountModel = mockAccount()
+    email: string
+
+    async loadByEmail (email: string): Promise<LoadAccountByEmailRepository.Model> {
+        this.email = email
+        return Promise.resolve(this.accountModel)
     }
-    return new LoadAccountByEmailRepositoryStub()
 }
 
-export const mockCheckAccountByEmailRepository = (): CheckAccountByEmailRepository => {
-    class CheckAccountByEmailRepositoryStub implements CheckAccountByEmailRepository {
-        async checkByEmail (email: string): Promise<CheckAccountByEmailRepository.Return> {
-            return Promise.resolve(false)
-        }
+export class CheckAccountByEmailRepositorySpy implements CheckAccountByEmailRepository {
+    result = false
+    email: string
+
+    async checkByEmail (email: string): Promise<CheckAccountByEmailRepository.Return> {
+        this.email = email
+        return this.result
     }
-    return new CheckAccountByEmailRepositoryStub()
 }
 
-export const mockHashCompare = (): HashCompare => {
-    class HashCompareStub implements HashCompare {
-        async compareHash (value: string, hash: string): Promise<boolean> {
-            return Promise.resolve(true)
-        }
+export class HashCompareSpy implements HashCompare {
+    result = true
+    value: string
+    hash: string
+
+    async compareHash (value: string, hash: string): Promise<boolean> {
+        this.value = value
+        this.hash = hash
+        return Promise.resolve(this.result)
     }
-    return new HashCompareStub()
 }
 
-export const mockEncrypter = (): Encrypter => {
-    class EncrypterStub implements Encrypter {
-        async encrypt (value: string): Promise<string> {
-        return Promise.resolve('access_token')
-        }
+export class EncrypterSpy implements Encrypter {
+    value: string
+    accessToken = faker.internet.password()
+
+    async encrypt (value: string): Promise<string> {
+        this.value = value
+        return Promise.resolve(this.accessToken)
     }
-    return new EncrypterStub()
 }
 
-export const mockUpdateAccessTokenRepository = (): UpdateAccessTokenRepository => {
-    class UpdateAccessTokenRepositoryStub implements UpdateAccessTokenRepository {
-        async updateAccessToken (id: string, token: string): Promise<void> {
-            return Promise.resolve()
-        }
+export class UpdateAccessTokenRepositorySpy implements UpdateAccessTokenRepository {
+    id: string
+    token: string
+
+    async updateAccessToken (id: string, token: string): Promise<void> {
+        this.id = id
+        this.token = token
+        return Promise.resolve()
     }
-    return new UpdateAccessTokenRepositoryStub()
 }
 
-export const mockDecrypter = (): Decrypter => {
-    class DecrypterStub implements Decrypter {
-        async decrypt (value: string): Promise<string> {
-           return Promise.resolve('any_value')
-        }
+export class DecrypterSpy implements Decrypter {
+    value: string
+
+    async decrypt (value: string): Promise<string> {
+        this.value = value
+        return this.value
     }
-    return new DecrypterStub()
 }
 
-export const mockLoadAccountByTokenRepository = (): LoadAccountByTokenRepository => {
-    class LoadAccByTokenRepositoryStub implements LoadAccountByTokenRepository {
-        async loadByToken (token: string, role?: string): Promise<LoadAccountByTokenRepository.Model> {
-            return Promise.resolve({ accountId: 'any_id' })
-        }
+export class LoadAccountByTokenRepositorySpy implements LoadAccountByTokenRepository {
+    token: string
+    role?: string
+    id = {
+        accountId: faker.datatype.uuid()
     }
-    return new LoadAccByTokenRepositoryStub()
+
+    async loadByToken (token: string, role?: string): Promise<LoadAccountByTokenRepository.Model> {
+        this.token = token
+        this.role = role
+        return this.id
+    }
 }
