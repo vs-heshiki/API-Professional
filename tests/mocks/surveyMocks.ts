@@ -1,83 +1,90 @@
 import { SurveyModel } from '@/domain/model/surveyModel'
 import { SurveyResultModel } from '@/domain/model/surveyResultModel'
 import { AddSurvey, SaveSurveyResult } from '@/domain/usecases/survey/useCasesSurveyProtocols'
+import { faker } from '@faker-js/faker'
 
 export const mockSurveyData = (): AddSurvey.Params => ({
-    question: 'any_question',
+    question: faker.lorem.paragraph(),
     answers: [{
-        image: 'any_image_1',
-        answer: 'any_answer_1'
+        image: faker.image.cats(),
+        answer: faker.word.adjective()
     }, {
-        image: 'other_image_2',
-        answer: 'other_answer_2'
+        image: faker.image.cats(),
+        answer: faker.word.adjective()
     }, {
-        image: 'other_image_3',
-        answer: 'other_answer_3'
+        image: faker.image.cats(),
+        answer: faker.word.adjective()
     }],
-    date: new Date()
+    date: faker.date.recent()
 })
 
 export const mockSurvey = (): SurveyModel => {
     return {
-        id: 'any_id',
-        question: 'any_question',
+        id: faker.datatype.uuid(),
+        question: faker.lorem.paragraph(),
         answers: [{
-            image: 'any_image',
-            answer: 'any_answer'
+            image: faker.image.cats(),
+            answer: faker.word.adjective()
         }, {
-            image: 'other_image',
-            answer: 'other_answer'
+            image: faker.image.cats(),
+            answer: faker.word.adjective()
         }],
-        date: new Date()
+        date: faker.date.recent()
     }
 }
 
 export const mockSurveys = (): SurveyModel[] => {
     return [{
-        id: 'any_id',
-        question: 'any_question',
+        id: faker.datatype.uuid(),
+        question: faker.lorem.paragraph(),
         answers: [{
-            image: 'any_image',
-            answer: 'any_answer'
+            image: faker.image.cats(),
+            answer: faker.word.adjective()
+        }, {
+            image: faker.image.cats(),
+            answer: faker.word.adjective()
         }],
-        date: new Date()
+        date: faker.date.recent()
     }, {
-        id: 'another_id',
-        question: 'another_question',
+        id: faker.datatype.uuid(),
+        question: faker.lorem.paragraph(),
         answers: [{
-            image: 'another_image',
-            answer: 'another_answer'
+            image: faker.image.cats(),
+            answer: faker.word.adjective()
+        }, {
+            image: faker.image.cats(),
+            answer: faker.word.adjective()
         }],
-        date: new Date()
+        date: faker.date.recent()
     }]
 }
 
 export const mockSurveyResultData = (): SaveSurveyResult.Params => {
     return {
-        surveyId: 'survey_id',
-        accountId: 'account_id',
-        answer: 'any_answer',
-        date: new Date()
+        surveyId: faker.datatype.uuid(),
+        accountId: faker.datatype.uuid(),
+        answer: faker.word.adjective(),
+        date: faker.date.recent()
     }
 }
 
 export const mockSurveyResult = (): SurveyResultModel => ({
-    surveyId: 'any_survey_id',
-    question: 'any_question',
+    surveyId: faker.datatype.uuid(),
+    question: faker.lorem.paragraph(),
     answers: [{
-        image: 'any_image',
-        answer: 'any_answer',
+        image: faker.image.cats(),
+        answer: faker.word.adjective(),
         count: 1,
         percent: 50,
         isCurrentAnswer: true
     }, {
-        image: 'other_image',
-        answer: 'other_answer',
+        image: faker.image.cats(),
+        answer: faker.word.adjective(),
         count: 1,
         percent: 80,
         isCurrentAnswer: false
     }],
-    date: new Date()
+    date: faker.date.recent()
 })
 
 export const mockSurveyResultEmpty = (): SurveyResultModel => ({
@@ -96,5 +103,5 @@ export const mockSurveyResultEmpty = (): SurveyResultModel => ({
         percent: 0,
         isCurrentAnswer: false
     }],
-    date: new Date()
+    date: faker.date.recent()
 })

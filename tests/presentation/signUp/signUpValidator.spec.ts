@@ -6,7 +6,7 @@ import {
     ValidatorEmail
 } from '@/validations/validators/validatorProtocols'
 import { newSignUpValidator } from '@/main/factories/controllers/login/signUp/signupValidatorFactory'
-import { mockEmailValidator } from '@/tests/presentation/signUp/stubs/signUpStubs'
+import { mockEmailValidator } from '@/tests/validations/validator/stubs/validatorStubs'
 
 jest.mock('@/validations/validators/validatorComposite')
 

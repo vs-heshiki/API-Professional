@@ -1,70 +1,68 @@
 import { SignInController } from '@/presentation/controller/login/signIn/signInController'
-import { Authenticate } from '@/presentation/controller/login/signIn/signInControllerProtocols'
 import { MissingParamError, ServerError } from '@/presentation/errors'
 import { badRequest, serverError, success, unauthorized } from '@/presentation/helpers/http/httpHelpers'
-import { Validator } from '@/validations/protocols/validator'
 import { mockSignInRequest, throwError } from '@/tests/mocks'
-import { mockValidator, mockAuthenticate } from '@/tests/presentation/signIn/stubs/signInStubs'
+import { AuthenticateSpy, ValidatorSpy } from '@/tests/validations/validator/stubs/validatorStubs'
 
 type SutTypes = {
     sut: SignInController
-    authenticateStub: Authenticate
-    validatorStub: Validator
+    authenticateSpy: AuthenticateSpy
+    validatorSpy: ValidatorSpy
 }
 
 const newSut = (): SutTypes => {
-    const validatorStub = mockValidator()
-    const authenticateStub = mockAuthenticate()
-    const sut = new SignInController(authenticateStub, validatorStub)
+    const validatorSpy = new ValidatorSpy()
+    const authenticateSpy = new AuthenticateSpy()
+    const sut = new SignInController(authenticateSpy, validatorSpy)
     return {
         sut,
-        validatorStub,
-        authenticateStub
+        validatorSpy,
+        authenticateSpy
     }
 }
 
 describe('SignIn Controller', () => {
+    const request = mockSignInRequest()
+
     test('Should call Authenticate with correct values', async () => {
-        const { sut, authenticateStub } = newSut()
-        const authSpyOn = jest.spyOn(authenticateStub, 'auth')
-        await sut.handle(mockSignInRequest())
-        expect(authSpyOn).toHaveBeenCalledWith({ email: 'any_mail@email.com', password: 'any_password' })
+        const { sut, authenticateSpy } = newSut()
+        await sut.handle(request)
+        expect(authenticateSpy.authParams).toEqual({
+            email: request.email,
+            password: request.password
+        })
     })
 
     test('Should return 401 if invalid credentials are provided', async () => {
-        const { sut, authenticateStub } = newSut()
-        jest.spyOn(authenticateStub, 'auth')
-            .mockReturnValueOnce(null)
-        const httpResponse = await sut.handle(mockSignInRequest())
+        const { sut, authenticateSpy } = newSut()
+        authenticateSpy.authModel = null
+        const httpResponse = await sut.handle(request)
         expect(httpResponse).toEqual(unauthorized())
     })
 
     test('Should return 500 if Authenticate throws', async () => {
-        const { sut, authenticateStub } = newSut()
-        jest.spyOn(authenticateStub, 'auth').mockImplementationOnce(throwError)
-        const httpResponse = await sut.handle(mockSignInRequest())
+        const { sut, authenticateSpy } = newSut()
+        jest.spyOn(authenticateSpy, 'auth').mockImplementationOnce(throwError)
+        const httpResponse = await sut.handle(request)
         expect(httpResponse).toEqual(serverError(new ServerError()))
     })
 
     test('Should return 200 if valid credentials are provided', async () => {
-        const { sut } = newSut()
-        const response = await sut.handle(mockSignInRequest())
-        expect(response).toEqual(success({ accessToken: 'any_token', name: 'any_name' }))
+        const { sut, authenticateSpy } = newSut()
+        const response = await sut.handle(request)
+        expect(response).toEqual(success(authenticateSpy.authModel))
     })
 
     test('Should call Validator with correct values', async () => {
-        const { sut, validatorStub } = newSut()
-        const validateSpyOn = jest.spyOn(validatorStub, 'validate')
-        const request = mockSignInRequest()
+        const { sut, validatorSpy } = newSut()
         await sut.handle(request)
-        expect(validateSpyOn).toHaveBeenCalledWith(request)
+        expect(request).toEqual(validatorSpy.input)
     })
 
     test('Should return 400 if Validator return an error', async () => {
-        const { sut, validatorStub } = newSut()
-        jest.spyOn(validatorStub, 'validate')
-            .mockReturnValueOnce(new MissingParamError('any_value'))
+        const { sut, validatorSpy } = newSut()
+        validatorSpy.resolve = new MissingParamError('*!*!*!*')
         const request = await sut.handle(mockSignInRequest())
-        expect(request).toEqual(badRequest(new MissingParamError('any_value')))
+        expect(request).toEqual(badRequest(validatorSpy.resolve))
     })
 })

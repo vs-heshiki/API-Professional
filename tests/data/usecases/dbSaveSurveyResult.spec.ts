@@ -1,6 +1,6 @@
 import { DbSaveSurveyResult } from '@/data/usecases/survey/saveSurveyResult/dbSaveSurveyResult'
 import { LoadSurveyResultRepositorySpy, SaveSurveyResultRepositorySpy } from '@/tests/data/usecases/stubs/dbSurveyStubs'
-import { mockDate, mockSurveyResult, mockSurveyResultData, throwError } from '@/tests/mocks'
+import { mockDate, mockSurveyResultData, throwError } from '@/tests/mocks'
 
 type SutTypes = {
     sut: DbSaveSurveyResult
@@ -52,8 +52,8 @@ describe('Database SaveSurveyResult UseCase', () => {
     })
 
     test('Should return a Survey Result on success', async () => {
-        const { sut } = newSut()
+        const { sut, loadSurveyResultRepositorySpy } = newSut()
         const surveySaved = await sut.save(surveyResult)
-        expect(surveySaved).toEqual(mockSurveyResult())
+        expect(surveySaved).toEqual(loadSurveyResultRepositorySpy.surveyResult)
     })
 })

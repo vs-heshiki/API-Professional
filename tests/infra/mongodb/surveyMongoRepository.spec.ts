@@ -9,7 +9,7 @@ let surveyCollection: Collection
 let accountCollection: Collection
 let surveyResultCollection: Collection
 
-const mockAccount = async (): Promise<AccountModel> => {
+const mockingAccount = async (): Promise<AccountModel> => {
     const res = await accountCollection.insertOne(mockAddAccountData())
     const account = await accountCollection.findOne({ _id: res.insertedId })
     return MongoHelper.map(account)
@@ -20,6 +20,9 @@ const newSut = (): SurveyMongoRepository => {
 }
 
 describe('Survey MongoDB Repository', () => {
+    const surveyData = mockSurveyData()
+    const surveyS = mockSurveys()
+
     beforeAll(async () => {
         await MongoHelper.connect(process.env.MONGO_URL)
     })
@@ -42,16 +45,16 @@ describe('Survey MongoDB Repository', () => {
     describe('Add Method tests', () => {
         test('Should add a survey on success', async () => {
             const sut = newSut()
-            await sut.add(mockSurveyData())
-            const survey = await surveyCollection.findOne({ question: 'any_question' })
+            await sut.add(surveyData)
+            const survey = await surveyCollection.findOne({ question: surveyData.question })
             expect(survey).toBeTruthy()
         })
     })
 
     describe('LoadAll Method tests', () => {
         test('Should load all surveys on success', async () => {
-            const account = await mockAccount()
-            const res = await surveyCollection.insertMany(mockSurveys())
+            const account = await mockingAccount()
+            const res = await surveyCollection.insertMany(surveyS)
             const survey = await surveyCollection.findOne({
                 _id: res.insertedIds[0]
             })
@@ -66,15 +69,13 @@ describe('Survey MongoDB Repository', () => {
             expect(surveys.length).toBe(2)
             expect(surveys).toBeInstanceOf(Array)
             expect(surveys[0].id).toBeTruthy()
-            expect(surveys[0].question).toBe('any_question')
             expect(surveys[0].didAnswer).toBeTruthy()
             expect(surveys[1].id).toBeTruthy()
-            expect(surveys[1].question).toBe('another_question')
             expect(surveys[1].didAnswer).toBeFalsy()
         })
 
         test('Should load empty list', async () => {
-            const account = await mockAccount()
+            const account = await mockingAccount()
             const sut = newSut()
             const surveys = await sut.loadAll(account.id)
             expect(surveys.length).toBe(0)

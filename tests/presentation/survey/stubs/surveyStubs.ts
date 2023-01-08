@@ -1,66 +1,68 @@
-import { AddSurvey, LoadSurveyById, LoadSurveyResult, LoadSurvey, SaveSurveyResult, CheckSurveyById } from '@/domain/usecases/survey/useCasesSurveyProtocols'
-import { mockSurvey, mockSurveyResult, mockSurveys } from '@/tests/mocks'
-import { Validator } from '@/validations/protocols/validator'
+import { AddSurvey, LoadSurveyResult, LoadSurvey, SaveSurveyResult, CheckSurveyById, LoadAnswersBySurvey } from '@/domain/usecases/survey/useCasesSurveyProtocols'
+import { mockSurveyResult, mockSurveys } from '@/tests/mocks'
+import { faker } from '@faker-js/faker'
 
-export const mockValidator = (): Validator => {
-    class ValidatorStub implements Validator {
-        validate (input: any): Error | null {
-            return null
-        }
+export class AddSurveySpy implements AddSurvey {
+    addSurveyParams: AddSurvey.Params
+
+    async add (data: AddSurvey.Params): Promise<void> {
+        this.addSurveyParams = data
+        return Promise.resolve()
     }
-    return new ValidatorStub()
 }
 
-export const mockAddSurveyStub = (): AddSurvey => {
-    class AddSurveyStub implements AddSurvey {
-        async add (data: AddSurvey.Params): Promise<void> {
-            return Promise.resolve()
-        }
+export class LoadSurveySpy implements LoadSurvey {
+    loadSurveysModel = mockSurveys()
+    callsCount = 0
+
+    async load (): Promise<LoadSurvey.Model> {
+        this.callsCount++
+        return this.loadSurveysModel
     }
-    return new AddSurveyStub()
 }
 
-export const mockLoadSurvey = (): LoadSurvey => {
-    class LoadSurveyStub implements LoadSurvey {
-        async load (): Promise<LoadSurvey.Model> {
-            return Promise.resolve(mockSurveys())
-        }
+export class LoadAnswersBySurveySpy implements LoadAnswersBySurvey {
+    resolve = [
+        faker.address.streetAddress(),
+        faker.address.streetAddress()
+    ]
+
+    id: string
+
+    async loadAnswers (id: string): Promise<LoadAnswersBySurvey.Resolve> {
+        this.id = id
+        return this.resolve
     }
-    return new LoadSurveyStub()
 }
 
-export const mockLoadSurveyById = (): LoadSurveyById => {
-    class LoadSurveyByIdStub implements LoadSurveyById {
-        async loadById (id: string): Promise<LoadSurveyById.Model> {
-            return Promise.resolve(mockSurvey())
-        }
+export class CheckSurveyByIdSpy implements CheckSurveyById {
+    id: string
+    resolve = true
+
+    async checkById (id: string): Promise<boolean> {
+        this.id = id
+        return Promise.resolve(this.resolve)
     }
-    return new LoadSurveyByIdStub()
 }
 
-export const mockCheckSurveyById = (): CheckSurveyById => {
-    class CheckSurveyByIdStub implements CheckSurveyById {
-        async checkById (id: string): Promise<CheckSurveyById.Result> {
-            return Promise.resolve(true)
-        }
+export class SaveSurveyResultSpy implements SaveSurveyResult {
+    dataParams: SaveSurveyResult.Params
+    surveyResult = mockSurveyResult()
+
+    async save (data: SaveSurveyResult.Params): Promise<SaveSurveyResult.Model> {
+        this.dataParams = data
+        return this.surveyResult
     }
-    return new CheckSurveyByIdStub()
 }
 
-export const mockSaveSurveyResult = (): SaveSurveyResult => {
-    class SaveSurveyResultStub implements SaveSurveyResult {
-        async save (data: SaveSurveyResult.Params): Promise<SaveSurveyResult.Model> {
-            return Promise.resolve(mockSurveyResult())
-        }
-    }
-    return new SaveSurveyResultStub()
-}
+export class LoadSurveyResultSpy implements LoadSurveyResult {
+    surveyId: string
+    accountId: string
+    surveyResult = mockSurveyResult()
 
-export const mockLoadSurveyResult = (): LoadSurveyResult => {
-    class LoadSurveyResult implements LoadSurveyResult {
-        async load (surveyId: string, accountId: string): Promise<LoadSurveyResult.Model> {
-            return Promise.resolve(mockSurveyResult())
-        }
+    async load (surveyId: string, accountId: string): Promise<LoadSurveyResult.Model> {
+        this.surveyId = surveyId
+        this.accountId = accountId
+        return this.surveyResult
     }
-    return new LoadSurveyResult()
 }

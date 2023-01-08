@@ -40,9 +40,9 @@ describe('Database LoadSurveyResult UseCase', () => {
     })
 
     test('Should return a SurveyResultModel on success', async () => {
-        const { sut } = newSut()
+        const { sut, loadSurveyResultRepositorySpy } = newSut()
         const surveyResult = await sut.load(survey.surveyId, account.id)
-        expect(surveyResult).toEqual(mockSurveyResult())
+        expect(surveyResult).toEqual(loadSurveyResultRepositorySpy.surveyResult)
     })
 
     test('Should call LoadSurveyByIdRepository if LoadSurveyResultRepository returns null', async () => {

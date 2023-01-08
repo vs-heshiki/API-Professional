@@ -13,13 +13,13 @@ const newSut = (): SurveyResultMongoRepository => {
     return new SurveyResultMongoRepository()
 }
 
-const mockAccount = async (): Promise<AccountModel> => {
+const mockingAccount = async (): Promise<AccountModel> => {
     const res = await accountCollection.insertOne(mockAddAccountData())
     const account = await accountCollection.findOne({ _id: res.insertedId })
     return MongoHelper.map(account)
 }
 
-const mockSurvey = async (): Promise<SurveyModel> => {
+const mockingSurvey = async (): Promise<SurveyModel> => {
     const res = await surveyCollection.insertOne(mockSurveyData())
     const survey = await surveyCollection.findOne({ _id: res.insertedId })
     return MongoHelper.map(survey)
@@ -46,8 +46,8 @@ describe('Survey Result MongoDB Repository', () => {
     })
     describe('Save Method tests', () => {
         test('Should save a result survey if its new', async () => {
-            const account = await mockAccount()
-            const survey = await mockSurvey()
+            const account = await mockingAccount()
+            const survey = await mockingSurvey()
             const sut = newSut()
             await sut.save({
                 surveyId: survey.id,
@@ -63,8 +63,8 @@ describe('Survey Result MongoDB Repository', () => {
         })
 
         test('Should update a result survey if already exists', async () => {
-            const account = await mockAccount()
-            const survey = await mockSurvey()
+            const account = await mockingAccount()
+            const survey = await mockingSurvey()
             await surveyResultCollection.insertOne({
                 surveyId: new ObjectId(survey.id),
                 accountId: new ObjectId(account.id),
@@ -89,9 +89,9 @@ describe('Survey Result MongoDB Repository', () => {
 
     describe('LoadBySurveyId Method tests', () => {
         test('Should load a survey result on success', async () => {
-            const account = await mockAccount()
-            const account2 = await mockAccount()
-            const survey = await mockSurvey()
+            const account = await mockingAccount()
+            const account2 = await mockingAccount()
+            const survey = await mockingSurvey()
             await surveyResultCollection.insertMany([{
                 surveyId: new ObjectId(survey.id),
                 accountId: new ObjectId(account.id),
@@ -116,10 +116,10 @@ describe('Survey Result MongoDB Repository', () => {
         })
 
         test('Should load a survey result on success 2', async () => {
-            const account = await mockAccount()
-            const account2 = await mockAccount()
-            const account3 = await mockAccount()
-            const survey = await mockSurvey()
+            const account = await mockingAccount()
+            const account2 = await mockingAccount()
+            const account3 = await mockingAccount()
+            const survey = await mockingSurvey()
             await surveyResultCollection.insertMany([{
                 surveyId: new ObjectId(survey.id),
                 accountId: new ObjectId(account.id),
@@ -149,10 +149,10 @@ describe('Survey Result MongoDB Repository', () => {
         })
 
         test('Should load a survey result on success 3', async () => {
-            const account = await mockAccount()
-            const account2 = await mockAccount()
-            const account3 = await mockAccount()
-            const survey = await mockSurvey()
+            const account = await mockingAccount()
+            const account2 = await mockingAccount()
+            const account3 = await mockingAccount()
+            const survey = await mockingSurvey()
             await surveyResultCollection.insertMany([{
                 surveyId: new ObjectId(survey.id),
                 accountId: new ObjectId(account.id),
@@ -177,8 +177,8 @@ describe('Survey Result MongoDB Repository', () => {
         })
 
         test('Should return null if there is no survey result', async () => {
-            const account = await mockAccount()
-            const survey = await mockSurvey()
+            const account = await mockingAccount()
+            const survey = await mockingSurvey()
             const sut = newSut()
             const surveyResult = await sut.loadBySurveyId(survey.id, account.id)
             expect(surveyResult).toBeNull()

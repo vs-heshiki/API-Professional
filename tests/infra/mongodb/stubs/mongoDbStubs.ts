@@ -1,22 +1,23 @@
 import { LogErrorRepository } from '@/data/protocols/db/logErrorRepository'
 import { success } from '@/presentation/helpers/http/httpHelpers'
 import { Controller, HttpResponse } from '@/presentation/protocols'
-import { mockAccount } from '@/tests/mocks'
+import { faker } from '@faker-js/faker'
 
-export const mockController = (): Controller => {
-    class ControllerStub implements Controller {
-        async handle (request: any): Promise<HttpResponse> {
-            return Promise.resolve(success(mockAccount()))
-        }
+export class ControllerSpy implements Controller {
+    request: any
+    response = success(faker.datatype.uuid())
+
+    async handle (request: any): Promise<HttpResponse> {
+        this.request = request
+        return this.response
     }
-    return new ControllerStub()
 }
 
-export const mockErrLogRepo = (): LogErrorRepository => {
-    class LogErrorRepoStub implements LogErrorRepository {
-        async logError (stack: string): Promise<void> {
-            return Promise.resolve()
-        }
+export class LogErrorRepositorySpy implements LogErrorRepository {
+    stack: string
+
+    async logError (stack: string): Promise<void> {
+        this.stack = stack
+        return Promise.resolve()
     }
-    return new LogErrorRepoStub()
 }

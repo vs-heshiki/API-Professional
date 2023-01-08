@@ -5,7 +5,7 @@ import {
     ValidatorInputRequired
 } from '@/validations/validators/validatorProtocols'
 import { newSignInValidator } from '@/main/factories/controllers/login/signIn/signInValidatorFactory'
-import { mockEmailValidator } from '@/tests/presentation/signIn/stubs/signInStubs'
+import { mockEmailValidator } from '@/tests/validations/validator/stubs/validatorStubs'
 
 jest.mock('@/validations/validators/validatorComposite')
 describe('SignIn Validator', () => {

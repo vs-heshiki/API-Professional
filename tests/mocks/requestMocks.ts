@@ -5,42 +5,46 @@ import { AddSurveyController } from '@/presentation/controller/survey/addSurvey/
 import { LoadSurveyController } from '@/presentation/controller/survey/loadSurvey/loadSurveyController'
 import { LoadSurveyResultController } from '@/presentation/controller/surveyResults/loadSurveyResult/loadSurveyResultController'
 import { SaveSurveyResultController } from '@/presentation/controller/surveyResults/saveSurveyResult/saveSurveyResultController'
+import { faker } from '@faker-js/faker'
 
-export const mockSignUpRequest = (): SignUpController.Request => ({
-    name: 'any_name',
-    email: 'any_mail@email.com',
-    password: 'any_password',
-    confirmPassword: 'any_password'
-})
+export const mockSignUpRequest = (): SignUpController.Request => {
+    const password = faker.internet.userName()
+    return {
+        name: faker.internet.userName(),
+        email: faker.internet.email(),
+        password,
+        confirmPassword: password
 
+    }
+}
 export const mockSignInRequest = (): SignInController.Request => ({
-    email: 'any_mail@email.com',
-    password: 'any_password'
+    email: faker.internet.email(),
+    password: faker.internet.userName()
 })
 
 export const mockAuthMiddlewareRequest = (): AuthMiddleware.Request => ({
-    accessToken: 'any_access_token'
+    accessToken: faker.datatype.uuid()
 })
 
 export const mockAddSurveyRequest = (): AddSurveyController.Request => ({
-    question: 'any_question',
+    question: faker.lorem.paragraph(),
     answers: [{
-        image: 'any_image',
-        answer: 'any_answer'
+        image: faker.image.cats(),
+        answer: faker.word.adjective()
     }]
 })
 
-export const mockSaveSurveyResultRequest = (): SaveSurveyResultController.Request => ({
-    surveyId: 'any_survey_id',
-    answer: 'any_answer',
-    accountId: 'any_account_id'
+export const mockSaveSurveyResultRequest = (answer: string = null): SaveSurveyResultController.Request => ({
+    surveyId: faker.datatype.uuid(),
+    answer,
+    accountId: faker.datatype.uuid()
 })
 
 export const mockLoadSurveyResultRequest = (): LoadSurveyResultController.Request => ({
-    surveyId: 'any_survey_id',
-    accountId: 'any_account_id'
+    surveyId: faker.datatype.uuid(),
+    accountId: faker.datatype.uuid()
 })
 
 export const mockLoadSurveyRequest = (): LoadSurveyController.Request => ({
-    accountId: 'any_account_id'
+    accountId: faker.datatype.uuid()
 })

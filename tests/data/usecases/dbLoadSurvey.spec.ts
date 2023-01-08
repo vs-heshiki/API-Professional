@@ -1,6 +1,6 @@
 import { DbLoadSurvey } from '@/data/usecases/survey/loadSurvey/dbLoadSurvey'
 import { LoadSurveyRepositorySpy } from '@/tests/data/usecases/stubs/dbSurveyStubs'
-import { mockDate, mockSurveys, throwError } from '@/tests/mocks'
+import { mockDate, throwError } from '@/tests/mocks'
 import { faker } from '@faker-js/faker'
 
 let id: string
@@ -39,8 +39,8 @@ describe('Database LoadSurvey UseCase', () => {
     })
 
     test('Should return a list of surveys', async () => {
-        const { sut } = newSut()
-        const survey = await sut.load('any_accountId')
-        expect(survey).toEqual(mockSurveys())
+        const { sut, loadSurveyRepositorySpy } = newSut()
+        const survey = await sut.load(id)
+        expect(survey).toEqual(loadSurveyRepositorySpy.surveys)
     })
 })

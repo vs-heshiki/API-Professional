@@ -3,16 +3,16 @@ import { AddAccount, Authenticate } from '@/domain/usecases/account/useCasesAcco
 import { faker } from '@faker-js/faker'
 
 export const mockAddAccountData = (): AddAccount.Params => ({
-    name: 'any_name',
-    email: 'any_mail@email.com',
-    password: 'any_password'
+    name: faker.internet.userName(),
+    email: faker.internet.email(),
+    password: faker.internet.password()
 })
 
 export const mockAccount = (): AccountModel => ({
-    id: 'any_id',
-    name: 'any_name',
-    email: 'any_mail@email.com',
-    password: 'hashed_password'
+    id: faker.datatype.uuid(),
+    name: faker.internet.userName(),
+    email: faker.internet.email(),
+    password: faker.internet.password()
 })
 
 export const mockAuthenticate = (): Authenticate.Params => ({

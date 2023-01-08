@@ -1,10 +1,15 @@
 import { LoadAccountByToken } from '@/domain/usecases/account/useCasesAccountProtocols'
+import { faker } from '@faker-js/faker'
 
-export const mockLoadAccountByToken = (): LoadAccountByToken => {
-    class LoadAccountByTokenStub implements LoadAccountByToken {
-        async load (token: string, role?: string): Promise<LoadAccountByToken.Model> {
-            return Promise.resolve({ accountId: 'any_id' })
-        }
+export class LoadAccountByTokenSpy implements LoadAccountByToken {
+    token: string
+    role?: string
+    id = { accountId: faker.datatype.uuid() }
+
+    async load (token: string, role?: string): Promise<LoadAccountByToken.Model> {
+        this.token = token
+        this.role = role
+
+        return Promise.resolve(this.id)
     }
-    return new LoadAccountByTokenStub()
 }

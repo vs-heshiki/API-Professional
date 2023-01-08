@@ -19,26 +19,33 @@ const newSut = (): SutTypes => {
     }
 }
 
-describe('Database LoadSurvey UseCase', () => {
+describe('Database CheckSurveyById UseCase', () => {
     beforeAll(() => {
         id = faker.datatype.uuid()
     })
 
     mockDate()
 
-    test('Should call LoadSurveyByIdRepository with correct Id', async () => {
+    test('Should call CheckSurveyByIdRepository with correct Id', async () => {
         const { sut, checkSurveyByIdRepositorySpy } = newSut()
         await sut.checkById(id)
         expect(checkSurveyByIdRepositorySpy.id).toBe(id)
     })
 
-    test('Should return a true with matching id', async () => {
+    test('Should return true if CheckSurveyByIdRepository returns true', async () => {
         const { sut } = newSut()
         const check = await sut.checkById(id)
         expect(check).toBeTruthy()
     })
 
-    test('Should throw if LoadSurveyByIdRepository throws', async () => {
+    test('Should return false if CheckSurveyByIdRepository returns false', async () => {
+        const { sut, checkSurveyByIdRepositorySpy } = newSut()
+        checkSurveyByIdRepositorySpy.result = false
+        const check = await sut.checkById(id)
+        expect(check).toBeFalsy()
+    })
+
+    test('Should throw if CheckSurveyByIdRepository throws', async () => {
         const { sut, checkSurveyByIdRepositorySpy } = newSut()
         jest.spyOn(checkSurveyByIdRepositorySpy, 'checkById').mockImplementationOnce(throwError)
         const check = sut.checkById(id)
