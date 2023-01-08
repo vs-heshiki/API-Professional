@@ -1,6 +1,5 @@
 import { Decrypter, Encrypter, HashCompare, Hasher, UpdateAccessTokenRepository } from '@/data/protocols/cryptography/cryptographyProtocols'
 import { AddAccountRepository, CheckAccountByEmailRepository, LoadAccountByEmailRepository, LoadAccountByTokenRepository } from '@/data/protocols/db/account/dbAccountProtocols'
-import { AddAccount } from '@/domain/usecases/account/useCasesAccountProtocols'
 import { mockAccount } from '@/tests/mocks'
 import { faker } from '@faker-js/faker'
 
@@ -16,9 +15,9 @@ export class HasherSpy implements Hasher {
 
 export class AddAccountRepositorySpy implements AddAccountRepository {
     accountModel = mockAccount()
-    addAccountParams: AddAccount.Params
+    addAccountParams: AddAccountRepository.Params
 
-    async add (accountData: AddAccount.Params): Promise<AddAccount.Model> {
+    async add (accountData: AddAccountRepository.Params): Promise<AddAccountRepository.Model> {
         this.addAccountParams = accountData
         return this.accountModel
     }
