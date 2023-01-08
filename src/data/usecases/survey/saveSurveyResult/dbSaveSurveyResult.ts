@@ -6,7 +6,7 @@ export class DbSaveSurveyResult implements SaveSurveyResult {
         private readonly loadSurveyResultRepository: LoadSurveyResultRepository
     ) {}
 
-    async save (data: SaveSurveyResult.Params): Promise<SaveSurveyResult.Model> {
+    async save (data: SaveSurveyResult.Params): Promise<SaveSurveyResult.Resolve> {
         await this.saveSurveyResultRepository.save(data)
         return this.loadSurveyResultRepository.loadBySurveyId(data.surveyId, data.accountId)
     }

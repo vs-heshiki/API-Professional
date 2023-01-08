@@ -1,5 +1,5 @@
 export interface Authenticate {
-    auth: (authenticate: Authenticate.Params) => Promise<Authenticate.Model>
+    auth: (authenticate: Authenticate.Params) => Promise<Authenticate.Resolve>
 }
 
 export namespace Authenticate {
@@ -8,7 +8,7 @@ export namespace Authenticate {
         password: string
     }
 
-    export type Model = {
+    export type Resolve = {
         accessToken: string
         name: string
     }

@@ -6,7 +6,7 @@ export class LoadAccountByTokenSpy implements LoadAccountByToken {
     role?: string
     id = { accountId: faker.datatype.uuid() }
 
-    async load (token: string, role?: string): Promise<LoadAccountByToken.Model> {
+    async load (token: string, role?: string): Promise<LoadAccountByToken.Resolve> {
         this.token = token
         this.role = role
 

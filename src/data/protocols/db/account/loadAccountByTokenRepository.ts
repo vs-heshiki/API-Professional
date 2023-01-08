@@ -1,9 +1,9 @@
 export interface LoadAccountByTokenRepository {
-    loadByToken: (token: string, role?: string) => Promise<LoadAccountByTokenRepository.Model>
+    loadByToken: (token: string, role?: string) => Promise<LoadAccountByTokenRepository.Resolve>
 }
 
 export namespace LoadAccountByTokenRepository {
-    export type Model = {
+    export type Resolve = {
         accountId: string
     }
 }

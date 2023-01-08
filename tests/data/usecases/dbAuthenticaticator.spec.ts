@@ -1,5 +1,5 @@
 import { DbAuthenticator } from '@/data/usecases/account/authenticator/dbAuthenticator'
-import { UpdateAccessTokenRepositorySpy, LoadAccountByEmailRepositorySpy, HashCompareSpy, EncrypterSpy } from '@/tests/data/usecases/stubs/dbAccountStubs'
+import { UpdateAccessTokenRepositorySpy, LoadAccountByEmailRepositorySpy, HashCompareSpy, EncrypterSpy } from '@/tests/data/usecases/spy/dbAccountSpy'
 import { mockAuthenticate, throwError } from '@/tests/mocks'
 
 type SutTypes = {

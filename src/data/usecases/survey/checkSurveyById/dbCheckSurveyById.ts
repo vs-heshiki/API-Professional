@@ -5,7 +5,7 @@ export class DbCheckSurveyById implements CheckSurveyById {
         private readonly checkSurveyByIdRepository: CheckSurveyByIdRepository
     ) {}
 
-    async checkById (id: string): Promise<CheckSurveyById.Result> {
+    async checkById (id: string): Promise<CheckSurveyById.Resolve> {
         return this.checkSurveyByIdRepository.checkById(id)
     }
 }

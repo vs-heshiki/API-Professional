@@ -1,7 +1,7 @@
 import { SurveyResultModel } from '@/domain/model/surveyResultModel'
 
 export interface SaveSurveyResult {
-    save: (data: SaveSurveyResult.Params) => Promise<SaveSurveyResult.Model>
+    save: (data: SaveSurveyResult.Params) => Promise<SaveSurveyResult.Resolve>
 }
 
 export namespace SaveSurveyResult {
@@ -12,5 +12,5 @@ export namespace SaveSurveyResult {
         date: Date
     }
 
-    export type Model = SurveyResultModel
+    export type Resolve = SurveyResultModel
 }

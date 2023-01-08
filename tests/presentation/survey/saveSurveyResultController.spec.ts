@@ -2,7 +2,7 @@ import { SaveSurveyResultController } from '@/presentation/controller/surveyResu
 import { forbidden, serverError, success } from '@/presentation/helpers/http/httpHelpers'
 import { InvalidParamError } from '@/presentation/errors'
 import { mockDate, mockSaveSurveyResultRequest, throwError } from '@/tests/mocks'
-import { LoadAnswersBySurveySpy, SaveSurveyResultSpy } from '@/tests/presentation/survey/stubs/surveyStubs'
+import { LoadAnswersBySurveySpy, SaveSurveyResultSpy } from '@/tests/presentation/survey/spy/surveySpy'
 
 type SutTypes = {
     sut: SaveSurveyResultController

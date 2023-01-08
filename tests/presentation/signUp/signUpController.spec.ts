@@ -2,7 +2,7 @@ import { SignUpController } from '@/presentation/controller/login/signUp/signUpC
 import { MissingParamError, ServerError, EmailAlreadyTaken } from '@/presentation/errors'
 import { badRequest, serverError, success, forbidden } from '@/presentation/helpers/http/httpHelpers'
 import { mockSignUpRequest, throwError } from '@/tests/mocks'
-import { AddAccountSpy } from '@/tests/presentation/signUp/stubs/signUpStubs'
+import { AddAccountSpy } from '@/tests/presentation/signUp/spy/signUpSpy'
 import { AuthenticateSpy, ValidatorSpy } from '@/tests/validations/validator/stubs/validatorStubs'
 
 type SutTypes = {

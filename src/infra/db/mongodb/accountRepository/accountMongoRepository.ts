@@ -1,7 +1,6 @@
 import { MongoHelper } from '../helper/mongoHelper'
 import { UpdateAccessTokenRepository } from '@/data/protocols/cryptography/cryptographyProtocols'
 import { LoadAccountByEmailRepository, LoadAccountByTokenRepository, AddAccountRepository, CheckAccountByEmailRepository } from '@/data/protocols/db/account/dbAccountProtocols'
-import { AddAccount } from '@/data/usecases/account/addAccount/dbAddAccountProtocols'
 import { ObjectId } from 'mongodb'
 
 export class AccountMongoRepository implements
@@ -10,19 +9,19 @@ LoadAccountByEmailRepository,
 UpdateAccessTokenRepository,
 LoadAccountByTokenRepository,
 CheckAccountByEmailRepository {
-    async add (accountData: AddAccount.Params): Promise<AddAccount.Model> {
+    async add (accountData: AddAccountRepository.Params): Promise<AddAccountRepository.Resolve> {
         const accountCollection = await MongoHelper.getCollection('accounts')
         await accountCollection.insertOne(accountData)
         return MongoHelper.map(accountData)
     }
 
-    async loadByEmail (email: string, role?: string): Promise<LoadAccountByEmailRepository.Model> {
+    async loadByEmail (email: string, role?: string): Promise<LoadAccountByEmailRepository.Resolve> {
         const accountCollection = await MongoHelper.getCollection('accounts')
         const account = await accountCollection.findOne({ email })
         return account && MongoHelper.map(account)
     }
 
-    async checkByEmail (email: string, role?: string): Promise<CheckAccountByEmailRepository.Return> {
+    async checkByEmail (email: string, role?: string): Promise<CheckAccountByEmailRepository.Resolve> {
         const accountCollection = await MongoHelper.getCollection('accounts')
         const account = await accountCollection.findOne({
             email
@@ -45,7 +44,7 @@ CheckAccountByEmailRepository {
         })
     }
 
-    async loadByToken (accessToken: string, role?: string): Promise<LoadAccountByTokenRepository.Model> {
+    async loadByToken (accessToken: string, role?: string): Promise<LoadAccountByTokenRepository.Resolve> {
         const accountCollection = await MongoHelper.getCollection('accounts')
         const account = await accountCollection.findOne({
             accessToken,

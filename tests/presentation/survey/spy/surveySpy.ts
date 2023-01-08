@@ -15,7 +15,7 @@ export class LoadSurveySpy implements LoadSurvey {
     loadSurveysModel = mockSurveys()
     callsCount = 0
 
-    async load (): Promise<LoadSurvey.Model> {
+    async load (): Promise<LoadSurvey.Resolve> {
         this.callsCount++
         return this.loadSurveysModel
     }
@@ -49,7 +49,7 @@ export class SaveSurveyResultSpy implements SaveSurveyResult {
     dataParams: SaveSurveyResult.Params
     surveyResult = mockSurveyResult()
 
-    async save (data: SaveSurveyResult.Params): Promise<SaveSurveyResult.Model> {
+    async save (data: SaveSurveyResult.Params): Promise<SaveSurveyResult.Resolve> {
         this.dataParams = data
         return this.surveyResult
     }
@@ -60,7 +60,7 @@ export class LoadSurveyResultSpy implements LoadSurveyResult {
     accountId: string
     surveyResult = mockSurveyResult()
 
-    async load (surveyId: string, accountId: string): Promise<LoadSurveyResult.Model> {
+    async load (surveyId: string, accountId: string): Promise<LoadSurveyResult.Resolve> {
         this.surveyId = surveyId
         this.accountId = accountId
         return this.surveyResult

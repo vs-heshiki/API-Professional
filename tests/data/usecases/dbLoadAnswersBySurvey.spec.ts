@@ -1,5 +1,5 @@
 import { DbLoadAnswersBySurvey } from '@/data/usecases/survey/loadAnswersBySurvey/dbLoadAnswersBySurvey'
-import { LoadAnswersBySurveyRepositorySpy } from '@/tests/data/usecases/stubs/dbSurveyStubs'
+import { LoadAnswersBySurveyRepositorySpy } from '@/tests/data/usecases/spy/dbSurveySpy'
 import { mockSurvey, throwError } from '@/tests/mocks'
 
 type SutTypes = {

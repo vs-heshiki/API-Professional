@@ -17,7 +17,7 @@ export class AddAccountRepositorySpy implements AddAccountRepository {
     accountModel = mockAccount()
     addAccountParams: AddAccountRepository.Params
 
-    async add (accountData: AddAccountRepository.Params): Promise<AddAccountRepository.Model> {
+    async add (accountData: AddAccountRepository.Params): Promise<AddAccountRepository.Resolve> {
         this.addAccountParams = accountData
         return this.accountModel
     }
@@ -27,7 +27,7 @@ export class LoadAccountByEmailRepositorySpy implements LoadAccountByEmailReposi
     accountModel = mockAccount()
     email: string
 
-    async loadByEmail (email: string): Promise<LoadAccountByEmailRepository.Model> {
+    async loadByEmail (email: string): Promise<LoadAccountByEmailRepository.Resolve> {
         this.email = email
         return Promise.resolve(this.accountModel)
     }
@@ -37,7 +37,7 @@ export class CheckAccountByEmailRepositorySpy implements CheckAccountByEmailRepo
     result = false
     email: string
 
-    async checkByEmail (email: string): Promise<CheckAccountByEmailRepository.Return> {
+    async checkByEmail (email: string): Promise<CheckAccountByEmailRepository.Resolve> {
         this.email = email
         return this.result
     }
@@ -92,7 +92,7 @@ export class LoadAccountByTokenRepositorySpy implements LoadAccountByTokenReposi
         accountId: faker.datatype.uuid()
     }
 
-    async loadByToken (token: string, role?: string): Promise<LoadAccountByTokenRepository.Model> {
+    async loadByToken (token: string, role?: string): Promise<LoadAccountByTokenRepository.Resolve> {
         this.token = token
         this.role = role
         return this.id

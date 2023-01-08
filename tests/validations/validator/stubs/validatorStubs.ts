@@ -29,7 +29,7 @@ export class AuthenticateSpy implements Authenticate {
         name: faker.internet.userName()
     }
 
-    async auth (authenticate: Authenticate.Params): Promise<Authenticate.Model> {
+    async auth (authenticate: Authenticate.Params): Promise<Authenticate.Resolve> {
         this.authParams = authenticate
         return this.authModel
     }

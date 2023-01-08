@@ -2,7 +2,7 @@ import { LoadSurveyResultController } from '@/presentation/controller/surveyResu
 import { InvalidParamError } from '@/presentation/errors'
 import { forbidden, serverError, success } from '@/presentation/helpers/http/httpHelpers'
 import { mockDate, mockLoadSurveyResultRequest, throwError } from '@/tests/mocks'
-import { CheckSurveyByIdSpy, LoadSurveyResultSpy } from '@/tests/presentation/survey/stubs/surveyStubs'
+import { CheckSurveyByIdSpy, LoadSurveyResultSpy } from '@/tests/presentation/survey/spy/surveySpy'
 
 type SutTypes = {
     sut: LoadSurveyResultController

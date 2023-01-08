@@ -15,7 +15,7 @@ export class SurveyMongoRepository implements
         await MongoHelper.map(surveyData)
     }
 
-    async loadAll (accountId: string): Promise<LoadSurveyRepository.Model> {
+    async loadAll (accountId: string): Promise<LoadSurveyRepository.Resolve> {
         const surveyCollection = await MongoHelper.getCollection('surveys')
         const query = new QueryBuilder()
             .lookup({
@@ -46,13 +46,13 @@ export class SurveyMongoRepository implements
         return MongoHelper.mapCollection(surveys)
     }
 
-    async loadById (id: string): Promise<LoadSurveyByIdRepository.Model> {
+    async loadById (id: string): Promise<LoadSurveyByIdRepository.Resolve> {
         const surveyCollection = await MongoHelper.getCollection('surveys')
         const survey = await surveyCollection.findOne({ _id: new ObjectId(id) })
         return survey && MongoHelper.map(survey)
     }
 
-    async checkById (id: string): Promise<CheckSurveyByIdRepository.Return> {
+    async checkById (id: string): Promise<CheckSurveyByIdRepository.Resolve> {
         const surveyCollection = await MongoHelper.getCollection('surveys')
         const survey = await surveyCollection.findOne({
             _id: new ObjectId(id)

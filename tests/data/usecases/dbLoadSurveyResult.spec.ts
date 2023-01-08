@@ -1,5 +1,5 @@
 import { DbLoadSurveyResult } from '@/data/usecases/survey/loadSurveyResult/dbLoadSurveyResult'
-import { LoadSurveyByIdRepositorySpy, LoadSurveyResultRepositorySpy } from '@/tests/data/usecases/stubs/dbSurveyStubs'
+import { LoadSurveyByIdRepositorySpy, LoadSurveyResultRepositorySpy } from '@/tests/data/usecases/spy/dbSurveySpy'
 import { mockAccount, mockDate, mockSurveyResult, mockSurveyResultEmpty, throwError } from '@/tests/mocks'
 
 type SutTypes = {

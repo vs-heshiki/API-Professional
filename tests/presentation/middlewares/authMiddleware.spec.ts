@@ -2,7 +2,7 @@ import { AuthMiddleware } from '@/presentation/controller/middlewares/authMiddle
 import { AccessDeniedError } from '@/presentation/errors'
 import { forbidden, success, serverError } from '@/presentation/helpers/http/httpHelpers'
 import { mockAuthMiddlewareRequest, throwError } from '@/tests/mocks'
-import { LoadAccountByTokenSpy } from '@/tests/presentation/middlewares/stubs/middlewareStubs'
+import { LoadAccountByTokenSpy } from '@/tests/presentation/middlewares/spy/middlewareSpy'
 
 type SutTypes = {
     sut: AuthMiddleware

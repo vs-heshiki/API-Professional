@@ -2,7 +2,7 @@ import { AddSurveyController } from '@/presentation/controller/survey/addSurvey/
 import { badRequest, serverError, noContent } from '@/presentation/helpers/http/httpHelpers'
 import { mockAddSurveyRequest, mockDate, throwError } from '@/tests/mocks'
 import { ValidatorSpy } from '@/tests/validations/validator/stubs/validatorStubs'
-import { AddSurveySpy } from '@/tests/presentation/survey/stubs/surveyStubs'
+import { AddSurveySpy } from '@/tests/presentation/survey/spy/surveySpy'
 
 type SutTypes = {
     sut: AddSurveyController

@@ -1,7 +1,7 @@
 import { LogControllerDecorator } from '@/main/decorators/logControllerDecorator'
 import { serverError } from '@/presentation/helpers/http/httpHelpers'
 import { HttpResponse } from '@/presentation/protocols'
-import { ControllerSpy, LogErrorRepositorySpy } from '@/tests/infra/mongodb/stubs/mongoDbStubs'
+import { ControllerSpy, LogErrorRepositorySpy } from '@/tests/infra/mongodb/spy/mongoDbSpy'
 import { mockSignInRequest } from '@/tests/mocks'
 
 const newFakeServerError = (): HttpResponse => {

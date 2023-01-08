@@ -17,7 +17,7 @@ export class LoadSurveyByIdRepositorySpy implements LoadSurveyByIdRepository {
     id: string
     survey = mockSurvey()
 
-    async loadById (id: string): Promise<LoadSurveyByIdRepository.Model> {
+    async loadById (id: string): Promise<LoadSurveyByIdRepository.Resolve> {
         this.id = id
         return Promise.resolve(this.survey)
     }
@@ -40,7 +40,7 @@ export class CheckSurveyByIdRepositorySpy implements CheckSurveyByIdRepository {
     id: string
     result = true
 
-    async checkById (id: string): Promise<CheckSurveyByIdRepository.Return> {
+    async checkById (id: string): Promise<CheckSurveyByIdRepository.Resolve> {
         this.id = id
         return Promise.resolve(this.result)
     }
@@ -50,7 +50,7 @@ export class LoadSurveyRepositorySpy implements LoadSurveyRepository {
     id: string
     surveys = mockSurveys()
 
-    async loadAll (accountId: string): Promise<LoadSurveyRepository.Model> {
+    async loadAll (accountId: string): Promise<LoadSurveyRepository.Resolve> {
         this.id = accountId
         return Promise.resolve(this.surveys)
     }

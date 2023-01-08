@@ -1,5 +1,5 @@
 import { DbCheckSurveyById } from '@/data/usecases/survey/checkSurveyById/dbCheckSurveyById'
-import { CheckSurveyByIdRepositorySpy } from '@/tests/data/usecases/stubs/dbSurveyStubs'
+import { CheckSurveyByIdRepositorySpy } from '@/tests/data/usecases/spy/dbSurveySpy'
 import { mockDate, throwError } from '@/tests/mocks'
 import { faker } from '@faker-js/faker'
 

@@ -5,7 +5,7 @@ export class DbLoadSurvey implements LoadSurvey {
             private readonly loadSurveyRepository: LoadSurveyRepository
     ) {}
 
-    async load (accountId: string): Promise<LoadSurvey.Model> {
+    async load (accountId: string): Promise<LoadSurvey.Resolve> {
         return this.loadSurveyRepository.loadAll(accountId)
     }
 }

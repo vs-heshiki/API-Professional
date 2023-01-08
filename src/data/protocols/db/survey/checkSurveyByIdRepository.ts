@@ -1,7 +1,7 @@
 export interface CheckSurveyByIdRepository {
-    checkById: (id: string) => Promise<CheckSurveyByIdRepository.Return>
+    checkById: (id: string) => Promise<CheckSurveyByIdRepository.Resolve>
 }
 
 export namespace CheckSurveyByIdRepository {
-    export type Return = boolean
+    export type Resolve = boolean
 }
