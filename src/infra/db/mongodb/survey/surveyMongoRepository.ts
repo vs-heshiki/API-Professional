@@ -1,9 +1,14 @@
 import { MongoHelper } from '@/infra/db/mongodb/helper/mongoHelper'
 import { QueryBuilder } from '@/infra/db/mongodb/helper'
-import { LoadSurveyRepository, AddSurveyRepository, LoadSurveyByIdRepository, CheckSurveyByIdRepository } from '@/data/protocols/db/survey/dbSurveyProtocols'
+import { LoadSurveyRepository, AddSurveyRepository, LoadSurveyByIdRepository, CheckSurveyByIdRepository, LoadAnswersBySurveyRepository } from '@/data/protocols/db/survey/dbSurveyProtocols'
 import { ObjectId } from 'mongodb'
 
-export class SurveyMongoRepository implements AddSurveyRepository, LoadSurveyRepository, LoadSurveyByIdRepository, CheckSurveyByIdRepository {
+export class SurveyMongoRepository implements
+    AddSurveyRepository,
+    LoadSurveyRepository,
+    LoadSurveyByIdRepository,
+    CheckSurveyByIdRepository,
+    LoadAnswersBySurveyRepository {
     async add (surveyData: AddSurveyRepository.Params): Promise<void> {
         const surveyCollection = await MongoHelper.getCollection('surveys')
         await surveyCollection.insertOne(surveyData)
@@ -57,5 +62,20 @@ export class SurveyMongoRepository implements AddSurveyRepository, LoadSurveyRep
             }
         })
         return survey !== null
+    }
+
+    async loadAnswers (id: string): Promise<LoadAnswersBySurveyRepository.Resolve> {
+        const surveyCollection = await MongoHelper.getCollection('surveys')
+        const query = new QueryBuilder()
+            .match({
+                _id: new ObjectId(id)
+            })
+            .project({
+                _id: 0,
+                answers: '$answers.answer'
+            })
+            .build()
+        const surveys = await surveyCollection.aggregate(query).toArray()
+        return surveys[0]?.answers || []
     }
 }

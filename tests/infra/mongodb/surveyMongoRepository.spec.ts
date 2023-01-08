@@ -84,18 +84,24 @@ describe('Survey MongoDB Repository', () => {
 
     describe('LoadById Method tests', () => {
         test('Should load survey answers on success', async () => {
-            const res = await surveyCollection.insertOne(mockSurveyData())
+            const res = await surveyCollection.insertOne(surveyData)
             const id = res.insertedId.toHexString()
             const sut = newSut()
             const survey = await sut.loadById(id)
             expect(survey).toBeTruthy()
             expect(survey.answers).toBeTruthy()
         })
+
+        test('Should return null if survey does not exists', async () => {
+            const sut = newSut()
+            const survey = await sut.loadById(faker.database.mongodbObjectId())
+            expect(survey).toBeNull()
+        })
     })
 
     describe('CheckById Method tests', () => {
         test('Should return true if survey exists', async () => {
-            const res = await surveyCollection.insertOne(mockSurveyData())
+            const res = await surveyCollection.insertOne(surveyData)
             const id = res.insertedId.toHexString()
             const sut = newSut()
             const exists = await sut.checkById(id)
@@ -106,6 +112,26 @@ describe('Survey MongoDB Repository', () => {
             const sut = newSut()
             const exists = await sut.checkById(faker.database.mongodbObjectId())
             expect(exists).toBeFalsy()
+        })
+    })
+
+    describe('LoadAnswers Method tests', () => {
+        test('Should return an answers if survey exists', async () => {
+            const res = await surveyCollection.insertOne(surveyData)
+            const id = res.insertedId.toHexString()
+            const sut = newSut()
+            const answers = await sut.loadAnswers(id)
+            expect(answers).toEqual([
+                surveyData.answers[0].answer,
+                surveyData.answers[1].answer,
+                surveyData.answers[2].answer
+            ])
+        })
+
+        test('Should return an empty array if survey does not exists', async () => {
+            const sut = newSut()
+            const exists = await sut.loadAnswers(faker.database.mongodbObjectId())
+            expect(exists).toEqual([])
         })
     })
 })
