@@ -88,17 +88,17 @@ export const mockSurveyResult = (): SurveyResultModel => ({
 })
 
 export const mockSurveyResultEmpty = (): SurveyResultModel => ({
-    surveyId: 'any_id',
-    question: 'any_question',
+    surveyId: faker.datatype.uuid(),
+    question: faker.lorem.paragraph(),
     answers: [{
-        image: 'any_image',
-        answer: 'any_answer',
+        image: faker.image.cats(),
+        answer: faker.word.adjective(),
         count: 0,
         percent: 0,
         isCurrentAnswer: false
     }, {
-        image: 'other_image',
-        answer: 'other_answer',
+        image: faker.image.cats(),
+        answer: faker.word.adjective(),
         count: 0,
         percent: 0,
         isCurrentAnswer: false
