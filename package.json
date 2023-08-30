@@ -51,7 +51,7 @@
     "jsonwebtoken": "^9.0.0",
     "module-alias": "^2.2.2",
     "mongo-round": "^1.0.0",
-    "mongodb": "^4.13.0",
+    "mongodb": "^4.17.0",
     "swagger-ui-express": "^4.6.0",
     "validator": "^13.7.0"
   },
